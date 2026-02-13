@@ -11,7 +11,7 @@
 export type * from './models/User'
 export type * from './models/Session'
 export type * from './models/Account'
+export type * from './models/Service'
 export type * from './models/Verification'
-export type * from './models/service'
 export type * from './models/Announcement'
 export type * from './commonInputTypes'

@@ -85,5 +85,8 @@
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "prisma": {
+    "seed": "cmd /c npx tsx prisma/seed.ts"
+  }
 }
