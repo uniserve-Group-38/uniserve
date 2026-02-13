@@ -4,7 +4,7 @@
 // biome-ignore-all lint: generated file
 // @ts-nocheck 
 /*
- * This file exports the `service` model and its related types.
+ * This file exports the `Service` model and its related types.
  *
  * 🟢 You can import this file directly.
  */
@@ -13,10 +13,10 @@ import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
 
 /**
- * Model service
+ * Model Service
  * 
  */
-export type serviceModel = runtime.Types.Result.DefaultSelection<Prisma.$servicePayload>
+export type ServiceModel = runtime.Types.Result.DefaultSelection<Prisma.$ServicePayload>
 
 export type AggregateService = {
   _count: ServiceCountAggregateOutputType | null
@@ -31,10 +31,10 @@ export type ServiceMinAggregateOutputType = {
   category: string | null
   status: string | null
   price: string | null
+  operatingHours: string | null
   providerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  operatingHours: string | null
 }
 
 export type ServiceMaxAggregateOutputType = {
@@ -44,10 +44,10 @@ export type ServiceMaxAggregateOutputType = {
   category: string | null
   status: string | null
   price: string | null
+  operatingHours: string | null
   providerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  operatingHours: string | null
 }
 
 export type ServiceCountAggregateOutputType = {
@@ -57,10 +57,10 @@ export type ServiceCountAggregateOutputType = {
   category: number
   status: number
   price: number
+  operatingHours: number
   providerId: number
   createdAt: number
   updatedAt: number
-  operatingHours: number
   _all: number
 }
 
@@ -72,10 +72,10 @@ export type ServiceMinAggregateInputType = {
   category?: true
   status?: true
   price?: true
+  operatingHours?: true
   providerId?: true
   createdAt?: true
   updatedAt?: true
-  operatingHours?: true
 }
 
 export type ServiceMaxAggregateInputType = {
@@ -85,10 +85,10 @@ export type ServiceMaxAggregateInputType = {
   category?: true
   status?: true
   price?: true
+  operatingHours?: true
   providerId?: true
   createdAt?: true
   updatedAt?: true
-  operatingHours?: true
 }
 
 export type ServiceCountAggregateInputType = {
@@ -98,46 +98,46 @@ export type ServiceCountAggregateInputType = {
   category?: true
   status?: true
   price?: true
+  operatingHours?: true
   providerId?: true
   createdAt?: true
   updatedAt?: true
-  operatingHours?: true
   _all?: true
 }
 
 export type ServiceAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which service to aggregate.
+   * Filter which Service to aggregate.
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of services to fetch.
+   * Determine the order of Services to fetch.
    */
-  orderBy?: Prisma.serviceOrderByWithRelationInput | Prisma.serviceOrderByWithRelationInput[]
+  orderBy?: Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
    * Sets the start position
    */
-  cursor?: Prisma.serviceWhereUniqueInput
+  cursor?: Prisma.ServiceWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` services from the position of the cursor.
+   * Take `±n` Services from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` services.
+   * Skip the first `n` Services.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Count returned services
+   * Count returned Services
   **/
   _count?: true | ServiceCountAggregateInputType
   /**
@@ -165,11 +165,11 @@ export type GetServiceAggregateType<T extends ServiceAggregateArgs> = {
 
 
 
-export type serviceGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.serviceWhereInput
-  orderBy?: Prisma.serviceOrderByWithAggregationInput | Prisma.serviceOrderByWithAggregationInput[]
+export type ServiceGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServiceWhereInput
+  orderBy?: Prisma.ServiceOrderByWithAggregationInput | Prisma.ServiceOrderByWithAggregationInput[]
   by: Prisma.ServiceScalarFieldEnum[] | Prisma.ServiceScalarFieldEnum
-  having?: Prisma.serviceScalarWhereWithAggregatesInput
+  having?: Prisma.ServiceScalarWhereWithAggregatesInput
   take?: number
   skip?: number
   _count?: ServiceCountAggregateInputType | true
@@ -184,16 +184,16 @@ export type ServiceGroupByOutputType = {
   category: string
   status: string
   price: string | null
+  operatingHours: string | null
   providerId: string
   createdAt: Date
   updatedAt: Date
-  operatingHours: string | null
   _count: ServiceCountAggregateOutputType | null
   _min: ServiceMinAggregateOutputType | null
   _max: ServiceMaxAggregateOutputType | null
 }
 
-type GetServiceGroupByPayload<T extends serviceGroupByArgs> = Prisma.PrismaPromise<
+type GetServiceGroupByPayload<T extends ServiceGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ServiceGroupByOutputType, T['by']> &
       {
@@ -208,453 +208,453 @@ type GetServiceGroupByPayload<T extends serviceGroupByArgs> = Prisma.PrismaPromi
 
 
 
-export type serviceWhereInput = {
-  AND?: Prisma.serviceWhereInput | Prisma.serviceWhereInput[]
-  OR?: Prisma.serviceWhereInput[]
-  NOT?: Prisma.serviceWhereInput | Prisma.serviceWhereInput[]
-  id?: Prisma.StringFilter<"service"> | string
-  title?: Prisma.StringFilter<"service"> | string
-  description?: Prisma.StringFilter<"service"> | string
-  category?: Prisma.StringFilter<"service"> | string
-  status?: Prisma.StringFilter<"service"> | string
-  price?: Prisma.StringNullableFilter<"service"> | string | null
-  providerId?: Prisma.StringFilter<"service"> | string
-  createdAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  operatingHours?: Prisma.StringNullableFilter<"service"> | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+export type ServiceWhereInput = {
+  AND?: Prisma.ServiceWhereInput | Prisma.ServiceWhereInput[]
+  OR?: Prisma.ServiceWhereInput[]
+  NOT?: Prisma.ServiceWhereInput | Prisma.ServiceWhereInput[]
+  id?: Prisma.StringFilter<"Service"> | string
+  title?: Prisma.StringFilter<"Service"> | string
+  description?: Prisma.StringFilter<"Service"> | string
+  category?: Prisma.StringFilter<"Service"> | string
+  status?: Prisma.StringFilter<"Service"> | string
+  price?: Prisma.StringNullableFilter<"Service"> | string | null
+  operatingHours?: Prisma.StringNullableFilter<"Service"> | string | null
+  providerId?: Prisma.StringFilter<"Service"> | string
+  createdAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  provider?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
-export type serviceOrderByWithRelationInput = {
+export type ServiceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
+  operatingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  operatingHours?: Prisma.SortOrderInput | Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  provider?: Prisma.UserOrderByWithRelationInput
 }
 
-export type serviceWhereUniqueInput = Prisma.AtLeast<{
+export type ServiceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  AND?: Prisma.serviceWhereInput | Prisma.serviceWhereInput[]
-  OR?: Prisma.serviceWhereInput[]
-  NOT?: Prisma.serviceWhereInput | Prisma.serviceWhereInput[]
-  title?: Prisma.StringFilter<"service"> | string
-  description?: Prisma.StringFilter<"service"> | string
-  category?: Prisma.StringFilter<"service"> | string
-  status?: Prisma.StringFilter<"service"> | string
-  price?: Prisma.StringNullableFilter<"service"> | string | null
-  providerId?: Prisma.StringFilter<"service"> | string
-  createdAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  operatingHours?: Prisma.StringNullableFilter<"service"> | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  AND?: Prisma.ServiceWhereInput | Prisma.ServiceWhereInput[]
+  OR?: Prisma.ServiceWhereInput[]
+  NOT?: Prisma.ServiceWhereInput | Prisma.ServiceWhereInput[]
+  title?: Prisma.StringFilter<"Service"> | string
+  description?: Prisma.StringFilter<"Service"> | string
+  category?: Prisma.StringFilter<"Service"> | string
+  status?: Prisma.StringFilter<"Service"> | string
+  price?: Prisma.StringNullableFilter<"Service"> | string | null
+  operatingHours?: Prisma.StringNullableFilter<"Service"> | string | null
+  providerId?: Prisma.StringFilter<"Service"> | string
+  createdAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  provider?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
-export type serviceOrderByWithAggregationInput = {
+export type ServiceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
+  operatingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  operatingHours?: Prisma.SortOrderInput | Prisma.SortOrder
-  _count?: Prisma.serviceCountOrderByAggregateInput
-  _max?: Prisma.serviceMaxOrderByAggregateInput
-  _min?: Prisma.serviceMinOrderByAggregateInput
+  _count?: Prisma.ServiceCountOrderByAggregateInput
+  _max?: Prisma.ServiceMaxOrderByAggregateInput
+  _min?: Prisma.ServiceMinOrderByAggregateInput
 }
 
-export type serviceScalarWhereWithAggregatesInput = {
-  AND?: Prisma.serviceScalarWhereWithAggregatesInput | Prisma.serviceScalarWhereWithAggregatesInput[]
-  OR?: Prisma.serviceScalarWhereWithAggregatesInput[]
-  NOT?: Prisma.serviceScalarWhereWithAggregatesInput | Prisma.serviceScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"service"> | string
-  title?: Prisma.StringWithAggregatesFilter<"service"> | string
-  description?: Prisma.StringWithAggregatesFilter<"service"> | string
-  category?: Prisma.StringWithAggregatesFilter<"service"> | string
-  status?: Prisma.StringWithAggregatesFilter<"service"> | string
-  price?: Prisma.StringNullableWithAggregatesFilter<"service"> | string | null
-  providerId?: Prisma.StringWithAggregatesFilter<"service"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"service"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"service"> | Date | string
-  operatingHours?: Prisma.StringNullableWithAggregatesFilter<"service"> | string | null
+export type ServiceScalarWhereWithAggregatesInput = {
+  AND?: Prisma.ServiceScalarWhereWithAggregatesInput | Prisma.ServiceScalarWhereWithAggregatesInput[]
+  OR?: Prisma.ServiceScalarWhereWithAggregatesInput[]
+  NOT?: Prisma.ServiceScalarWhereWithAggregatesInput | Prisma.ServiceScalarWhereWithAggregatesInput[]
+  id?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  title?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  description?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  category?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  status?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  price?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
+  operatingHours?: Prisma.StringNullableWithAggregatesFilter<"Service"> | string | null
+  providerId?: Prisma.StringWithAggregatesFilter<"Service"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Service"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Service"> | Date | string
 }
 
-export type serviceCreateInput = {
-  id: string
+export type ServiceCreateInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
-  createdAt?: Date | string
-  updatedAt: Date | string
   operatingHours?: string | null
-  user: Prisma.UserCreateNestedOneWithoutServiceInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  provider: Prisma.UserCreateNestedOneWithoutServicesInput
 }
 
-export type serviceUncheckedCreateInput = {
-  id: string
+export type ServiceUncheckedCreateInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
+  operatingHours?: string | null
   providerId: string
   createdAt?: Date | string
-  updatedAt: Date | string
-  operatingHours?: string | null
+  updatedAt?: Date | string
 }
 
-export type serviceUpdateInput = {
+export type ServiceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutServiceNestedInput
+  provider?: Prisma.UserUpdateOneRequiredWithoutServicesNestedInput
 }
 
-export type serviceUncheckedUpdateInput = {
+export type ServiceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type serviceCreateManyInput = {
-  id: string
+export type ServiceCreateManyInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
+  operatingHours?: string | null
   providerId: string
   createdAt?: Date | string
-  updatedAt: Date | string
-  operatingHours?: string | null
+  updatedAt?: Date | string
 }
 
-export type serviceUpdateManyMutationInput = {
+export type ServiceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type serviceUncheckedUpdateManyInput = {
+export type ServiceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ServiceListRelationFilter = {
-  every?: Prisma.serviceWhereInput
-  some?: Prisma.serviceWhereInput
-  none?: Prisma.serviceWhereInput
+  every?: Prisma.ServiceWhereInput
+  some?: Prisma.ServiceWhereInput
+  none?: Prisma.ServiceWhereInput
 }
 
-export type serviceOrderByRelationAggregateInput = {
+export type ServiceOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type serviceCountOrderByAggregateInput = {
+export type ServiceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  operatingHours?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  operatingHours?: Prisma.SortOrder
 }
 
-export type serviceMaxOrderByAggregateInput = {
+export type ServiceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  operatingHours?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  operatingHours?: Prisma.SortOrder
 }
 
-export type serviceMinOrderByAggregateInput = {
+export type ServiceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  operatingHours?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  operatingHours?: Prisma.SortOrder
 }
 
-export type serviceCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput> | Prisma.serviceCreateWithoutUserInput[] | Prisma.serviceUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.serviceCreateOrConnectWithoutUserInput | Prisma.serviceCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.serviceCreateManyUserInputEnvelope
-  connect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
+export type ServiceCreateNestedManyWithoutProviderInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput> | Prisma.ServiceCreateWithoutProviderInput[] | Prisma.ServiceUncheckedCreateWithoutProviderInput[]
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutProviderInput | Prisma.ServiceCreateOrConnectWithoutProviderInput[]
+  createMany?: Prisma.ServiceCreateManyProviderInputEnvelope
+  connect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
 }
 
-export type serviceUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput> | Prisma.serviceCreateWithoutUserInput[] | Prisma.serviceUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.serviceCreateOrConnectWithoutUserInput | Prisma.serviceCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.serviceCreateManyUserInputEnvelope
-  connect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
+export type ServiceUncheckedCreateNestedManyWithoutProviderInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput> | Prisma.ServiceCreateWithoutProviderInput[] | Prisma.ServiceUncheckedCreateWithoutProviderInput[]
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutProviderInput | Prisma.ServiceCreateOrConnectWithoutProviderInput[]
+  createMany?: Prisma.ServiceCreateManyProviderInputEnvelope
+  connect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
 }
 
-export type serviceUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput> | Prisma.serviceCreateWithoutUserInput[] | Prisma.serviceUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.serviceCreateOrConnectWithoutUserInput | Prisma.serviceCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.serviceUpsertWithWhereUniqueWithoutUserInput | Prisma.serviceUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.serviceCreateManyUserInputEnvelope
-  set?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  disconnect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  delete?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  connect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  update?: Prisma.serviceUpdateWithWhereUniqueWithoutUserInput | Prisma.serviceUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.serviceUpdateManyWithWhereWithoutUserInput | Prisma.serviceUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.serviceScalarWhereInput | Prisma.serviceScalarWhereInput[]
+export type ServiceUpdateManyWithoutProviderNestedInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput> | Prisma.ServiceCreateWithoutProviderInput[] | Prisma.ServiceUncheckedCreateWithoutProviderInput[]
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutProviderInput | Prisma.ServiceCreateOrConnectWithoutProviderInput[]
+  upsert?: Prisma.ServiceUpsertWithWhereUniqueWithoutProviderInput | Prisma.ServiceUpsertWithWhereUniqueWithoutProviderInput[]
+  createMany?: Prisma.ServiceCreateManyProviderInputEnvelope
+  set?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  disconnect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  delete?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  connect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  update?: Prisma.ServiceUpdateWithWhereUniqueWithoutProviderInput | Prisma.ServiceUpdateWithWhereUniqueWithoutProviderInput[]
+  updateMany?: Prisma.ServiceUpdateManyWithWhereWithoutProviderInput | Prisma.ServiceUpdateManyWithWhereWithoutProviderInput[]
+  deleteMany?: Prisma.ServiceScalarWhereInput | Prisma.ServiceScalarWhereInput[]
 }
 
-export type serviceUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput> | Prisma.serviceCreateWithoutUserInput[] | Prisma.serviceUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.serviceCreateOrConnectWithoutUserInput | Prisma.serviceCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.serviceUpsertWithWhereUniqueWithoutUserInput | Prisma.serviceUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.serviceCreateManyUserInputEnvelope
-  set?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  disconnect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  delete?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  connect?: Prisma.serviceWhereUniqueInput | Prisma.serviceWhereUniqueInput[]
-  update?: Prisma.serviceUpdateWithWhereUniqueWithoutUserInput | Prisma.serviceUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.serviceUpdateManyWithWhereWithoutUserInput | Prisma.serviceUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.serviceScalarWhereInput | Prisma.serviceScalarWhereInput[]
+export type ServiceUncheckedUpdateManyWithoutProviderNestedInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput> | Prisma.ServiceCreateWithoutProviderInput[] | Prisma.ServiceUncheckedCreateWithoutProviderInput[]
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutProviderInput | Prisma.ServiceCreateOrConnectWithoutProviderInput[]
+  upsert?: Prisma.ServiceUpsertWithWhereUniqueWithoutProviderInput | Prisma.ServiceUpsertWithWhereUniqueWithoutProviderInput[]
+  createMany?: Prisma.ServiceCreateManyProviderInputEnvelope
+  set?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  disconnect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  delete?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  connect?: Prisma.ServiceWhereUniqueInput | Prisma.ServiceWhereUniqueInput[]
+  update?: Prisma.ServiceUpdateWithWhereUniqueWithoutProviderInput | Prisma.ServiceUpdateWithWhereUniqueWithoutProviderInput[]
+  updateMany?: Prisma.ServiceUpdateManyWithWhereWithoutProviderInput | Prisma.ServiceUpdateManyWithWhereWithoutProviderInput[]
+  deleteMany?: Prisma.ServiceScalarWhereInput | Prisma.ServiceScalarWhereInput[]
 }
 
-export type serviceCreateWithoutUserInput = {
-  id: string
+export type ServiceCreateWithoutProviderInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
-  createdAt?: Date | string
-  updatedAt: Date | string
   operatingHours?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type serviceUncheckedCreateWithoutUserInput = {
-  id: string
+export type ServiceUncheckedCreateWithoutProviderInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
-  createdAt?: Date | string
-  updatedAt: Date | string
   operatingHours?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type serviceCreateOrConnectWithoutUserInput = {
-  where: Prisma.serviceWhereUniqueInput
-  create: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput>
+export type ServiceCreateOrConnectWithoutProviderInput = {
+  where: Prisma.ServiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput>
 }
 
-export type serviceCreateManyUserInputEnvelope = {
-  data: Prisma.serviceCreateManyUserInput | Prisma.serviceCreateManyUserInput[]
+export type ServiceCreateManyProviderInputEnvelope = {
+  data: Prisma.ServiceCreateManyProviderInput | Prisma.ServiceCreateManyProviderInput[]
   skipDuplicates?: boolean
 }
 
-export type serviceUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.serviceWhereUniqueInput
-  update: Prisma.XOR<Prisma.serviceUpdateWithoutUserInput, Prisma.serviceUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.serviceCreateWithoutUserInput, Prisma.serviceUncheckedCreateWithoutUserInput>
+export type ServiceUpsertWithWhereUniqueWithoutProviderInput = {
+  where: Prisma.ServiceWhereUniqueInput
+  update: Prisma.XOR<Prisma.ServiceUpdateWithoutProviderInput, Prisma.ServiceUncheckedUpdateWithoutProviderInput>
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutProviderInput, Prisma.ServiceUncheckedCreateWithoutProviderInput>
 }
 
-export type serviceUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.serviceWhereUniqueInput
-  data: Prisma.XOR<Prisma.serviceUpdateWithoutUserInput, Prisma.serviceUncheckedUpdateWithoutUserInput>
+export type ServiceUpdateWithWhereUniqueWithoutProviderInput = {
+  where: Prisma.ServiceWhereUniqueInput
+  data: Prisma.XOR<Prisma.ServiceUpdateWithoutProviderInput, Prisma.ServiceUncheckedUpdateWithoutProviderInput>
 }
 
-export type serviceUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.serviceScalarWhereInput
-  data: Prisma.XOR<Prisma.serviceUpdateManyMutationInput, Prisma.serviceUncheckedUpdateManyWithoutUserInput>
+export type ServiceUpdateManyWithWhereWithoutProviderInput = {
+  where: Prisma.ServiceScalarWhereInput
+  data: Prisma.XOR<Prisma.ServiceUpdateManyMutationInput, Prisma.ServiceUncheckedUpdateManyWithoutProviderInput>
 }
 
-export type serviceScalarWhereInput = {
-  AND?: Prisma.serviceScalarWhereInput | Prisma.serviceScalarWhereInput[]
-  OR?: Prisma.serviceScalarWhereInput[]
-  NOT?: Prisma.serviceScalarWhereInput | Prisma.serviceScalarWhereInput[]
-  id?: Prisma.StringFilter<"service"> | string
-  title?: Prisma.StringFilter<"service"> | string
-  description?: Prisma.StringFilter<"service"> | string
-  category?: Prisma.StringFilter<"service"> | string
-  status?: Prisma.StringFilter<"service"> | string
-  price?: Prisma.StringNullableFilter<"service"> | string | null
-  providerId?: Prisma.StringFilter<"service"> | string
-  createdAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"service"> | Date | string
-  operatingHours?: Prisma.StringNullableFilter<"service"> | string | null
+export type ServiceScalarWhereInput = {
+  AND?: Prisma.ServiceScalarWhereInput | Prisma.ServiceScalarWhereInput[]
+  OR?: Prisma.ServiceScalarWhereInput[]
+  NOT?: Prisma.ServiceScalarWhereInput | Prisma.ServiceScalarWhereInput[]
+  id?: Prisma.StringFilter<"Service"> | string
+  title?: Prisma.StringFilter<"Service"> | string
+  description?: Prisma.StringFilter<"Service"> | string
+  category?: Prisma.StringFilter<"Service"> | string
+  status?: Prisma.StringFilter<"Service"> | string
+  price?: Prisma.StringNullableFilter<"Service"> | string | null
+  operatingHours?: Prisma.StringNullableFilter<"Service"> | string | null
+  providerId?: Prisma.StringFilter<"Service"> | string
+  createdAt?: Prisma.DateTimeFilter<"Service"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Service"> | Date | string
 }
 
-export type serviceCreateManyUserInput = {
-  id: string
+export type ServiceCreateManyProviderInput = {
+  id?: string
   title: string
   description: string
   category: string
   status?: string
   price?: string | null
-  createdAt?: Date | string
-  updatedAt: Date | string
   operatingHours?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type serviceUpdateWithoutUserInput = {
+export type ServiceUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type serviceUncheckedUpdateWithoutUserInput = {
+export type ServiceUncheckedUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type serviceUncheckedUpdateManyWithoutUserInput = {
+export type ServiceUncheckedUpdateManyWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  operatingHours?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
 
-export type serviceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
   status?: boolean
   price?: boolean
+  operatingHours?: boolean
   providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  operatingHours?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
 
-export type serviceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type ServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
   status?: boolean
   price?: boolean
+  operatingHours?: boolean
   providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  operatingHours?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
 
-export type serviceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type ServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
   status?: boolean
   price?: boolean
+  operatingHours?: boolean
   providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  operatingHours?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
 
-export type serviceSelectScalar = {
+export type ServiceSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
   category?: boolean
   status?: boolean
   price?: boolean
+  operatingHours?: boolean
   providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  operatingHours?: boolean
 }
 
-export type serviceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "price" | "providerId" | "createdAt" | "updatedAt" | "operatingHours", ExtArgs["result"]["service"]>
-export type serviceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+export type ServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "price" | "operatingHours" | "providerId" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+export type ServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
-export type serviceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+export type ServiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
-export type serviceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
-export type $servicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "service"
+export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  name: "Service"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    provider: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -663,26 +663,26 @@ export type $servicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     category: string
     status: string
     price: string | null
+    operatingHours: string | null
     providerId: string
     createdAt: Date
     updatedAt: Date
-    operatingHours: string | null
   }, ExtArgs["result"]["service"]>
   composites: {}
 }
 
-export type serviceGetPayload<S extends boolean | null | undefined | serviceDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$servicePayload, S>
+export type ServiceGetPayload<S extends boolean | null | undefined | ServiceDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$ServicePayload, S>
 
-export type serviceCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<serviceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export type ServiceCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
+  Omit<ServiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: ServiceCountAggregateInputType | true
   }
 
-export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service'], meta: { name: 'service' } }
+export interface ServiceDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Service'], meta: { name: 'Service' } }
   /**
    * Find zero or one Service that matches the filter.
-   * @param {serviceFindUniqueArgs} args - Arguments to find a Service
+   * @param {ServiceFindUniqueArgs} args - Arguments to find a Service
    * @example
    * // Get one Service
    * const service = await prisma.service.findUnique({
@@ -691,12 +691,12 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
    */
-  findUnique<T extends serviceFindUniqueArgs>(args: Prisma.SelectSubset<T, serviceFindUniqueArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findUnique<T extends ServiceFindUniqueArgs>(args: Prisma.SelectSubset<T, ServiceFindUniqueArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
    * Find one Service that matches the filter or throw an error with `error.code='P2025'`
    * if no matches were found.
-   * @param {serviceFindUniqueOrThrowArgs} args - Arguments to find a Service
+   * @param {ServiceFindUniqueOrThrowArgs} args - Arguments to find a Service
    * @example
    * // Get one Service
    * const service = await prisma.service.findUniqueOrThrow({
@@ -705,13 +705,13 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
    */
-  findUniqueOrThrow<T extends serviceFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, serviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findUniqueOrThrow<T extends ServiceFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, ServiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
    * Find the first Service that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceFindFirstArgs} args - Arguments to find a Service
+   * @param {ServiceFindFirstArgs} args - Arguments to find a Service
    * @example
    * // Get one Service
    * const service = await prisma.service.findFirst({
@@ -720,14 +720,14 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
    */
-  findFirst<T extends serviceFindFirstArgs>(args?: Prisma.SelectSubset<T, serviceFindFirstArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findFirst<T extends ServiceFindFirstArgs>(args?: Prisma.SelectSubset<T, ServiceFindFirstArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
    * Find the first Service that matches the filter or
    * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceFindFirstOrThrowArgs} args - Arguments to find a Service
+   * @param {ServiceFindFirstOrThrowArgs} args - Arguments to find a Service
    * @example
    * // Get one Service
    * const service = await prisma.service.findFirstOrThrow({
@@ -736,13 +736,13 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
    */
-  findFirstOrThrow<T extends serviceFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, serviceFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findFirstOrThrow<T extends ServiceFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, ServiceFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
    * Find zero or more Services that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceFindManyArgs} args - Arguments to filter and select certain fields only.
+   * @param {ServiceFindManyArgs} args - Arguments to filter and select certain fields only.
    * @example
    * // Get all Services
    * const services = await prisma.service.findMany()
@@ -754,11 +754,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * const serviceWithIdOnly = await prisma.service.findMany({ select: { id: true } })
    * 
    */
-  findMany<T extends serviceFindManyArgs>(args?: Prisma.SelectSubset<T, serviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+  findMany<T extends ServiceFindManyArgs>(args?: Prisma.SelectSubset<T, ServiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
   /**
    * Create a Service.
-   * @param {serviceCreateArgs} args - Arguments to create a Service.
+   * @param {ServiceCreateArgs} args - Arguments to create a Service.
    * @example
    * // Create one Service
    * const Service = await prisma.service.create({
@@ -768,11 +768,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  create<T extends serviceCreateArgs>(args: Prisma.SelectSubset<T, serviceCreateArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  create<T extends ServiceCreateArgs>(args: Prisma.SelectSubset<T, ServiceCreateArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
    * Create many Services.
-   * @param {serviceCreateManyArgs} args - Arguments to create many Services.
+   * @param {ServiceCreateManyArgs} args - Arguments to create many Services.
    * @example
    * // Create many Services
    * const service = await prisma.service.createMany({
@@ -782,11 +782,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    *     
    */
-  createMany<T extends serviceCreateManyArgs>(args?: Prisma.SelectSubset<T, serviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  createMany<T extends ServiceCreateManyArgs>(args?: Prisma.SelectSubset<T, ServiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
    * Create many Services and returns the data saved in the database.
-   * @param {serviceCreateManyAndReturnArgs} args - Arguments to create many Services.
+   * @param {ServiceCreateManyAndReturnArgs} args - Arguments to create many Services.
    * @example
    * // Create many Services
    * const service = await prisma.service.createManyAndReturn({
@@ -806,11 +806,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * Read more here: https://pris.ly/d/null-undefined
    * 
    */
-  createManyAndReturn<T extends serviceCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, serviceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+  createManyAndReturn<T extends ServiceCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ServiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Delete a Service.
-   * @param {serviceDeleteArgs} args - Arguments to delete one Service.
+   * @param {ServiceDeleteArgs} args - Arguments to delete one Service.
    * @example
    * // Delete one Service
    * const Service = await prisma.service.delete({
@@ -820,11 +820,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  delete<T extends serviceDeleteArgs>(args: Prisma.SelectSubset<T, serviceDeleteArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  delete<T extends ServiceDeleteArgs>(args: Prisma.SelectSubset<T, ServiceDeleteArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
    * Update one Service.
-   * @param {serviceUpdateArgs} args - Arguments to update one Service.
+   * @param {ServiceUpdateArgs} args - Arguments to update one Service.
    * @example
    * // Update one Service
    * const service = await prisma.service.update({
@@ -837,11 +837,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  update<T extends serviceUpdateArgs>(args: Prisma.SelectSubset<T, serviceUpdateArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  update<T extends ServiceUpdateArgs>(args: Prisma.SelectSubset<T, ServiceUpdateArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
    * Delete zero or more Services.
-   * @param {serviceDeleteManyArgs} args - Arguments to filter Services to delete.
+   * @param {ServiceDeleteManyArgs} args - Arguments to filter Services to delete.
    * @example
    * // Delete a few Services
    * const { count } = await prisma.service.deleteMany({
@@ -851,13 +851,13 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  deleteMany<T extends serviceDeleteManyArgs>(args?: Prisma.SelectSubset<T, serviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  deleteMany<T extends ServiceDeleteManyArgs>(args?: Prisma.SelectSubset<T, ServiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
    * Update zero or more Services.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceUpdateManyArgs} args - Arguments to update one or more rows.
+   * @param {ServiceUpdateManyArgs} args - Arguments to update one or more rows.
    * @example
    * // Update many Services
    * const service = await prisma.service.updateMany({
@@ -870,11 +870,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * })
    * 
    */
-  updateMany<T extends serviceUpdateManyArgs>(args: Prisma.SelectSubset<T, serviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  updateMany<T extends ServiceUpdateManyArgs>(args: Prisma.SelectSubset<T, ServiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
    * Update zero or more Services and returns the data updated in the database.
-   * @param {serviceUpdateManyAndReturnArgs} args - Arguments to update many Services.
+   * @param {ServiceUpdateManyAndReturnArgs} args - Arguments to update many Services.
    * @example
    * // Update many Services
    * const service = await prisma.service.updateManyAndReturn({
@@ -900,11 +900,11 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * Read more here: https://pris.ly/d/null-undefined
    * 
    */
-  updateManyAndReturn<T extends serviceUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, serviceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+  updateManyAndReturn<T extends ServiceUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ServiceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Service.
-   * @param {serviceUpsertArgs} args - Arguments to update or create a Service.
+   * @param {ServiceUpsertArgs} args - Arguments to update or create a Service.
    * @example
    * // Update or create a Service
    * const service = await prisma.service.upsert({
@@ -919,14 +919,14 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
    */
-  upsert<T extends serviceUpsertArgs>(args: Prisma.SelectSubset<T, serviceUpsertArgs<ExtArgs>>): Prisma.Prisma__serviceClient<runtime.Types.Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  upsert<T extends ServiceUpsertArgs>(args: Prisma.SelectSubset<T, ServiceUpsertArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
   /**
    * Count the number of Services.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceCountArgs} args - Arguments to filter Services to count.
+   * @param {ServiceCountArgs} args - Arguments to filter Services to count.
    * @example
    * // Count the number of Services
    * const count = await prisma.service.count({
@@ -935,8 +935,8 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   }
    * })
   **/
-  count<T extends serviceCountArgs>(
-    args?: Prisma.Subset<T, serviceCountArgs>,
+  count<T extends ServiceCountArgs>(
+    args?: Prisma.Subset<T, ServiceCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
@@ -975,7 +975,7 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * Group by Service.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {serviceGroupByArgs} args - Group by arguments.
+   * @param {ServiceGroupByArgs} args - Group by arguments.
    * @example
    * // Group by city, order by createdAt, get count
    * const result = await prisma.user.groupBy({
@@ -990,14 +990,14 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
   **/
   groupBy<
-    T extends serviceGroupByArgs,
+    T extends ServiceGroupByArgs,
     HasSelectOrTake extends Prisma.Or<
       Prisma.Extends<'skip', Prisma.Keys<T>>,
       Prisma.Extends<'take', Prisma.Keys<T>>
     >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
-      ? { orderBy: serviceGroupByArgs['orderBy'] }
-      : { orderBy?: serviceGroupByArgs['orderBy'] },
+      ? { orderBy: ServiceGroupByArgs['orderBy'] }
+      : { orderBy?: ServiceGroupByArgs['orderBy'] },
     OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
@@ -1046,22 +1046,22 @@ export interface serviceDelegate<ExtArgs extends runtime.Types.Extensions.Intern
           ? never
           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
       }[OrderFields]
-  >(args: Prisma.SubsetIntersection<T, serviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  >(args: Prisma.SubsetIntersection<T, ServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
 /**
- * Fields of the service model
+ * Fields of the Service model
  */
-readonly fields: serviceFieldRefs;
+readonly fields: ServiceFieldRefs;
 }
 
 /**
- * The delegate class that acts as a "Promise-like" for service.
+ * The delegate class that acts as a "Promise-like" for Service.
  * Why is this prefixed with `Prisma__`?
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__serviceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  provider<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1088,428 +1088,428 @@ export interface Prisma__serviceClient<T, Null = never, ExtArgs extends runtime.
 
 
 /**
- * Fields of the service model
+ * Fields of the Service model
  */
-export interface serviceFieldRefs {
-  readonly id: Prisma.FieldRef<"service", 'String'>
-  readonly title: Prisma.FieldRef<"service", 'String'>
-  readonly description: Prisma.FieldRef<"service", 'String'>
-  readonly category: Prisma.FieldRef<"service", 'String'>
-  readonly status: Prisma.FieldRef<"service", 'String'>
-  readonly price: Prisma.FieldRef<"service", 'String'>
-  readonly providerId: Prisma.FieldRef<"service", 'String'>
-  readonly createdAt: Prisma.FieldRef<"service", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"service", 'DateTime'>
-  readonly operatingHours: Prisma.FieldRef<"service", 'String'>
+export interface ServiceFieldRefs {
+  readonly id: Prisma.FieldRef<"Service", 'String'>
+  readonly title: Prisma.FieldRef<"Service", 'String'>
+  readonly description: Prisma.FieldRef<"Service", 'String'>
+  readonly category: Prisma.FieldRef<"Service", 'String'>
+  readonly status: Prisma.FieldRef<"Service", 'String'>
+  readonly price: Prisma.FieldRef<"Service", 'String'>
+  readonly operatingHours: Prisma.FieldRef<"Service", 'String'>
+  readonly providerId: Prisma.FieldRef<"Service", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Service", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Service", 'DateTime'>
 }
     
 
 // Custom InputTypes
 /**
- * service findUnique
+ * Service findUnique
  */
-export type serviceFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter, which service to fetch.
+   * Filter, which Service to fetch.
    */
-  where: Prisma.serviceWhereUniqueInput
+  where: Prisma.ServiceWhereUniqueInput
 }
 
 /**
- * service findUniqueOrThrow
+ * Service findUniqueOrThrow
  */
-export type serviceFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter, which service to fetch.
+   * Filter, which Service to fetch.
    */
-  where: Prisma.serviceWhereUniqueInput
+  where: Prisma.ServiceWhereUniqueInput
 }
 
 /**
- * service findFirst
+ * Service findFirst
  */
-export type serviceFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter, which service to fetch.
+   * Filter, which Service to fetch.
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of services to fetch.
+   * Determine the order of Services to fetch.
    */
-  orderBy?: Prisma.serviceOrderByWithRelationInput | Prisma.serviceOrderByWithRelationInput[]
+  orderBy?: Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for services.
+   * Sets the position for searching for Services.
    */
-  cursor?: Prisma.serviceWhereUniqueInput
+  cursor?: Prisma.ServiceWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` services from the position of the cursor.
+   * Take `±n` Services from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` services.
+   * Skip the first `n` Services.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of services.
+   * Filter by unique combinations of Services.
    */
   distinct?: Prisma.ServiceScalarFieldEnum | Prisma.ServiceScalarFieldEnum[]
 }
 
 /**
- * service findFirstOrThrow
+ * Service findFirstOrThrow
  */
-export type serviceFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter, which service to fetch.
+   * Filter, which Service to fetch.
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of services to fetch.
+   * Determine the order of Services to fetch.
    */
-  orderBy?: Prisma.serviceOrderByWithRelationInput | Prisma.serviceOrderByWithRelationInput[]
+  orderBy?: Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for services.
+   * Sets the position for searching for Services.
    */
-  cursor?: Prisma.serviceWhereUniqueInput
+  cursor?: Prisma.ServiceWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` services from the position of the cursor.
+   * Take `±n` Services from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` services.
+   * Skip the first `n` Services.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of services.
+   * Filter by unique combinations of Services.
    */
   distinct?: Prisma.ServiceScalarFieldEnum | Prisma.ServiceScalarFieldEnum[]
 }
 
 /**
- * service findMany
+ * Service findMany
  */
-export type serviceFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter, which services to fetch.
+   * Filter, which Services to fetch.
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of services to fetch.
+   * Determine the order of Services to fetch.
    */
-  orderBy?: Prisma.serviceOrderByWithRelationInput | Prisma.serviceOrderByWithRelationInput[]
+  orderBy?: Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for listing services.
+   * Sets the position for listing Services.
    */
-  cursor?: Prisma.serviceWhereUniqueInput
+  cursor?: Prisma.ServiceWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` services from the position of the cursor.
+   * Take `±n` Services from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` services.
+   * Skip the first `n` Services.
    */
   skip?: number
   distinct?: Prisma.ServiceScalarFieldEnum | Prisma.ServiceScalarFieldEnum[]
 }
 
 /**
- * service create
+ * Service create
  */
-export type serviceCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * The data needed to create a service.
+   * The data needed to create a Service.
    */
-  data: Prisma.XOR<Prisma.serviceCreateInput, Prisma.serviceUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.ServiceCreateInput, Prisma.ServiceUncheckedCreateInput>
 }
 
 /**
- * service createMany
+ * Service createMany
  */
-export type serviceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to create many services.
+   * The data used to create many Services.
    */
-  data: Prisma.serviceCreateManyInput | Prisma.serviceCreateManyInput[]
+  data: Prisma.ServiceCreateManyInput | Prisma.ServiceCreateManyInput[]
   skipDuplicates?: boolean
 }
 
 /**
- * service createManyAndReturn
+ * Service createManyAndReturn
  */
-export type serviceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelectCreateManyAndReturn<ExtArgs> | null
+  select?: Prisma.ServiceSelectCreateManyAndReturn<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
-   * The data used to create many services.
+   * The data used to create many Services.
    */
-  data: Prisma.serviceCreateManyInput | Prisma.serviceCreateManyInput[]
+  data: Prisma.ServiceCreateManyInput | Prisma.ServiceCreateManyInput[]
   skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceIncludeCreateManyAndReturn<ExtArgs> | null
+  include?: Prisma.ServiceIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
- * service update
+ * Service update
  */
-export type serviceUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * The data needed to update a service.
+   * The data needed to update a Service.
    */
-  data: Prisma.XOR<Prisma.serviceUpdateInput, Prisma.serviceUncheckedUpdateInput>
+  data: Prisma.XOR<Prisma.ServiceUpdateInput, Prisma.ServiceUncheckedUpdateInput>
   /**
-   * Choose, which service to update.
+   * Choose, which Service to update.
    */
-  where: Prisma.serviceWhereUniqueInput
+  where: Prisma.ServiceWhereUniqueInput
 }
 
 /**
- * service updateMany
+ * Service updateMany
  */
-export type serviceUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to update services.
+   * The data used to update Services.
    */
-  data: Prisma.XOR<Prisma.serviceUpdateManyMutationInput, Prisma.serviceUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.ServiceUpdateManyMutationInput, Prisma.ServiceUncheckedUpdateManyInput>
   /**
-   * Filter which services to update
+   * Filter which Services to update
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
-   * Limit how many services to update.
+   * Limit how many Services to update.
    */
   limit?: number
 }
 
 /**
- * service updateManyAndReturn
+ * Service updateManyAndReturn
  */
-export type serviceUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelectUpdateManyAndReturn<ExtArgs> | null
+  select?: Prisma.ServiceSelectUpdateManyAndReturn<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
-   * The data used to update services.
+   * The data used to update Services.
    */
-  data: Prisma.XOR<Prisma.serviceUpdateManyMutationInput, Prisma.serviceUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.ServiceUpdateManyMutationInput, Prisma.ServiceUncheckedUpdateManyInput>
   /**
-   * Filter which services to update
+   * Filter which Services to update
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
-   * Limit how many services to update.
+   * Limit how many Services to update.
    */
   limit?: number
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceIncludeUpdateManyAndReturn<ExtArgs> | null
+  include?: Prisma.ServiceIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
- * service upsert
+ * Service upsert
  */
-export type serviceUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * The filter to search for the service to update in case it exists.
+   * The filter to search for the Service to update in case it exists.
    */
-  where: Prisma.serviceWhereUniqueInput
+  where: Prisma.ServiceWhereUniqueInput
   /**
-   * In case the service found by the `where` argument doesn't exist, create a new service with this data.
+   * In case the Service found by the `where` argument doesn't exist, create a new Service with this data.
    */
-  create: Prisma.XOR<Prisma.serviceCreateInput, Prisma.serviceUncheckedCreateInput>
+  create: Prisma.XOR<Prisma.ServiceCreateInput, Prisma.ServiceUncheckedCreateInput>
   /**
-   * In case the service was found with the provided `where` argument, update it with this data.
+   * In case the Service was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.serviceUpdateInput, Prisma.serviceUncheckedUpdateInput>
+  update: Prisma.XOR<Prisma.ServiceUpdateInput, Prisma.ServiceUncheckedUpdateInput>
 }
 
 /**
- * service delete
+ * Service delete
  */
-export type serviceDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
   /**
-   * Filter which service to delete.
+   * Filter which Service to delete.
    */
-  where: Prisma.serviceWhereUniqueInput
+  where: Prisma.ServiceWhereUniqueInput
 }
 
 /**
- * service deleteMany
+ * Service deleteMany
  */
-export type serviceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which services to delete
+   * Filter which Services to delete
    */
-  where?: Prisma.serviceWhereInput
+  where?: Prisma.ServiceWhereInput
   /**
-   * Limit how many services to delete.
+   * Limit how many Services to delete.
    */
   limit?: number
 }
 
 /**
- * service without action
+ * Service without action
  */
-export type serviceDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ServiceDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the service
+   * Select specific fields to fetch from the Service
    */
-  select?: Prisma.serviceSelect<ExtArgs> | null
+  select?: Prisma.ServiceSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the service
+   * Omit specific fields from the Service
    */
-  omit?: Prisma.serviceOmit<ExtArgs> | null
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.serviceInclude<ExtArgs> | null
+  include?: Prisma.ServiceInclude<ExtArgs> | null
 }

@@ -54,8 +54,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
+  Service: 'Service',
   Verification: 'Verification',
-  service: 'service',
   Announcement: 'Announcement'
 } as const
 
@@ -124,6 +124,22 @@ export const AccountScalarFieldEnum = {
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
 
 
+export const ServiceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  status: 'status',
+  price: 'price',
+  operatingHours: 'operatingHours',
+  providerId: 'providerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+
+
 export const VerificationScalarFieldEnum = {
   id: 'id',
   identifier: 'identifier',
@@ -134,22 +150,6 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
-
-
-export const ServiceScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  category: 'category',
-  status: 'status',
-  price: 'price',
-  providerId: 'providerId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  operatingHours: 'operatingHours'
-} as const
-
-export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
 export const AnnouncementScalarFieldEnum = {

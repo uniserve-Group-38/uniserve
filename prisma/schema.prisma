@@ -15,12 +15,14 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  // Contact & Provider details
   phoneNumber   String?
   location      String?
-  bio           String?
-  accounts      Account[]
-  service       service[]
+  bio           String? // Brief provider description
+  
   sessions      Session[]
+  accounts      Account[]
+  services      Service[]
 
   @@map("user")
 }
@@ -60,6 +62,25 @@ model Account {
   @@map("account")
 }
 
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  status      String   @default("Available") // Available, Busy, Offline
+  price       String?  // Optional, e.g. "$20/hr"
+  operatingHours String? // e.g. "Mon-Fri: 9AM - 5PM"
+  
+  providerId  String
+  provider    User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([providerId])
+  @@map("service")
+}
+
 model Verification {
   id         String   @id
   identifier String
@@ -70,22 +91,6 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
-}
-
-model service {
-  id             String   @id
-  title          String
-  description    String
-  category       String
-  status         String   @default("Available")
-  price          String?
-  providerId     String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime
-  operatingHours String?
-  user           User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
-
-  @@index([providerId])
 }
 model Announcement {
   id           String   @id @default(cuid())
