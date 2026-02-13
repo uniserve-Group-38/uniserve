@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
-const CATEGORIES = ["All", "Events", "Internships", "Academic", "Campus News"];
+const CATEGORIES = ["All", "Events", "Scholarships", "Tuition", "Internships", "Deadlines", "Academic"];
 
 interface PageProps {
   searchParams: Promise<{ category?: string }>;
@@ -108,6 +108,6 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
           ))}
         </div>
       )}
-    </div> 
+    </div>
   );
 }
