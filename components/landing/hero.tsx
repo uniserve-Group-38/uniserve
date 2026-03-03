@@ -1,5 +1,6 @@
 "use client"
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -9,19 +10,19 @@ export default function Hero() {
       {/* Decorative floating shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Yellow circle */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-yellow-300 rounded-full border-4 border-black animate-float" style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
+        <div className="absolute top-20 left-10 w-32 h-32 bg-yellow-300 rounded-full border-4 border-black animate-float" style={{ "--float-rotate": "0deg" } as CSSProperties} />
         {/* Pink diamond */}
-        <div className="absolute top-40 right-20 w-24 h-24 bg-pink-400 rotate-45 border-4 border-black animate-float-reverse" style={{ "--float-rotate": "45deg" } as React.CSSProperties} />
+        <div className="absolute top-40 right-20 w-24 h-24 bg-pink-400 rotate-45 border-4 border-black animate-float-reverse" style={{ "--float-rotate": "45deg" } as CSSProperties} />
         {/* Cyan square */}
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-cyan-400 border-4 border-black animate-float" style={{ "--float-rotate": "-5deg" } as React.CSSProperties} />
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-cyan-400 border-4 border-black animate-float" style={{ "--float-rotate": "-5deg" } as CSSProperties} />
         {/* Lime circle */}
-        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-lime-300 rounded-full border-4 border-black animate-float-reverse" style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-lime-300 rounded-full border-4 border-black animate-float-reverse" style={{ "--float-rotate": "0deg" } as CSSProperties} />
         
         {/* Sticker elements */}
-        <div className="absolute top-32 right-1/4 bg-orange-400 border-4 border-black px-4 py-2 font-black text-lg rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-float" style={{ "--float-rotate": "12deg" } as React.CSSProperties}>
+        <div className="absolute top-32 right-1/4 bg-orange-400 border-4 border-black px-4 py-2 font-black text-lg rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-float" style={{ "--float-rotate": "12deg" } as CSSProperties}>
           HOT! 🔥
         </div>
-        <div className="absolute bottom-40 left-20 bg-pink-300 border-4 border-black px-4 py-2 font-black -rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-float-reverse" style={{ "--float-rotate": "-12deg" } as React.CSSProperties}>
+        <div className="absolute bottom-40 left-20 bg-pink-300 border-4 border-black px-4 py-2 font-black -rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-float-reverse" style={{ "--float-rotate": "-12deg" } as CSSProperties}>
           NEW ⚡
         </div>
       </div>
