@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 
 export default function Footer() {
@@ -7,10 +8,10 @@ export default function Footer() {
       <section className="py-32 bg-cyan-300 border-b-8 border-black relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-pink-400 border-4 border-black rotate-45 animate-float" style={{ "--float-rotate": "45deg" } as React.CSSProperties} />
-          <div className="absolute top-20 right-20 w-24 h-24 bg-yellow-300 rounded-full border-4 border-black animate-float-reverse" style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
-          <div className="absolute bottom-10 left-1/4 w-16 h-16 bg-orange-400 border-4 border-black animate-float" style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
-          <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-lime-300 border-4 border-black rotate-12 animate-float-reverse" style={{ "--float-rotate": "12deg" } as React.CSSProperties} />
+          <div className="absolute top-10 left-10 w-20 h-20 bg-pink-400 border-4 border-black rotate-45 animate-float" style={{ "--float-rotate": "45deg" } as CSSProperties} />
+          <div className="absolute top-20 right-20 w-24 h-24 bg-yellow-300 rounded-full border-4 border-black animate-float-reverse" style={{ "--float-rotate": "0deg" } as CSSProperties} />
+          <div className="absolute bottom-10 left-1/4 w-16 h-16 bg-orange-400 border-4 border-black animate-float" style={{ "--float-rotate": "0deg" } as CSSProperties} />
+          <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-lime-300 border-4 border-black rotate-12 animate-float-reverse" style={{ "--float-rotate": "12deg" } as CSSProperties} />
         </div>
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
