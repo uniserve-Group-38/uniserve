@@ -52,7 +52,7 @@ function FAQItem({ faq }: { faq: (typeof faqs)[0] }) {
 
   return (
     <div
-      className={`${faq.color} border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden ${faq.rotation} hover:rotate-0 transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1`}
+      className={`${faq.color} border-4 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] overflow-hidden ${faq.rotation} hover:rotate-0 transition-all hover:-translate-y-1`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -88,17 +88,17 @@ export default function FAQ() {
     <section className="py-24 bg-gradient-to-br from-blue-100 to-purple-100 border-b-8 border-black relative overflow-hidden">
       {/* Decorative stickers */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 right-10 bg-yellow-300 border-4 border-black px-4 py-2 font-black text-sm rotate-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        <div className="absolute top-20 right-10 bg-yellow-300 border-2 border-black px-4 py-2 font-black text-sm rotate-12 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
           FAQ!
         </div>
-        <div className="absolute bottom-20 left-10 bg-pink-400 border-4 border-black px-4 py-2 font-black text-sm -rotate-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        <div className="absolute bottom-20 left-10 bg-pink-400 border-2 border-black px-4 py-2 font-black text-sm -rotate-12 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
           ANSWERS!
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 -rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             GOT QUESTIONS?
           </h2>
           <p className="text-xl font-bold mt-8">
@@ -114,7 +114,7 @@ export default function FAQ() {
 
         {/* Still have questions CTA */}
         <div className="mt-12 text-center">
-          <div className="inline-block bg-gradient-to-r from-pink-300 to-orange-300 border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-1">
+          <div className="inline-block bg-gradient-to-r from-pink-300 to-orange-300 border-4 border-black p-8 shadow-[3px_5px_0px_0px_rgba(0,0,0,1)] -rotate-1">
             <p className="font-black text-xl mb-4">Still got questions?</p>
             <a
               href="#"

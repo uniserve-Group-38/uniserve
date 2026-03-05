@@ -120,7 +120,7 @@ export default function Features() {
       <section className="py-24 bg-white border-b-8 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <div className="text-center">
-            <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-yellow-300 border-6 border-black px-8 py-4 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-yellow-300 border-5 border-black px-8 py-4 rotate-1 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)]">
               WHAT WE OFFER
             </h2>
             <p className="text-xl font-bold mt-8 max-w-2xl mx-auto">
@@ -140,7 +140,7 @@ export default function Features() {
                 >
                   <Link href={`/services`}>
                     <div
-                      className={`group relative h-[500px] border-6 border-black ${service.rotation} hover:rotate-0 transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 overflow-hidden`}
+                      className={`group relative h-[500px] border-6 border-black ${service.rotation} hover:rotate-0 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 overflow-hidden`}
                     >
                       {/* Image */}
                       <div className="absolute inset-0">
@@ -159,14 +159,14 @@ export default function Features() {
                       <div className="relative z-10 h-full p-6 flex flex-col">
                         {/* Icon Badge */}
                         <div
-                          className={`w-20 h-20 ${service.color} border-4 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-4`}
+                          className={`w-20 h-20 ${service.color} border-4 border-black flex items-center justify-center`}
                         >
                           <Icon className="text-black" size={36} />
                         </div>
 
                         {/* Service Name */}
                         <div className="mt-auto">
-                          <div className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] mb-3">
+                          <div className="bg-white border-4 border-black p-4 mb-3">
                             <h3 className="text-3xl font-black mb-1">
                               {service.name}
                             </h3>
@@ -177,7 +177,7 @@ export default function Features() {
 
                           {/* Action Button */}
                           <div
-                            className={`${service.color} border-4 border-black px-4 py-3 font-black text-sm flex items-center justify-between group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all`}
+                            className={`${service.color} border-4 border-black px-4 py-3 font-black text-sm flex items-center justify-between `}
                           >
                             <span>LEARN MORE</span>
                             <ArrowRight
@@ -197,7 +197,7 @@ export default function Features() {
 
         <div className="text-center mt-12">
           <Link href="/services" className="inline-block">
-            <div className="bg-pink-300 border-4 border-black px-8 py-4 font-black text-lg hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-1 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <div className="bg-pink-300 border-4 border-black px-8 py-4 font-black text-lg hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rotate-1 active:translate-y-0.5">
               VIEW ALL SERVICES →
             </div>
           </Link>
@@ -208,11 +208,11 @@ export default function Features() {
       <section className="py-24 bg-lime-100 border-b-8 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-5 border-black px-8 py-4 -rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               WHY WE ROCK
             </h2>
             <p className="text-xl font-bold mt-8">
-              Because your time is precious ⏰
+              Because your time is precious
             </p>
           </div>
 
@@ -222,9 +222,9 @@ export default function Features() {
               return (
                 <div
                   key={index}
-                  className={`${feature.color} border-6 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all ${index % 2 === 0 ? "rotate-1" : "-rotate-1"} hover:rotate-0`}
+                  className={`${feature.color} border-4 border-black p-8 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 hover:rotate-0 transition-all ${index % 2 === 0 ? "rotate-1" : "-rotate-1"}`}
                 >
-                  <div className="w-16 h-16 bg-black border-4 border-black flex items-center justify-center mb-6 rotate-12">
+                  <div className="w-16 h-16 bg-black border-3 border-black flex items-center justify-center mb-6 rotate-1">
                     <Icon className="text-white" size={32} />
                   </div>
                   <h3 className="text-2xl font-black mb-3 uppercase">

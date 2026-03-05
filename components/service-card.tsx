@@ -21,12 +21,12 @@ interface ServiceCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-    "Laundry": "bg-cyan-300",
-    "Grooming": "bg-pink-300",
-    "Tech Support": "bg-purple-300",
-    "Food Delivery": "bg-orange-300",
-    "Coffee Run": "bg-lime-300",
-    "Tutoring": "bg-yellow-300",
+    "Laundry Services": "bg-cyan-400",
+    "Barbering And Salon Services": "bg-pink-400",
+    "Tech Support": "bg-purple-400",
+    "Food Delivery Services": "bg-orange-400",
+    "Cleaning Services": "bg-lime-400",
+    "Tutoring": "bg-yellow-400",
 }
 
 export function ServiceCard({ id, title, description, category, status, price, provider }: ServiceCardProps) {
@@ -61,7 +61,7 @@ export function ServiceCard({ id, title, description, category, status, price, p
                         </div>
                     )}
                 </CardContent>
-                <CardFooter className="pt-3 border-t-4 border-black bg-muted/30 flex justify-between items-center text-xs font-bold group-hover:bg-accent/30 transition-colors">
+                <CardFooter className="pt-3 border-t-4 border-black bg-muted/30 flex justify-between items-center text-xs font-bold">
                     <div className="flex items-center gap-2">
                         <div className="font-black text-foreground">{provider.name}</div>
                     </div>

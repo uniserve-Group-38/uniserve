@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 
+
 export default function Footer() {
   return (
     <>
@@ -10,21 +11,19 @@ export default function Footer() {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-10 left-10 w-20 h-20 bg-pink-400 border-4 border-black rotate-45 animate-float" style={{ "--float-rotate": "45deg" } as CSSProperties} />
           <div className="absolute top-20 right-20 w-24 h-24 bg-yellow-300 rounded-full border-4 border-black animate-float-reverse" style={{ "--float-rotate": "0deg" } as CSSProperties} />
-          <div className="absolute bottom-10 left-1/4 w-16 h-16 bg-orange-400 border-4 border-black animate-float" style={{ "--float-rotate": "0deg" } as CSSProperties} />
-          <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-lime-300 border-4 border-black rotate-12 animate-float-reverse" style={{ "--float-rotate": "12deg" } as CSSProperties} />
         </div>
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-8 leading-tight">
-            <span className="inline-block bg-white border-6 border-black px-6 py-3 rotate-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-4">
+            <span className="inline-block bg-white border-6 border-black px-6 py-3 rotate-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-4">
               READY TO
             </span>
             <br />
-            <span className="inline-block bg-pink-400 border-6 border-black px-6 py-3 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <span className="inline-block bg-pink-400 border-6 border-black px-6 py-3 -rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               UPGRADE YOUR
             </span>
             <br />
-            <span className="inline-block bg-yellow-300 border-6 border-black px-6 py-3 rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mt-4">
+            <span className="inline-block bg-yellow-300 border-6 border-black px-6 py-3 rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-4">
               CAMPUS LIFE?
             </span>
           </h2>
@@ -32,12 +31,12 @@ export default function Footer() {
             Join 10,000+ students living their best life
           </p>
           <Link href="/auth/sign-up" className="inline-block">
-            <div className="bg-black text-white px-12 py-6 font-black text-2xl border-6 border-black hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-1 hover:rotate-0 active:translate-y-0.5 active:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <div className="bg-black text-white px-12 py-6 font-black text-2xl border-6 border-black hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -rotate-1 hover:rotate-0 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               GET STARTED FREE &rarr;
             </div>
           </Link>
           <p className="mt-8 font-bold text-lg">
-            No credit card &bull; No BS &bull; Just vibes
+            No credit card &bull; Just vibes
           </p>
         </div>
       </section>
