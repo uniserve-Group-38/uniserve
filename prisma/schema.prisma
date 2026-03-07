@@ -8,31 +8,28 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  STUDENT
-  PROVIDER
-  ADMIN
-}
-
-enum BookingStatus {
-  PENDING
-  ATTENDED
-}
-
 model User {
-  id            String    @id
-  name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  phoneNumber   String?
-  location      String?
-  bio           String?
-  accounts      Account[]
-  services      Service[]
-  sessions      Session[]
+  id                                       String            @id
+  name                                     String
+  email                                    String            @unique
+  emailVerified                            Boolean           @default(false)
+  image                                    String?
+  createdAt                                DateTime          @default(now())
+  updatedAt                                DateTime          @updatedAt
+  phoneNumber                              String?
+  location                                 String?
+  bio                                      String?
+  role                                     Role              @default(STUDENT)
+  accounts                                 Account[]
+  providerBookings                         Booking[]         @relation("ProviderBookings")
+  studentBookings                          Booking[]         @relation("StudentBookings")
+  messages                                 Message[]
+  provider_wallet                          provider_wallet?
+  services                                 Service[]
+  sessions                                 Session[]
+  support_message                          support_message[]
+  transaction_transaction_providerIdTouser transaction[]     @relation("transaction_providerIdTouser")
+  transaction_transaction_studentIdTouser  transaction[]     @relation("transaction_studentIdTouser")
 
   @@map("user")
 }
@@ -73,37 +70,37 @@ model Account {
 }
 
 model Service {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   title          String
   description    String
   category       String
-  status         String   @default("Available")
+  status         String    @default("Available")
   price          String?
   providerId     String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   operatingHours String?
-  provider       User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  bookings       Booking[]
+  provider       User      @relation(fields: [providerId], references: [id], onDelete: Cascade)
 
   @@index([providerId])
   @@map("service")
 }
 
 model Booking {
-  id         String         @id @default(cuid())
-  studentId  String
-  providerId String
-  serviceId  String
-  bookedAt   DateTime       @default(now())
-  status     BookingStatus  @default(PENDING)
-
-  student    User           @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
-  provider   User           @relation("ProviderBookings", fields: [providerId], references: [id], onDelete: Cascade)
-  service    Service        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  id           String        @id @default(cuid())
+  studentId    String
+  providerId   String
+  serviceId    String
+  bookedAt     DateTime      @default(now())
+  status       BookingStatus @default(PENDING)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  provider     User          @relation("ProviderBookings", fields: [providerId], references: [id], onDelete: Cascade)
+  service      Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  student      User          @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
   conversation Conversation?
-
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
+  transaction  transaction[]
 
   @@index([studentId])
   @@index([providerId])
@@ -113,13 +110,12 @@ model Booking {
 }
 
 model Conversation {
-  id         String    @id @default(cuid())
-  bookingId  String    @unique
-  booking    Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  messages   Message[]
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id        String    @id @default(cuid())
+  bookingId String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  booking   Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  messages  Message[]
 
   @@map("conversation")
 }
@@ -129,11 +125,9 @@ model Message {
   conversationId String
   senderId       String
   content        String
-
+  createdAt      DateTime     @default(now())
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
-
-  createdAt      DateTime     @default(now())
 
   @@index([conversationId])
   @@index([senderId])
@@ -164,9 +158,73 @@ model Announcement {
   contactInfo  String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  imageUrl     String?
 
   @@index([category])
   @@index([isVerified])
   @@index([createdAt])
   @@map("announcement")
+}
+
+model provider_wallet {
+  id               String   @id
+  providerId       String   @unique
+  availableBalance Float    @default(0)
+  pendingBalance   Float    @default(0)
+  totalEarnings    Float    @default(0)
+  totalWithdrawn   Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
+  user             User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
+}
+
+model support_message {
+  id        String   @id
+  userId    String
+  subject   String
+  message   String
+  status    String   @default("Open")
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([userId])
+}
+
+model transaction {
+  id                                String    @id
+  bookingId                         String
+  studentId                         String
+  providerId                        String
+  paystackReference                 String    @unique
+  totalAmount                       Float
+  platformCommission                Float
+  providerEarnings                  Float
+  commissionRate                    Float     @default(0.15)
+  status                            String    @default("pending")
+  paymentMethod                     String?
+  paidAt                            DateTime?
+  createdAt                         DateTime  @default(now())
+  updatedAt                         DateTime
+  booking                           Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user_transaction_providerIdTouser User      @relation("transaction_providerIdTouser", fields: [providerId], references: [id])
+  user_transaction_studentIdTouser  User      @relation("transaction_studentIdTouser", fields: [studentId], references: [id])
+
+  @@index([bookingId])
+  @@index([paystackReference])
+  @@index([providerId])
+  @@index([status])
+  @@index([studentId])
+}
+
+enum Role {
+  STUDENT
+  PROVIDER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  ATTENDED
 }

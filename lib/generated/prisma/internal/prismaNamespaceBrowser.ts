@@ -59,7 +59,10 @@ export const ModelName = {
   Conversation: 'Conversation',
   Message: 'Message',
   Verification: 'Verification',
-  Announcement: 'Announcement'
+  Announcement: 'Announcement',
+  provider_wallet: 'provider_wallet',
+  support_message: 'support_message',
+  transaction: 'transaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -202,10 +205,58 @@ export const AnnouncementScalarFieldEnum = {
   externalLink: 'externalLink',
   contactInfo: 'contactInfo',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  imageUrl: 'imageUrl'
 } as const
 
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const Provider_walletScalarFieldEnum = {
+  id: 'id',
+  providerId: 'providerId',
+  availableBalance: 'availableBalance',
+  pendingBalance: 'pendingBalance',
+  totalEarnings: 'totalEarnings',
+  totalWithdrawn: 'totalWithdrawn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Provider_walletScalarFieldEnum = (typeof Provider_walletScalarFieldEnum)[keyof typeof Provider_walletScalarFieldEnum]
+
+
+export const Support_messageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Support_messageScalarFieldEnum = (typeof Support_messageScalarFieldEnum)[keyof typeof Support_messageScalarFieldEnum]
+
+
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  studentId: 'studentId',
+  providerId: 'providerId',
+  paystackReference: 'paystackReference',
+  totalAmount: 'totalAmount',
+  platformCommission: 'platformCommission',
+  providerEarnings: 'providerEarnings',
+  commissionRate: 'commissionRate',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
 export const SortOrder = {

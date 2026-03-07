@@ -36,6 +36,7 @@ export type AnnouncementMinAggregateOutputType = {
   contactInfo: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
 }
 
 export type AnnouncementMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type AnnouncementMaxAggregateOutputType = {
   contactInfo: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
 }
 
 export type AnnouncementCountAggregateOutputType = {
@@ -64,6 +66,7 @@ export type AnnouncementCountAggregateOutputType = {
   contactInfo: number
   createdAt: number
   updatedAt: number
+  imageUrl: number
   _all: number
 }
 
@@ -80,6 +83,7 @@ export type AnnouncementMinAggregateInputType = {
   contactInfo?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
 }
 
 export type AnnouncementMaxAggregateInputType = {
@@ -94,6 +98,7 @@ export type AnnouncementMaxAggregateInputType = {
   contactInfo?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
 }
 
 export type AnnouncementCountAggregateInputType = {
@@ -108,6 +113,7 @@ export type AnnouncementCountAggregateInputType = {
   contactInfo?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
   _all?: true
 }
 
@@ -195,6 +201,7 @@ export type AnnouncementGroupByOutputType = {
   contactInfo: string | null
   createdAt: Date
   updatedAt: Date
+  imageUrl: string | null
   _count: AnnouncementCountAggregateOutputType | null
   _min: AnnouncementMinAggregateOutputType | null
   _max: AnnouncementMaxAggregateOutputType | null
@@ -230,6 +237,7 @@ export type AnnouncementWhereInput = {
   contactInfo?: Prisma.StringNullableFilter<"Announcement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
 }
 
 export type AnnouncementOrderByWithRelationInput = {
@@ -244,6 +252,7 @@ export type AnnouncementOrderByWithRelationInput = {
   contactInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +270,7 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   contactInfo?: Prisma.StringNullableFilter<"Announcement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
 }, "id">
 
 export type AnnouncementOrderByWithAggregationInput = {
@@ -275,6 +285,7 @@ export type AnnouncementOrderByWithAggregationInput = {
   contactInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnnouncementCountOrderByAggregateInput
   _max?: Prisma.AnnouncementMaxOrderByAggregateInput
   _min?: Prisma.AnnouncementMinOrderByAggregateInput
@@ -295,6 +306,7 @@ export type AnnouncementScalarWhereWithAggregatesInput = {
   contactInfo?: Prisma.StringNullableWithAggregatesFilter<"Announcement"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Announcement"> | Date | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Announcement"> | string | null
 }
 
 export type AnnouncementCreateInput = {
@@ -309,6 +321,7 @@ export type AnnouncementCreateInput = {
   contactInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
 }
 
 export type AnnouncementUncheckedCreateInput = {
@@ -323,6 +336,7 @@ export type AnnouncementUncheckedCreateInput = {
   contactInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
 }
 
 export type AnnouncementUpdateInput = {
@@ -337,6 +351,7 @@ export type AnnouncementUpdateInput = {
   contactInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AnnouncementUncheckedUpdateInput = {
@@ -351,6 +366,7 @@ export type AnnouncementUncheckedUpdateInput = {
   contactInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AnnouncementCreateManyInput = {
@@ -365,6 +381,7 @@ export type AnnouncementCreateManyInput = {
   contactInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
 }
 
 export type AnnouncementUpdateManyMutationInput = {
@@ -379,6 +396,7 @@ export type AnnouncementUpdateManyMutationInput = {
   contactInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AnnouncementUncheckedUpdateManyInput = {
@@ -393,6 +411,7 @@ export type AnnouncementUncheckedUpdateManyInput = {
   contactInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AnnouncementCountOrderByAggregateInput = {
@@ -407,6 +426,7 @@ export type AnnouncementCountOrderByAggregateInput = {
   contactInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 export type AnnouncementMaxOrderByAggregateInput = {
@@ -421,6 +441,7 @@ export type AnnouncementMaxOrderByAggregateInput = {
   contactInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 export type AnnouncementMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type AnnouncementMinOrderByAggregateInput = {
   contactInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 
@@ -451,6 +473,7 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   contactInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -465,6 +488,7 @@ export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   contactInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -479,6 +503,7 @@ export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   contactInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectScalar = {
@@ -493,9 +518,10 @@ export type AnnouncementSelectScalar = {
   contactInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
 }
 
-export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "summary" | "category" | "isVerified" | "isActive" | "externalLink" | "contactInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["announcement"]>
+export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "summary" | "category" | "isVerified" | "isActive" | "externalLink" | "contactInfo" | "createdAt" | "updatedAt" | "imageUrl", ExtArgs["result"]["announcement"]>
 
 export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Announcement"
@@ -512,6 +538,7 @@ export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     contactInfo: string | null
     createdAt: Date
     updatedAt: Date
+    imageUrl: string | null
   }, ExtArgs["result"]["announcement"]>
   composites: {}
 }
@@ -946,6 +973,7 @@ export interface AnnouncementFieldRefs {
   readonly contactInfo: Prisma.FieldRef<"Announcement", 'String'>
   readonly createdAt: Prisma.FieldRef<"Announcement", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Announcement", 'DateTime'>
+  readonly imageUrl: Prisma.FieldRef<"Announcement", 'String'>
 }
     
 

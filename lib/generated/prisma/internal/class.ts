@@ -17,22 +17,18 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.4.2",
-  "engineVersion": "94a226be1cf2967af2541cca5529f0f7ba866919",
+  "clientVersion": "7.3.0",
+  "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id            String   @id\n  name          String\n  email         String   @unique\n  emailVerified Boolean  @default(false)\n  image         String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n  // Contact & Provider details\n  phoneNumber   String?\n  location      String?\n  bio           String? // Brief provider description\n\n  sessions Session[]\n  accounts Account[]\n  services Service[]\n\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n  @@map(\"account\")\n}\n\nmodel Service {\n  id             String  @id @default(cuid())\n  title          String\n  description    String\n  category       String\n  status         String  @default(\"Available\") // Available, Busy, Offline\n  price          String? // Optional, e.g. \"$20/hr\"\n  operatingHours String? // e.g. \"Mon-Fri: 9AM - 5PM\"\n\n  providerId String\n  provider   User   @relation(fields: [providerId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([providerId])\n  @@map(\"service\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([identifier])\n  @@map(\"verification\")\n}\n\nmodel Announcement {\n  id           String   @id @default(cuid())\n  title        String\n  content      String   @db.Text\n  summary      String?\n  category     String\n  isVerified   Boolean  @default(false)\n  isActive     Boolean  @default(true)\n  externalLink String?\n  contactInfo  String?\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  @@index([category])\n  @@index([isVerified])\n  @@index([createdAt])\n  @@map(\"announcement\")\n}\n",
+  "inlineSchema": "generator client {\n  provider          = \"prisma-client\"\n  output            = \"../lib/generated/prisma\"\n  connectionTimeout = \"30000\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id                                       String            @id\n  name                                     String\n  email                                    String            @unique\n  emailVerified                            Boolean           @default(false)\n  image                                    String?\n  createdAt                                DateTime          @default(now())\n  updatedAt                                DateTime          @updatedAt\n  phoneNumber                              String?\n  location                                 String?\n  bio                                      String?\n  role                                     Role              @default(STUDENT)\n  accounts                                 Account[]\n  providerBookings                         Booking[]         @relation(\"ProviderBookings\")\n  studentBookings                          Booking[]         @relation(\"StudentBookings\")\n  messages                                 Message[]\n  provider_wallet                          provider_wallet?\n  services                                 Service[]\n  sessions                                 Session[]\n  support_message                          support_message[]\n  transaction_transaction_providerIdTouser transaction[]     @relation(\"transaction_providerIdTouser\")\n  transaction_transaction_studentIdTouser  transaction[]     @relation(\"transaction_studentIdTouser\")\n\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([userId])\n  @@map(\"account\")\n}\n\nmodel Service {\n  id             String    @id @default(cuid())\n  title          String\n  description    String\n  category       String\n  status         String    @default(\"Available\")\n  price          String?\n  providerId     String\n  createdAt      DateTime  @default(now())\n  updatedAt      DateTime  @updatedAt\n  operatingHours String?\n  bookings       Booking[]\n  provider       User      @relation(fields: [providerId], references: [id], onDelete: Cascade)\n\n  @@index([providerId])\n  @@map(\"service\")\n}\n\nmodel Booking {\n  id           String        @id @default(cuid())\n  studentId    String\n  providerId   String\n  serviceId    String\n  bookedAt     DateTime      @default(now())\n  status       BookingStatus @default(PENDING)\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n  provider     User          @relation(\"ProviderBookings\", fields: [providerId], references: [id], onDelete: Cascade)\n  service      Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)\n  student      User          @relation(\"StudentBookings\", fields: [studentId], references: [id], onDelete: Cascade)\n  conversation Conversation?\n  transaction  transaction[]\n\n  @@index([studentId])\n  @@index([providerId])\n  @@index([serviceId])\n  @@index([status])\n  @@map(\"booking\")\n}\n\nmodel Conversation {\n  id        String    @id @default(cuid())\n  bookingId String    @unique\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  booking   Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n  messages  Message[]\n\n  @@map(\"conversation\")\n}\n\nmodel Message {\n  id             String       @id @default(cuid())\n  conversationId String\n  senderId       String\n  content        String\n  createdAt      DateTime     @default(now())\n  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)\n  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)\n\n  @@index([conversationId])\n  @@index([senderId])\n  @@map(\"message\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([identifier])\n  @@map(\"verification\")\n}\n\nmodel Announcement {\n  id           String   @id @default(cuid())\n  title        String\n  content      String\n  summary      String?\n  category     String\n  isVerified   Boolean  @default(false)\n  isActive     Boolean  @default(true)\n  externalLink String?\n  contactInfo  String?\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n  imageUrl     String?\n\n  @@index([category])\n  @@index([isVerified])\n  @@index([createdAt])\n  @@map(\"announcement\")\n}\n\nmodel provider_wallet {\n  id               String   @id\n  providerId       String   @unique\n  availableBalance Float    @default(0)\n  pendingBalance   Float    @default(0)\n  totalEarnings    Float    @default(0)\n  totalWithdrawn   Float    @default(0)\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime\n  user             User     @relation(fields: [providerId], references: [id], onDelete: Cascade)\n}\n\nmodel support_message {\n  id        String   @id\n  userId    String\n  subject   String\n  message   String\n  status    String   @default(\"Open\")\n  createdAt DateTime @default(now())\n  updatedAt DateTime\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([status])\n  @@index([userId])\n}\n\nmodel transaction {\n  id                                String    @id\n  bookingId                         String\n  studentId                         String\n  providerId                        String\n  paystackReference                 String    @unique\n  totalAmount                       Float\n  platformCommission                Float\n  providerEarnings                  Float\n  commissionRate                    Float     @default(0.15)\n  status                            String    @default(\"pending\")\n  paymentMethod                     String?\n  paidAt                            DateTime?\n  createdAt                         DateTime  @default(now())\n  updatedAt                         DateTime\n  booking                           Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n  user_transaction_providerIdTouser User      @relation(\"transaction_providerIdTouser\", fields: [providerId], references: [id])\n  user_transaction_studentIdTouser  User      @relation(\"transaction_studentIdTouser\", fields: [studentId], references: [id])\n\n  @@index([bookingId])\n  @@index([paystackReference])\n  @@index([providerId])\n  @@index([status])\n  @@index([studentId])\n}\n\nenum Role {\n  STUDENT\n  PROVIDER\n  ADMIN\n}\n\nenum BookingStatus {\n  PENDING\n  ATTENDED\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
     "types": {}
-  },
-  "parameterizationSchema": {
-    "strings": [],
-    "graph": ""
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"Service\",\"relationName\":\"ServiceToUser\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":\"account\"},\"Service\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"operatingHours\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ServiceToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"service\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"Announcement\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"summary\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"externalLink\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"contactInfo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"announcement\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"providerBookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"ProviderBookings\"},{\"name\":\"studentBookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"StudentBookings\"},{\"name\":\"messages\",\"kind\":\"object\",\"type\":\"Message\",\"relationName\":\"MessageToUser\"},{\"name\":\"provider_wallet\",\"kind\":\"object\",\"type\":\"provider_wallet\",\"relationName\":\"UserToprovider_wallet\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"Service\",\"relationName\":\"ServiceToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"support_message\",\"kind\":\"object\",\"type\":\"support_message\",\"relationName\":\"UserTosupport_message\"},{\"name\":\"transaction_transaction_providerIdTouser\",\"kind\":\"object\",\"type\":\"transaction\",\"relationName\":\"transaction_providerIdTouser\"},{\"name\":\"transaction_transaction_studentIdTouser\",\"kind\":\"object\",\"type\":\"transaction\",\"relationName\":\"transaction_studentIdTouser\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":\"account\"},\"Service\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"operatingHours\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToService\"},{\"name\":\"provider\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ServiceToUser\"}],\"dbName\":\"service\"},\"Booking\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"studentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serviceId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bookedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"BookingStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"provider\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProviderBookings\"},{\"name\":\"service\",\"kind\":\"object\",\"type\":\"Service\",\"relationName\":\"BookingToService\"},{\"name\":\"student\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"StudentBookings\"},{\"name\":\"conversation\",\"kind\":\"object\",\"type\":\"Conversation\",\"relationName\":\"BookingToConversation\"},{\"name\":\"transaction\",\"kind\":\"object\",\"type\":\"transaction\",\"relationName\":\"BookingTotransaction\"}],\"dbName\":\"booking\"},\"Conversation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bookingId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"booking\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingToConversation\"},{\"name\":\"messages\",\"kind\":\"object\",\"type\":\"Message\",\"relationName\":\"ConversationToMessage\"}],\"dbName\":\"conversation\"},\"Message\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"conversationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"senderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"conversation\",\"kind\":\"object\",\"type\":\"Conversation\",\"relationName\":\"ConversationToMessage\"},{\"name\":\"sender\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MessageToUser\"}],\"dbName\":\"message\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"Announcement\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"summary\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"externalLink\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"contactInfo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"announcement\"},\"provider_wallet\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"availableBalance\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"pendingBalance\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"totalEarnings\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"totalWithdrawn\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToprovider_wallet\"}],\"dbName\":null},\"support_message\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subject\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserTosupport_message\"}],\"dbName\":null},\"transaction\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bookingId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"studentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paystackReference\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"totalAmount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"platformCommission\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"providerEarnings\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"commissionRate\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paymentMethod\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paidAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"booking\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BookingTotransaction\"},{\"name\":\"user_transaction_providerIdTouser\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"transaction_providerIdTouser\"},{\"name\":\"user_transaction_studentIdTouser\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"transaction_studentIdTouser\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -57,28 +53,26 @@ export type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> =
   'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never
 
 export interface PrismaClientConstructor {
-  /**
- * ## Prisma Client
- * 
- * Type-safe database client for TypeScript
- * @example
- * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
- * ```
- * 
- * Read more in our [docs](https://pris.ly/d/client).
- */
+    /**
+   * ## Prisma Client
+   * 
+   * Type-safe database client for TypeScript
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   * 
+   * Read more in our [docs](https://pris.ly/d/client).
+   */
 
   new <
     Options extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
     LogOpts extends LogOptions<Options> = LogOptions<Options>,
     OmitOpts extends Prisma.PrismaClientOptions['omit'] = Options extends { omit: infer U } ? U : Prisma.PrismaClientOptions['omit'],
     ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-  >(options: Prisma.Subset<Options, Prisma.PrismaClientOptions>): PrismaClient<LogOpts, OmitOpts, ExtArgs>
+  >(options: Prisma.Subset<Options, Prisma.PrismaClientOptions> ): PrismaClient<LogOpts, OmitOpts, ExtArgs>
 }
 
 /**
@@ -87,9 +81,7 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
@@ -116,15 +108,15 @@ export interface PrismaClient<
    */
   $disconnect(): runtime.Types.Utils.JsPromise<void>;
 
-  /**
-     * Executes a prepared raw query and returns the number of affected rows.
-     * @example
-     * ```
-     * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
-     * ```
-     *
-     * Read more in our [docs](https://pris.ly/d/raw-queries).
-     */
+/**
+   * Executes a prepared raw query and returns the number of affected rows.
+   * @example
+   * ```
+   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
   /**
@@ -174,7 +166,7 @@ export interface PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
@@ -184,14 +176,14 @@ export interface PrismaClient<
     extArgs: ExtArgs
   }>>
 
-  /**
-* `prisma.user`: Exposes CRUD operations for the **User** model.
-* Example usage:
-* ```ts
-* // Fetch zero or more Users
-* const users = await prisma.user.findMany()
-* ```
-*/
+      /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
@@ -273,6 +265,36 @@ export interface PrismaClient<
     * ```
     */
   get announcement(): Prisma.AnnouncementDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.provider_wallet`: Exposes CRUD operations for the **provider_wallet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Provider_wallets
+    * const provider_wallets = await prisma.provider_wallet.findMany()
+    * ```
+    */
+  get provider_wallet(): Prisma.provider_walletDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.support_message`: Exposes CRUD operations for the **support_message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Support_messages
+    * const support_messages = await prisma.support_message.findMany()
+    * ```
+    */
+  get support_message(): Prisma.support_messageDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.transaction`: Exposes CRUD operations for the **transaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transaction.findMany()
+    * ```
+    */
+  get transaction(): Prisma.transactionDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

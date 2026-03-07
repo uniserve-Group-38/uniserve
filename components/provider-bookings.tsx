@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { format } from "date-fns"
-import { MessageCircle, CheckCircle2, Clock3 } from "lucide-react"
+import { MessageCircle, CheckCircle2, Clock3, MapPin } from "lucide-react"
+
 
 import { BookingStatus } from "@/lib/generated/prisma/enums"
 import type { Prisma } from "@/lib/generated/prisma/client"
@@ -106,18 +107,33 @@ export function ProviderBookings({ bookings: initial }: ProviderBookingsProps) {
               </div>
 
               <div className="mt-3 flex items-center justify-between gap-3">
-                <Link
-                  href={`/dashboard/conversations/${booking.id}`}
-                  className="flex flex-1 items-center justify-between rounded-xl border-2 border-black bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] shadow-[4px_4px_0_0_#000] transition-transform group-hover:-translate-y-0.5"
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-[10px] text-lime-300">
-                      {booking.student.name.charAt(0).toUpperCase()}
+                <div className="flex items-center gap-2">
+                  <Link
+                    href={`/dashboard/conversations/${booking.id}`}
+                    className="flex flex-1 items-center justify-between rounded-xl border-2 border-black bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] shadow-[4px_4px_0_0_#000] transition-transform group-hover:-translate-y-0.5"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-[10px] text-lime-300">
+                        {booking.student.name.charAt(0).toUpperCase()}
+                      </span>
+                      Open conversation
                     </span>
-                    Open conversation
-                  </span>
-                  <MessageCircle className="h-4 w-4" />
-                </Link>
+                    <MessageCircle className="h-4 w-4" />
+                  </Link>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="border-2 border-black bg-cyan-200 shadow-[4px_4px_0_0_#000] hover:bg-cyan-300 transition-all hover:-translate-y-0.5"
+                    title="View on Map"
+                    onClick={() => {
+                        window.location.hash = "map";
+                        window.dispatchEvent(new CustomEvent("focus-booking", { detail: booking.id }));
+                    }}
+                  >
+                    <MapPin className="h-4 w-4" />
+                  </Button>
+                </div>
+
 
                 <AlertDialog>
                   <AlertDialogTrigger asChild>

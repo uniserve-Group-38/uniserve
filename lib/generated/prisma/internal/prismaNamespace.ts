@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.4.2
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Prisma Client JS version: 7.3.0
+ * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.4.2",
-  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
+  client: "7.3.0",
+  engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
 }
 
 /**
@@ -392,7 +392,10 @@ export const ModelName = {
   Conversation: 'Conversation',
   Message: 'Message',
   Verification: 'Verification',
-  Announcement: 'Announcement'
+  Announcement: 'Announcement',
+  provider_wallet: 'provider_wallet',
+  support_message: 'support_message',
+  transaction: 'transaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "service" | "booking" | "conversation" | "message" | "verification" | "announcement"
+    modelProps: "user" | "session" | "account" | "service" | "booking" | "conversation" | "message" | "verification" | "announcement" | "provider_wallet" | "support_message" | "transaction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1078,6 +1081,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    provider_wallet: {
+      payload: Prisma.$provider_walletPayload<ExtArgs>
+      fields: Prisma.provider_walletFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.provider_walletFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.provider_walletFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        findFirst: {
+          args: Prisma.provider_walletFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.provider_walletFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        findMany: {
+          args: Prisma.provider_walletFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>[]
+        }
+        create: {
+          args: Prisma.provider_walletCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        createMany: {
+          args: Prisma.provider_walletCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.provider_walletCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>[]
+        }
+        delete: {
+          args: Prisma.provider_walletDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        update: {
+          args: Prisma.provider_walletUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        deleteMany: {
+          args: Prisma.provider_walletDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.provider_walletUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.provider_walletUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>[]
+        }
+        upsert: {
+          args: Prisma.provider_walletUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$provider_walletPayload>
+        }
+        aggregate: {
+          args: Prisma.Provider_walletAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProvider_wallet>
+        }
+        groupBy: {
+          args: Prisma.provider_walletGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Provider_walletGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.provider_walletCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Provider_walletCountAggregateOutputType> | number
+        }
+      }
+    }
+    support_message: {
+      payload: Prisma.$support_messagePayload<ExtArgs>
+      fields: Prisma.support_messageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.support_messageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.support_messageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        findFirst: {
+          args: Prisma.support_messageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.support_messageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        findMany: {
+          args: Prisma.support_messageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>[]
+        }
+        create: {
+          args: Prisma.support_messageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        createMany: {
+          args: Prisma.support_messageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.support_messageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>[]
+        }
+        delete: {
+          args: Prisma.support_messageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        update: {
+          args: Prisma.support_messageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        deleteMany: {
+          args: Prisma.support_messageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.support_messageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.support_messageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>[]
+        }
+        upsert: {
+          args: Prisma.support_messageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$support_messagePayload>
+        }
+        aggregate: {
+          args: Prisma.Support_messageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupport_message>
+        }
+        groupBy: {
+          args: Prisma.support_messageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Support_messageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.support_messageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Support_messageCountAggregateOutputType> | number
+        }
+      }
+    }
+    transaction: {
+      payload: Prisma.$transactionPayload<ExtArgs>
+      fields: Prisma.transactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.transactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.transactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        findFirst: {
+          args: Prisma.transactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.transactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        findMany: {
+          args: Prisma.transactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>[]
+        }
+        create: {
+          args: Prisma.transactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        createMany: {
+          args: Prisma.transactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.transactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>[]
+        }
+        delete: {
+          args: Prisma.transactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        update: {
+          args: Prisma.transactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.transactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.transactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.transactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.transactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$transactionPayload>
+        }
+        aggregate: {
+          args: Prisma.TransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTransaction>
+        }
+        groupBy: {
+          args: Prisma.transactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.transactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1241,10 +1466,58 @@ export const AnnouncementScalarFieldEnum = {
   externalLink: 'externalLink',
   contactInfo: 'contactInfo',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  imageUrl: 'imageUrl'
 } as const
 
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const Provider_walletScalarFieldEnum = {
+  id: 'id',
+  providerId: 'providerId',
+  availableBalance: 'availableBalance',
+  pendingBalance: 'pendingBalance',
+  totalEarnings: 'totalEarnings',
+  totalWithdrawn: 'totalWithdrawn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Provider_walletScalarFieldEnum = (typeof Provider_walletScalarFieldEnum)[keyof typeof Provider_walletScalarFieldEnum]
+
+
+export const Support_messageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Support_messageScalarFieldEnum = (typeof Support_messageScalarFieldEnum)[keyof typeof Support_messageScalarFieldEnum]
+
+
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  studentId: 'studentId',
+  providerId: 'providerId',
+  paystackReference: 'paystackReference',
+  totalAmount: 'totalAmount',
+  platformCommission: 'platformCommission',
+  providerEarnings: 'providerEarnings',
+  commissionRate: 'commissionRate',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1337,6 +1610,20 @@ export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'BookingStatus[]'
  */
 export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -1457,6 +1744,9 @@ export type GlobalOmitConfig = {
   message?: Prisma.MessageOmit
   verification?: Prisma.VerificationOmit
   announcement?: Prisma.AnnouncementOmit
+  provider_wallet?: Prisma.provider_walletOmit
+  support_message?: Prisma.support_messageOmit
+  transaction?: Prisma.transactionOmit
 }
 
 /* Types for Logging */

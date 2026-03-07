@@ -28,9 +28,7 @@ export * from "./enums"
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
@@ -86,3 +84,18 @@ export type Verification = Prisma.VerificationModel
  * 
  */
 export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model provider_wallet
+ * 
+ */
+export type provider_wallet = Prisma.provider_walletModel
+/**
+ * Model support_message
+ * 
+ */
+export type support_message = Prisma.support_messageModel
+/**
+ * Model transaction
+ * 
+ */
+export type transaction = Prisma.transactionModel

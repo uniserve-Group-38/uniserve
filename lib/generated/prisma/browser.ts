@@ -62,3 +62,18 @@ export type Verification = Prisma.VerificationModel
  * 
  */
 export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model provider_wallet
+ * 
+ */
+export type provider_wallet = Prisma.provider_walletModel
+/**
+ * Model support_message
+ * 
+ */
+export type support_message = Prisma.support_messageModel
+/**
+ * Model transaction
+ * 
+ */
+export type transaction = Prisma.transactionModel

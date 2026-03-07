@@ -10,8 +10,10 @@ import {
     Bell,
     LogOut,
     User as UserIcon,
-    Settings
+    Settings,
+    Map as MapIcon
 } from "lucide-react"
+
 
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -113,12 +115,19 @@ export function Sidebar() {
                         <DropdownMenuContent className="w-56 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-none" align="end" forceMount>
                             <DropdownMenuLabel className="font-black">My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator className="bg-black" />
+                            <DropdownMenuItem asChild className="font-bold cursor-pointer focus:bg-cyan-100 py-2">
+                                <Link href="/dashboard#map">
+                                    <MapIcon className="mr-2 h-4 w-4" />
+                                    <span>Map</span>
+                                </Link>
+                            </DropdownMenuItem>
                             <DropdownMenuItem asChild className="font-bold cursor-pointer focus:bg-pink-100 py-2">
                                 <Link href="/account">
                                     <Settings className="mr-2 h-4 w-4" />
                                     <span>Settings</span>
                                 </Link>
                             </DropdownMenuItem>
+
                             <DropdownMenuItem
                                 className="font-bold text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer py-2"
                                 onClick={async () => {

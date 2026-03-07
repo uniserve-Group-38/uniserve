@@ -161,11 +161,11 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 export type GetUserAggregateType<T extends UserAggregateArgs> = {
-  [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
-  ? T[P] extends true
-  ? number
-  : Prisma.GetScalarType<T[P], AggregateUser[P]>
-  : Prisma.GetScalarType<T[P], AggregateUser[P]>
+      [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+    ? T[P] extends true
+      ? number
+      : Prisma.GetScalarType<T[P], AggregateUser[P]>
+    : Prisma.GetScalarType<T[P], AggregateUser[P]>
 }
 
 
@@ -203,15 +203,15 @@ export type UserGroupByOutputType = {
 type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserGroupByOutputType, T['by']> &
-    {
-      [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-      ? T[P] extends boolean
-      ? number
-      : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>
-      : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>
-    }
+      {
+        [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+          ? T[P] extends boolean
+            ? number
+            : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>
+      }
+    >
   >
->
 
 
 
@@ -229,9 +229,17 @@ export type UserWhereInput = {
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   location?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   accounts?: Prisma.AccountListRelationFilter
+  providerBookings?: Prisma.BookingListRelationFilter
+  studentBookings?: Prisma.BookingListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  provider_wallet?: Prisma.XOR<Prisma.Provider_walletNullableScalarRelationFilter, Prisma.provider_walletWhereInput> | null
   services?: Prisma.ServiceListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  support_message?: Prisma.Support_messageListRelationFilter
+  transaction_transaction_providerIdTouser?: Prisma.TransactionListRelationFilter
+  transaction_transaction_studentIdTouser?: Prisma.TransactionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -245,9 +253,17 @@ export type UserOrderByWithRelationInput = {
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  providerBookings?: Prisma.BookingOrderByRelationAggregateInput
+  studentBookings?: Prisma.BookingOrderByRelationAggregateInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
+  provider_wallet?: Prisma.provider_walletOrderByWithRelationInput
   services?: Prisma.ServiceOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  support_message?: Prisma.support_messageOrderByRelationAggregateInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionOrderByRelationAggregateInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -264,9 +280,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   location?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   accounts?: Prisma.AccountListRelationFilter
+  providerBookings?: Prisma.BookingListRelationFilter
+  studentBookings?: Prisma.BookingListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  provider_wallet?: Prisma.XOR<Prisma.Provider_walletNullableScalarRelationFilter, Prisma.provider_walletWhereInput> | null
   services?: Prisma.ServiceListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  support_message?: Prisma.Support_messageListRelationFilter
+  transaction_transaction_providerIdTouser?: Prisma.TransactionListRelationFilter
+  transaction_transaction_studentIdTouser?: Prisma.TransactionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -314,9 +338,17 @@ export type UserCreateInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
   services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -330,9 +362,17 @@ export type UserUncheckedCreateInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserUpdateInput = {
@@ -346,9 +386,17 @@ export type UserUpdateInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
   services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -362,9 +410,17 @@ export type UserUncheckedUpdateInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -518,24 +574,16 @@ export type UserUpdateOneRequiredWithoutServicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutServicesInput, Prisma.UserUpdateWithoutServicesInput>, Prisma.UserUncheckedUpdateWithoutServicesInput>
 }
 
-export type UserCreateNestedOneWithoutStudentBookingsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutStudentBookingsInput, Prisma.UserUncheckedCreateWithoutStudentBookingsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStudentBookingsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
 export type UserCreateNestedOneWithoutProviderBookingsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProviderBookingsInput, Prisma.UserUncheckedCreateWithoutProviderBookingsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProviderBookingsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutStudentBookingsNestedInput = {
+export type UserCreateNestedOneWithoutStudentBookingsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutStudentBookingsInput, Prisma.UserUncheckedCreateWithoutStudentBookingsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutStudentBookingsInput
-  upsert?: Prisma.UserUpsertWithoutStudentBookingsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStudentBookingsInput, Prisma.UserUpdateWithoutStudentBookingsInput>, Prisma.UserUncheckedUpdateWithoutStudentBookingsInput>
 }
 
 export type UserUpdateOneRequiredWithoutProviderBookingsNestedInput = {
@@ -546,18 +594,82 @@ export type UserUpdateOneRequiredWithoutProviderBookingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProviderBookingsInput, Prisma.UserUpdateWithoutProviderBookingsInput>, Prisma.UserUncheckedUpdateWithoutProviderBookingsInput>
 }
 
-export type UserCreateNestedOneWithoutSentMessagesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+export type UserUpdateOneRequiredWithoutStudentBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStudentBookingsInput, Prisma.UserUncheckedCreateWithoutStudentBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStudentBookingsInput
+  upsert?: Prisma.UserUpsertWithoutStudentBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStudentBookingsInput, Prisma.UserUpdateWithoutStudentBookingsInput>, Prisma.UserUncheckedUpdateWithoutStudentBookingsInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
-  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
+  upsert?: Prisma.UserUpsertWithoutMessagesInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutProvider_walletInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProvider_walletInput, Prisma.UserUncheckedCreateWithoutProvider_walletInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProvider_walletInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProvider_walletNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProvider_walletInput, Prisma.UserUncheckedCreateWithoutProvider_walletInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProvider_walletInput
+  upsert?: Prisma.UserUpsertWithoutProvider_walletInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProvider_walletInput, Prisma.UserUpdateWithoutProvider_walletInput>, Prisma.UserUncheckedUpdateWithoutProvider_walletInput>
+}
+
+export type UserCreateNestedOneWithoutSupport_messageInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_messageInput, Prisma.UserUncheckedCreateWithoutSupport_messageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_messageInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSupport_messageNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupport_messageInput, Prisma.UserUncheckedCreateWithoutSupport_messageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupport_messageInput
+  upsert?: Prisma.UserUpsertWithoutSupport_messageInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupport_messageInput, Prisma.UserUpdateWithoutSupport_messageInput>, Prisma.UserUncheckedUpdateWithoutSupport_messageInput>
+}
+
+export type UserCreateNestedOneWithoutTransaction_transaction_providerIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_providerIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransaction_transaction_providerIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutTransaction_transaction_studentIdTouserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_studentIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransaction_transaction_studentIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTransaction_transaction_providerIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_providerIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransaction_transaction_providerIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutTransaction_transaction_providerIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUpdateWithoutTransaction_transaction_providerIdTouserInput>, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_providerIdTouserInput>
+}
+
+export type UserUpdateOneRequiredWithoutTransaction_transaction_studentIdTouserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_studentIdTouserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransaction_transaction_studentIdTouserInput
+  upsert?: Prisma.UserUpsertWithoutTransaction_transaction_studentIdTouserInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUpdateWithoutTransaction_transaction_studentIdTouserInput>, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_studentIdTouserInput>
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -573,10 +685,14 @@ export type UserCreateWithoutSessionsInput = {
   bio?: string | null
   role?: $Enums.Role
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
-  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
   providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -592,10 +708,14 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   bio?: string | null
   role?: $Enums.Role
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
-  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
   providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -627,10 +747,14 @@ export type UserUpdateWithoutSessionsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
-  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
   providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -646,10 +770,14 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
-  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
   providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -663,8 +791,16 @@ export type UserCreateWithoutAccountsInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
   services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -678,8 +814,16 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -709,8 +853,16 @@ export type UserUpdateWithoutAccountsInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
   services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -724,8 +876,16 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserCreateWithoutServicesInput = {
@@ -739,8 +899,16 @@ export type UserCreateWithoutServicesInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserUncheckedCreateWithoutServicesInput = {
@@ -754,8 +922,16 @@ export type UserUncheckedCreateWithoutServicesInput = {
   phoneNumber?: string | null
   location?: string | null
   bio?: string | null
+  role?: $Enums.Role
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
 }
 
 export type UserCreateOrConnectWithoutServicesInput = {
@@ -785,8 +961,16 @@ export type UserUpdateWithoutServicesInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServicesInput = {
@@ -800,8 +984,772 @@ export type UserUncheckedUpdateWithoutServicesInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserCreateWithoutProviderBookingsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutProviderBookingsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutProviderBookingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProviderBookingsInput, Prisma.UserUncheckedCreateWithoutProviderBookingsInput>
+}
+
+export type UserCreateWithoutStudentBookingsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutStudentBookingsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutStudentBookingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStudentBookingsInput, Prisma.UserUncheckedCreateWithoutStudentBookingsInput>
+}
+
+export type UserUpsertWithoutProviderBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProviderBookingsInput, Prisma.UserUncheckedUpdateWithoutProviderBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProviderBookingsInput, Prisma.UserUncheckedCreateWithoutProviderBookingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProviderBookingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProviderBookingsInput, Prisma.UserUncheckedUpdateWithoutProviderBookingsInput>
+}
+
+export type UserUpdateWithoutProviderBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProviderBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUpsertWithoutStudentBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStudentBookingsInput, Prisma.UserUncheckedUpdateWithoutStudentBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStudentBookingsInput, Prisma.UserUncheckedCreateWithoutStudentBookingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStudentBookingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStudentBookingsInput, Prisma.UserUncheckedUpdateWithoutStudentBookingsInput>
+}
+
+export type UserUpdateWithoutStudentBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStudentBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserCreateWithoutMessagesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+}
+
+export type UserUpsertWithoutMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserCreateWithoutProvider_walletInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutProvider_walletInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutProvider_walletInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProvider_walletInput, Prisma.UserUncheckedCreateWithoutProvider_walletInput>
+}
+
+export type UserUpsertWithoutProvider_walletInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProvider_walletInput, Prisma.UserUncheckedUpdateWithoutProvider_walletInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProvider_walletInput, Prisma.UserUncheckedCreateWithoutProvider_walletInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProvider_walletInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProvider_walletInput, Prisma.UserUncheckedUpdateWithoutProvider_walletInput>
+}
+
+export type UserUpdateWithoutProvider_walletInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProvider_walletInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserCreateWithoutSupport_messageInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutSupport_messageInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutSupport_messageInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_messageInput, Prisma.UserUncheckedCreateWithoutSupport_messageInput>
+}
+
+export type UserUpsertWithoutSupport_messageInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupport_messageInput, Prisma.UserUncheckedUpdateWithoutSupport_messageInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupport_messageInput, Prisma.UserUncheckedCreateWithoutSupport_messageInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupport_messageInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupport_messageInput, Prisma.UserUncheckedUpdateWithoutSupport_messageInput>
+}
+
+export type UserUpdateWithoutSupport_messageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupport_messageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserCreateWithoutTransaction_transaction_providerIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutTransaction_transaction_providerIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_studentIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutTransaction_transaction_providerIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_providerIdTouserInput>
+}
+
+export type UserCreateWithoutTransaction_transaction_studentIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+}
+
+export type UserUncheckedCreateWithoutTransaction_transaction_studentIdTouserInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumber?: string | null
+  location?: string | null
+  bio?: string | null
+  role?: $Enums.Role
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  providerBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutProviderInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  provider_wallet?: Prisma.provider_walletUncheckedCreateNestedOneWithoutUserInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  support_message?: Prisma.support_messageUncheckedCreateNestedManyWithoutUserInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedCreateNestedManyWithoutUser_transaction_providerIdTouserInput
+}
+
+export type UserCreateOrConnectWithoutTransaction_transaction_studentIdTouserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_studentIdTouserInput>
+}
+
+export type UserUpsertWithoutTransaction_transaction_providerIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_providerIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_providerIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTransaction_transaction_providerIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTransaction_transaction_providerIdTouserInput, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_providerIdTouserInput>
+}
+
+export type UserUpdateWithoutTransaction_transaction_providerIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTransaction_transaction_providerIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_studentIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_studentIdTouserNestedInput
+}
+
+export type UserUpsertWithoutTransaction_transaction_studentIdTouserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_studentIdTouserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedCreateWithoutTransaction_transaction_studentIdTouserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTransaction_transaction_studentIdTouserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTransaction_transaction_studentIdTouserInput, Prisma.UserUncheckedUpdateWithoutTransaction_transaction_studentIdTouserInput>
+}
+
+export type UserUpdateWithoutTransaction_transaction_studentIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTransaction_transaction_studentIdTouserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  providerBookings?: Prisma.BookingUncheckedUpdateManyWithoutProviderNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  provider_wallet?: Prisma.provider_walletUncheckedUpdateOneWithoutUserNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  support_message?: Prisma.support_messageUncheckedUpdateManyWithoutUserNestedInput
+  transaction_transaction_providerIdTouser?: Prisma.transactionUncheckedUpdateManyWithoutUser_transaction_providerIdTouserNestedInput
 }
 
 
@@ -811,14 +1759,26 @@ export type UserUncheckedUpdateWithoutServicesInput = {
 
 export type UserCountOutputType = {
   accounts: number
+  providerBookings: number
+  studentBookings: number
+  messages: number
   services: number
   sessions: number
+  support_message: number
+  transaction_transaction_providerIdTouser: number
+  transaction_transaction_studentIdTouser: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  providerBookings?: boolean | UserCountOutputTypeCountProviderBookingsArgs
+  studentBookings?: boolean | UserCountOutputTypeCountStudentBookingsArgs
+  messages?: boolean | UserCountOutputTypeCountMessagesArgs
   services?: boolean | UserCountOutputTypeCountServicesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  support_message?: boolean | UserCountOutputTypeCountSupport_messageArgs
+  transaction_transaction_providerIdTouser?: boolean | UserCountOutputTypeCountTransaction_transaction_providerIdTouserArgs
+  transaction_transaction_studentIdTouser?: boolean | UserCountOutputTypeCountTransaction_transaction_studentIdTouserArgs
 }
 
 /**
@@ -841,15 +1801,22 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountServicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ServiceWhereInput
+export type UserCountOutputTypeCountProviderBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AccountWhereInput
+export type UserCountOutputTypeCountStudentBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
 }
 
 /**
@@ -866,6 +1833,27 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SessionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupport_messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.support_messageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTransaction_transaction_providerIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.transactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTransaction_transaction_studentIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.transactionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -878,9 +1866,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phoneNumber?: boolean
   location?: boolean
   bio?: boolean
+  role?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  providerBookings?: boolean | Prisma.User$providerBookingsArgs<ExtArgs>
+  studentBookings?: boolean | Prisma.User$studentBookingsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  provider_wallet?: boolean | Prisma.User$provider_walletArgs<ExtArgs>
   services?: boolean | Prisma.User$servicesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  support_message?: boolean | Prisma.User$support_messageArgs<ExtArgs>
+  transaction_transaction_providerIdTouser?: boolean | Prisma.User$transaction_transaction_providerIdTouserArgs<ExtArgs>
+  transaction_transaction_studentIdTouser?: boolean | Prisma.User$transaction_transaction_studentIdTouserArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -929,8 +1925,15 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "phoneNumber" | "location" | "bio" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  providerBookings?: boolean | Prisma.User$providerBookingsArgs<ExtArgs>
+  studentBookings?: boolean | Prisma.User$studentBookingsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  provider_wallet?: boolean | Prisma.User$provider_walletArgs<ExtArgs>
   services?: boolean | Prisma.User$servicesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  support_message?: boolean | Prisma.User$support_messageArgs<ExtArgs>
+  transaction_transaction_providerIdTouser?: boolean | Prisma.User$transaction_transaction_providerIdTouserArgs<ExtArgs>
+  transaction_transaction_studentIdTouser?: boolean | Prisma.User$transaction_transaction_studentIdTouserArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -940,8 +1943,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    providerBookings: Prisma.$BookingPayload<ExtArgs>[]
+    studentBookings: Prisma.$BookingPayload<ExtArgs>[]
+    messages: Prisma.$MessagePayload<ExtArgs>[]
+    provider_wallet: Prisma.$provider_walletPayload<ExtArgs> | null
     services: Prisma.$ServicePayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    support_message: Prisma.$support_messagePayload<ExtArgs>[]
+    transaction_transaction_providerIdTouser: Prisma.$transactionPayload<ExtArgs>[]
+    transaction_transaction_studentIdTouser: Prisma.$transactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1227,10 +2237,10 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
     args?: Prisma.Subset<T, UserCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
-    ? T['select'] extends true
-    ? number
-    : Prisma.GetScalarType<T['select'], UserCountAggregateOutputType>
-    : number
+      ? T['select'] extends true
+        ? number
+        : Prisma.GetScalarType<T['select'], UserCountAggregateOutputType>
+      : number
   >
 
   /**
@@ -1284,8 +2294,8 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
       Prisma.Extends<'take', Prisma.Keys<T>>
     >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
-    ? { orderBy: UserGroupByArgs['orderBy'] }
-    : { orderBy?: UserGroupByArgs['orderBy'] },
+      ? { orderBy: UserGroupByArgs['orderBy'] }
+      : { orderBy?: UserGroupByArgs['orderBy'] },
     OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
@@ -1296,49 +2306,49 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
     ? `Error: "by" must not be empty.`
     : HavingValid extends Prisma.False
     ? {
-      [P in HavingFields]: P extends ByFields
-      ? never
-      : P extends string
-      ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-      : [
-        Error,
-        'Field ',
-        P,
-        ` in "having" needs to be provided in "by"`,
-      ]
-    }[HavingFields]
+        [P in HavingFields]: P extends ByFields
+          ? never
+          : P extends string
+          ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+          : [
+              Error,
+              'Field ',
+              P,
+              ` in "having" needs to be provided in "by"`,
+            ]
+      }[HavingFields]
     : 'take' extends Prisma.Keys<T>
     ? 'orderBy' extends Prisma.Keys<T>
-    ? ByValid extends Prisma.True
-    ? {}
-    : {
-      [P in OrderFields]: P extends ByFields
-      ? never
-      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-    }[OrderFields]
-    : 'Error: If you provide "take", you also need to provide "orderBy"'
+      ? ByValid extends Prisma.True
+        ? {}
+        : {
+            [P in OrderFields]: P extends ByFields
+              ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+          }[OrderFields]
+      : 'Error: If you provide "take", you also need to provide "orderBy"'
     : 'skip' extends Prisma.Keys<T>
     ? 'orderBy' extends Prisma.Keys<T>
-    ? ByValid extends Prisma.True
-    ? {}
-    : {
-      [P in OrderFields]: P extends ByFields
-      ? never
-      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-    }[OrderFields]
-    : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      ? ByValid extends Prisma.True
+        ? {}
+        : {
+            [P in OrderFields]: P extends ByFields
+              ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+          }[OrderFields]
+      : 'Error: If you provide "skip", you also need to provide "orderBy"'
     : ByValid extends Prisma.True
     ? {}
     : {
-      [P in OrderFields]: P extends ByFields
-      ? never
-      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-    }[OrderFields]
+        [P in OrderFields]: P extends ByFields
+          ? never
+          : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+      }[OrderFields]
   >(args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
+/**
+ * Fields of the User model
+ */
+readonly fields: UserFieldRefs;
 }
 
 /**
@@ -1350,8 +2360,15 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  providerBookings<T extends Prisma.User$providerBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$providerBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  studentBookings<T extends Prisma.User$studentBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studentBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  provider_wallet<T extends Prisma.User$provider_walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$provider_walletArgs<ExtArgs>>): Prisma.Prisma__provider_walletClient<runtime.Types.Result.GetResult<Prisma.$provider_walletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   services<T extends Prisma.User$servicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  support_message<T extends Prisma.User$support_messageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$support_messageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$support_messagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transaction_transaction_providerIdTouser<T extends Prisma.User$transaction_transaction_providerIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transaction_transaction_providerIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$transactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transaction_transaction_studentIdTouser<T extends Prisma.User$transaction_transaction_studentIdTouserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transaction_transaction_studentIdTouserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$transactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1393,7 +2410,7 @@ export interface UserFieldRefs {
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
 }
-
+    
 
 // Custom InputTypes
 /**
@@ -1804,6 +2821,97 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * User.providerBookings
+ */
+export type User$providerBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Booking
+   */
+  select?: Prisma.BookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Booking
+   */
+  omit?: Prisma.BookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
+}
+
+/**
+ * User.studentBookings
+ */
+export type User$studentBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Booking
+   */
+  select?: Prisma.BookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Booking
+   */
+  omit?: Prisma.BookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
+}
+
+/**
+ * User.messages
+ */
+export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.provider_wallet
+ */
+export type User$provider_walletArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the provider_wallet
+   */
+  select?: Prisma.provider_walletSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the provider_wallet
+   */
+  omit?: Prisma.provider_walletOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.provider_walletInclude<ExtArgs> | null
+  where?: Prisma.provider_walletWhereInput
+}
+
+/**
  * User.services
  */
 export type User$servicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1849,6 +2957,78 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.support_message
+ */
+export type User$support_messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the support_message
+   */
+  select?: Prisma.support_messageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the support_message
+   */
+  omit?: Prisma.support_messageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.support_messageInclude<ExtArgs> | null
+  where?: Prisma.support_messageWhereInput
+  orderBy?: Prisma.support_messageOrderByWithRelationInput | Prisma.support_messageOrderByWithRelationInput[]
+  cursor?: Prisma.support_messageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Support_messageScalarFieldEnum | Prisma.Support_messageScalarFieldEnum[]
+}
+
+/**
+ * User.transaction_transaction_providerIdTouser
+ */
+export type User$transaction_transaction_providerIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the transaction
+   */
+  select?: Prisma.transactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the transaction
+   */
+  omit?: Prisma.transactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.transactionInclude<ExtArgs> | null
+  where?: Prisma.transactionWhereInput
+  orderBy?: Prisma.transactionOrderByWithRelationInput | Prisma.transactionOrderByWithRelationInput[]
+  cursor?: Prisma.transactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * User.transaction_transaction_studentIdTouser
+ */
+export type User$transaction_transaction_studentIdTouserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the transaction
+   */
+  select?: Prisma.transactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the transaction
+   */
+  omit?: Prisma.transactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.transactionInclude<ExtArgs> | null
+  where?: Prisma.transactionWhereInput
+  orderBy?: Prisma.transactionOrderByWithRelationInput | Prisma.transactionOrderByWithRelationInput[]
+  cursor?: Prisma.transactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
 }
 
 /**
