@@ -54,7 +54,8 @@ export default function Footer() {
           scrub:true
 
         },
-         x: 200,
+         x: 550,
+        // y: -250,
          opacity: 0,
       });
 
@@ -75,7 +76,7 @@ export default function Footer() {
           <div className="box1 absolute top-30 left-10 w-20 h-20 bg-pink-400 border-4 border-black rotate-45 animate-float" style={{ "--float-rotate": "45deg" } as React.CSSProperties} />
           <div className="box2 absolute top-70 right-20 w-24 h-24 bg-yellow-300 rounded-full border-4 border-black animate-float " style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
           <div className="box3 absolute bottom-10 left-1/4 w-16 h-16 bg-orange-400 border-4 border-black " style={{ "--float-rotate": "0deg" } as React.CSSProperties} />
-          <div className="box4 absolute bottom-20 right-1/3 w-20 h-20 bg-lime-300 border-4 border-black rotate-12 " style={{ "--float-rotate": "12deg" } as React.CSSProperties} />
+          <div className="box4 absolute bottom-18 right-1/3  w-20 h-20 bg-lime-300 border-4 border-black rotate-12 " style={{ "--float-rotate": "12deg" } as React.CSSProperties} />
         </div>
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
