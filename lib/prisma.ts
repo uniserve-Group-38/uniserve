@@ -13,10 +13,18 @@ const pool =
   globalForPrisma.pool ??
   new Pool({
     connectionString,
-    max: 10,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 10000,
+    max: 5, // keep pool small for serverless
+    idleTimeoutMillis: 10000, // release idle connections before Neon suspends (5min)
+    connectionTimeoutMillis: 30000, // allow time for Neon cold-start
+    keepAlive: true, // send TCP keepalives to detect dead connections
+    keepAliveInitialDelayMillis: 10000,
   });
+
+if (!globalForPrisma.pool) {
+  pool.on("error", (err) => {
+    console.error("Unexpected error on idle client", err);
+  });
+}
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.pool = pool;

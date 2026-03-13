@@ -60,7 +60,11 @@ export const ModelName = {
   Message: 'Message',
   Verification: 'Verification',
   Announcement: 'Announcement',
-  SupportMessage: 'SupportMessage'
+  SupportMessage: 'SupportMessage',
+  message_group: 'message_group',
+  provider_wallet: 'provider_wallet',
+  transaction: 'transaction',
+  ServiceProviderApplication: 'ServiceProviderApplication'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -174,7 +178,8 @@ export const MessageScalarFieldEnum = {
   conversationId: 'conversationId',
   senderId: 'senderId',
   content: 'content',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  readAt: 'readAt'
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -223,12 +228,77 @@ export const SupportMessageScalarFieldEnum = {
 export type SupportMessageScalarFieldEnum = (typeof SupportMessageScalarFieldEnum)[keyof typeof SupportMessageScalarFieldEnum]
 
 
+export const Message_groupScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  date: 'date',
+  data: 'data'
+} as const
+
+export type Message_groupScalarFieldEnum = (typeof Message_groupScalarFieldEnum)[keyof typeof Message_groupScalarFieldEnum]
+
+
+export const Provider_walletScalarFieldEnum = {
+  id: 'id',
+  providerId: 'providerId',
+  availableBalance: 'availableBalance',
+  pendingBalance: 'pendingBalance',
+  totalEarnings: 'totalEarnings',
+  totalWithdrawn: 'totalWithdrawn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Provider_walletScalarFieldEnum = (typeof Provider_walletScalarFieldEnum)[keyof typeof Provider_walletScalarFieldEnum]
+
+
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  bookingId: 'bookingId',
+  studentId: 'studentId',
+  providerId: 'providerId',
+  paystackReference: 'paystackReference',
+  totalAmount: 'totalAmount',
+  platformCommission: 'platformCommission',
+  providerEarnings: 'providerEarnings',
+  commissionRate: 'commissionRate',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const ServiceProviderApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  businessName: 'businessName',
+  description: 'description',
+  category: 'category',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServiceProviderApplicationScalarFieldEnum = (typeof ServiceProviderApplicationScalarFieldEnum)[keyof typeof ServiceProviderApplicationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -245,4 +315,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

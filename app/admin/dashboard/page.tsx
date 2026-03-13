@@ -5,11 +5,11 @@ import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import PendingApplicationsCard from "./pending-applications-card"
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboardPage() {
-    // Fetch users and their counts
     const users = await prisma.user.findMany({
         orderBy: { createdAt: 'desc' },
         include: {
@@ -19,10 +19,14 @@ export default async function AdminDashboardPage() {
         }
     })
 
-    // Fetch support messages
-    const supportMessages = await prisma.supportMessage.findMany({
+    const pendingApplications = await prisma.serviceProviderApplication.findMany({
+        where: { status: 'PENDING' },
         orderBy: { createdAt: 'desc' },
-        include: { user: true }
+        include: {
+            user: {
+                select: { name: true, email: true }
+            }
+        }
     })
 
     return (
@@ -39,11 +43,16 @@ export default async function AdminDashboardPage() {
                     </p>
                 </div>
 
+                {/* Pending Provider Applications Notification Card */}
+                <div className="mb-8">
+                    <PendingApplicationsCard initialPending={pendingApplications} />
+                </div>
+
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                     <h2 className="text-2xl font-black uppercase inline-block border-b-4 border-black pb-1">
                         System Users
                     </h2>
-                    
+
                     <Link href="/admin/support">
                         <Button className="font-bold bg-cyan-200 text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 transition-all flex items-center gap-2">
                             <span>View Support Inbox</span>

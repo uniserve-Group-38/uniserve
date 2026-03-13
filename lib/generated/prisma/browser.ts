@@ -67,3 +67,23 @@ export type Announcement = Prisma.AnnouncementModel
  * 
  */
 export type SupportMessage = Prisma.SupportMessageModel
+/**
+ * Model message_group
+ * 
+ */
+export type message_group = Prisma.message_groupModel
+/**
+ * Model provider_wallet
+ * 
+ */
+export type provider_wallet = Prisma.provider_walletModel
+/**
+ * Model transaction
+ * 
+ */
+export type transaction = Prisma.transactionModel
+/**
+ * Model ServiceProviderApplication
+ * 
+ */
+export type ServiceProviderApplication = Prisma.ServiceProviderApplicationModel

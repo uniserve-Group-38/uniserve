@@ -109,6 +109,22 @@ export default function Hero() {
               SIGN UP FREE
             </div>
           </Link>
+
+          <Link href="/apply" className="w-full sm:w-auto">
+            <div className="
+              bg-yellow-400 text-black font-black
+              text-base sm:text-lg md:text-xl
+              px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6
+              border-4 sm:border-[6px] border-black
+              shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
+              hover:-translate-y-1
+              transition-all duration-200
+              flex items-center justify-center
+              w-full sm:w-auto
+            ">
+              BECOME A PROVIDER
+            </div>
+          </Link>
         </div>
       </div>
     </section>

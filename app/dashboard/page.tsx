@@ -1,32 +1,21 @@
-import { redirect } from "next/navigation"
 import { headers } from "next/headers"
+import { auth } from "@/lib/auth"
 
 import { prisma } from "@/lib/prisma"
 import type { Prisma, Service } from "@/lib/generated/prisma/client"
 import { BookingStatus, Role as RoleEnum } from "@/lib/generated/prisma/enums"
 
-
 export const dynamic = "force-dynamic"
 
 export default async function ProviderDashboardPage() {
-  // --- Authentication Bypassed for Evaluation ---
-  // const session = await auth.api.getSession({
-  //   headers: await headers(),
-  // })
-  //
-  // if (!session) {
-  //   redirect("/auth/sign-in")
-  // }
-  //
-  // const role = (session.user as { role?: string }).role
-  // if (role !== RoleEnum.PROVIDER) {
-  //   redirect("/")
-  // }
-  // --- End of Bypass ---
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+  if (!session) return null
 
   const bookings = await prisma.booking.findMany({
     where: {
-      providerId: "user_1", // Hardcoded for evaluation
+      providerId: session.user.id,
       status: BookingStatus.PENDING,
     },
     include: { student: true, service: true },

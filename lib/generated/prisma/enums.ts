@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const ApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
 export const BookingStatus = {
   PENDING: 'PENDING',
   ATTENDED: 'ATTENDED'

@@ -9,24 +9,28 @@ datasource db {
 }
 
 model User {
-  id               String           @id
-  name             String
-  email            String           @unique
-  emailVerified    Boolean          @default(false)
-  image            String?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  phoneNumber      String?
-  location         String?
-  bio              String?
-  role             Role             @default(STUDENT)
-  accounts         Account[]
-  providerBookings Booking[]        @relation("ProviderBookings")
-  studentBookings  Booking[]        @relation("StudentBookings")
-  sentMessages     Message[]
-  services         Service[]
-  sessions         Session[]
-  supportMessages  SupportMessage[]
+  id                                       String           @id
+  name                                     String
+  email                                    String           @unique
+  emailVerified                            Boolean          @default(false)
+  image                                    String?
+  createdAt                                DateTime         @default(now())
+  updatedAt                                DateTime         @updatedAt
+  phoneNumber                              String?
+  location                                 String?
+  bio                                      String?
+  role                                     Role             @default(STUDENT)
+  accounts                                 Account[]
+  providerBookings                         Booking[]        @relation("ProviderBookings")
+  studentBookings                          Booking[]        @relation("StudentBookings")
+  sentMessages                             Message[]
+  provider_wallet                          provider_wallet?
+  services                                 Service[]
+  sessions                                 Session[]
+  supportMessages                          SupportMessage[]
+  transaction_transaction_providerIdTouser transaction[]    @relation("transaction_providerIdTouser")
+  transaction_transaction_studentIdTouser  transaction[]    @relation("transaction_studentIdTouser")
+  applications                             ServiceProviderApplication[]
 
   @@map("user")
 }
@@ -97,6 +101,7 @@ model Booking {
   service      Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   student      User          @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
   conversation Conversation?
+  transaction  transaction[]
 
   @@index([studentId])
   @@index([providerId])
@@ -106,12 +111,13 @@ model Booking {
 }
 
 model Conversation {
-  id        String    @id @default(cuid())
-  bookingId String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  booking   Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  messages  Message[]
+  id            String          @id @default(cuid())
+  bookingId     String          @unique
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  booking       Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  messages      Message[]
+  message_group message_group[]
 
   @@map("conversation")
 }
@@ -122,6 +128,7 @@ model Message {
   senderId       String
   content        String
   createdAt      DateTime     @default(now())
+  readAt         DateTime?
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
@@ -175,6 +182,76 @@ model SupportMessage {
   @@index([userId])
   @@index([status])
   @@map("support_message")
+}
+
+model message_group {
+  id             String       @id
+  conversationId String
+  date           DateTime     @default(now())
+  data           Json
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+}
+
+model provider_wallet {
+  id               String   @id
+  providerId       String   @unique
+  availableBalance Float    @default(0)
+  pendingBalance   Float    @default(0)
+  totalEarnings    Float    @default(0)
+  totalWithdrawn   Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
+  user             User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
+}
+
+model transaction {
+  id                                String    @id
+  bookingId                         String
+  studentId                         String
+  providerId                        String
+  paystackReference                 String    @unique
+  totalAmount                       Float
+  platformCommission                Float
+  providerEarnings                  Float
+  commissionRate                    Float     @default(0.15)
+  status                            String    @default("pending")
+  paymentMethod                     String?
+  paidAt                            DateTime?
+  createdAt                         DateTime  @default(now())
+  updatedAt                         DateTime
+  booking                           Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user_transaction_providerIdTouser User      @relation("transaction_providerIdTouser", fields: [providerId], references: [id])
+  user_transaction_studentIdTouser  User      @relation("transaction_studentIdTouser", fields: [studentId], references: [id])
+
+  @@index([bookingId])
+  @@index([paystackReference])
+  @@index([providerId])
+  @@index([status])
+  @@index([studentId])
+}
+
+model ServiceProviderApplication {
+  id           String            @id @default(cuid())
+  userId       String
+  businessName String
+  description  String
+  category     String
+  status       ApplicationStatus @default(PENDING)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@map("service_provider_application")
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum BookingStatus {

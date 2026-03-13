@@ -1,12 +1,19 @@
 import { prisma } from "@/lib/prisma"
 import { ProviderBookings } from "@/components/provider-bookings"
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
 
 export const dynamic = "force-dynamic"
 
 export default async function BookingsPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+  if (!session) return null
+
   const bookings = await prisma.booking.findMany({
     where: {
-      providerId: "user_1", // Hardcoded for evaluation
+      providerId: session.user.id,
     },
     include: { student: true, service: true },
     orderBy: [

@@ -210,6 +210,7 @@ export type BookingWhereInput = {
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null
+  transaction?: Prisma.TransactionListRelationFilter
 }
 
 export type BookingOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type BookingOrderByWithRelationInput = {
   service?: Prisma.ServiceOrderByWithRelationInput
   student?: Prisma.UserOrderByWithRelationInput
   conversation?: Prisma.ConversationOrderByWithRelationInput
+  transaction?: Prisma.transactionOrderByRelationAggregateInput
 }
 
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -243,6 +245,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null
+  transaction?: Prisma.TransactionListRelationFilter
 }, "id">
 
 export type BookingOrderByWithAggregationInput = {
@@ -283,6 +286,7 @@ export type BookingCreateInput = {
   service: Prisma.ServiceCreateNestedOneWithoutBookingsInput
   student: Prisma.UserCreateNestedOneWithoutStudentBookingsInput
   conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateInput = {
@@ -295,6 +299,7 @@ export type BookingUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUpdateInput = {
@@ -307,6 +312,7 @@ export type BookingUpdateInput = {
   service?: Prisma.ServiceUpdateOneRequiredWithoutBookingsNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutStudentBookingsNestedInput
   conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateInput = {
@@ -319,6 +325,7 @@ export type BookingUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingCreateManyInput = {
@@ -543,6 +550,20 @@ export type BookingUpdateOneRequiredWithoutConversationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutConversationInput, Prisma.BookingUpdateWithoutConversationInput>, Prisma.BookingUncheckedUpdateWithoutConversationInput>
 }
 
+export type BookingCreateNestedOneWithoutTransactionInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutTransactionInput, Prisma.BookingUncheckedCreateWithoutTransactionInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutTransactionInput
+  connect?: Prisma.BookingWhereUniqueInput
+}
+
+export type BookingUpdateOneRequiredWithoutTransactionNestedInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutTransactionInput, Prisma.BookingUncheckedCreateWithoutTransactionInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutTransactionInput
+  upsert?: Prisma.BookingUpsertWithoutTransactionInput
+  connect?: Prisma.BookingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutTransactionInput, Prisma.BookingUpdateWithoutTransactionInput>, Prisma.BookingUncheckedUpdateWithoutTransactionInput>
+}
+
 export type BookingCreateWithoutProviderInput = {
   id?: string
   bookedAt?: Date | string
@@ -552,6 +573,7 @@ export type BookingCreateWithoutProviderInput = {
   service: Prisma.ServiceCreateNestedOneWithoutBookingsInput
   student: Prisma.UserCreateNestedOneWithoutStudentBookingsInput
   conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutProviderInput = {
@@ -563,6 +585,7 @@ export type BookingUncheckedCreateWithoutProviderInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutProviderInput = {
@@ -584,6 +607,7 @@ export type BookingCreateWithoutStudentInput = {
   provider: Prisma.UserCreateNestedOneWithoutProviderBookingsInput
   service: Prisma.ServiceCreateNestedOneWithoutBookingsInput
   conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutStudentInput = {
@@ -595,6 +619,7 @@ export type BookingUncheckedCreateWithoutStudentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutStudentInput = {
@@ -662,6 +687,7 @@ export type BookingCreateWithoutServiceInput = {
   provider: Prisma.UserCreateNestedOneWithoutProviderBookingsInput
   student: Prisma.UserCreateNestedOneWithoutStudentBookingsInput
   conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutServiceInput = {
@@ -673,6 +699,7 @@ export type BookingUncheckedCreateWithoutServiceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput
+  transaction?: Prisma.transactionUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutServiceInput = {
@@ -710,6 +737,7 @@ export type BookingCreateWithoutConversationInput = {
   provider: Prisma.UserCreateNestedOneWithoutProviderBookingsInput
   service: Prisma.ServiceCreateNestedOneWithoutBookingsInput
   student: Prisma.UserCreateNestedOneWithoutStudentBookingsInput
+  transaction?: Prisma.transactionCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutConversationInput = {
@@ -721,6 +749,7 @@ export type BookingUncheckedCreateWithoutConversationInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  transaction?: Prisma.transactionUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutConversationInput = {
@@ -748,6 +777,7 @@ export type BookingUpdateWithoutConversationInput = {
   provider?: Prisma.UserUpdateOneRequiredWithoutProviderBookingsNestedInput
   service?: Prisma.ServiceUpdateOneRequiredWithoutBookingsNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutStudentBookingsNestedInput
+  transaction?: Prisma.transactionUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutConversationInput = {
@@ -759,6 +789,71 @@ export type BookingUncheckedUpdateWithoutConversationInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transaction?: Prisma.transactionUncheckedUpdateManyWithoutBookingNestedInput
+}
+
+export type BookingCreateWithoutTransactionInput = {
+  id?: string
+  bookedAt?: Date | string
+  status?: $Enums.BookingStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  provider: Prisma.UserCreateNestedOneWithoutProviderBookingsInput
+  service: Prisma.ServiceCreateNestedOneWithoutBookingsInput
+  student: Prisma.UserCreateNestedOneWithoutStudentBookingsInput
+  conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput
+}
+
+export type BookingUncheckedCreateWithoutTransactionInput = {
+  id?: string
+  studentId: string
+  providerId: string
+  serviceId: string
+  bookedAt?: Date | string
+  status?: $Enums.BookingStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput
+}
+
+export type BookingCreateOrConnectWithoutTransactionInput = {
+  where: Prisma.BookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookingCreateWithoutTransactionInput, Prisma.BookingUncheckedCreateWithoutTransactionInput>
+}
+
+export type BookingUpsertWithoutTransactionInput = {
+  update: Prisma.XOR<Prisma.BookingUpdateWithoutTransactionInput, Prisma.BookingUncheckedUpdateWithoutTransactionInput>
+  create: Prisma.XOR<Prisma.BookingCreateWithoutTransactionInput, Prisma.BookingUncheckedCreateWithoutTransactionInput>
+  where?: Prisma.BookingWhereInput
+}
+
+export type BookingUpdateToOneWithWhereWithoutTransactionInput = {
+  where?: Prisma.BookingWhereInput
+  data: Prisma.XOR<Prisma.BookingUpdateWithoutTransactionInput, Prisma.BookingUncheckedUpdateWithoutTransactionInput>
+}
+
+export type BookingUpdateWithoutTransactionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bookedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  provider?: Prisma.UserUpdateOneRequiredWithoutProviderBookingsNestedInput
+  service?: Prisma.ServiceUpdateOneRequiredWithoutBookingsNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutStudentBookingsNestedInput
+  conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput
+}
+
+export type BookingUncheckedUpdateWithoutTransactionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  bookedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput
 }
 
 export type BookingCreateManyProviderInput = {
@@ -790,6 +885,7 @@ export type BookingUpdateWithoutProviderInput = {
   service?: Prisma.ServiceUpdateOneRequiredWithoutBookingsNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutStudentBookingsNestedInput
   conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutProviderInput = {
@@ -801,6 +897,7 @@ export type BookingUncheckedUpdateWithoutProviderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutProviderInput = {
@@ -822,6 +919,7 @@ export type BookingUpdateWithoutStudentInput = {
   provider?: Prisma.UserUpdateOneRequiredWithoutProviderBookingsNestedInput
   service?: Prisma.ServiceUpdateOneRequiredWithoutBookingsNestedInput
   conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutStudentInput = {
@@ -833,6 +931,7 @@ export type BookingUncheckedUpdateWithoutStudentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutStudentInput = {
@@ -864,6 +963,7 @@ export type BookingUpdateWithoutServiceInput = {
   provider?: Prisma.UserUpdateOneRequiredWithoutProviderBookingsNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutStudentBookingsNestedInput
   conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutServiceInput = {
@@ -875,6 +975,7 @@ export type BookingUncheckedUpdateWithoutServiceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput
+  transaction?: Prisma.transactionUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutServiceInput = {
@@ -887,6 +988,35 @@ export type BookingUncheckedUpdateManyWithoutServiceInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type BookingCountOutputType
+ */
+
+export type BookingCountOutputType = {
+  transaction: number
+}
+
+export type BookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  transaction?: boolean | BookingCountOutputTypeCountTransactionArgs
+}
+
+/**
+ * BookingCountOutputType without action
+ */
+export type BookingCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookingCountOutputType
+   */
+  select?: Prisma.BookingCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BookingCountOutputType without action
+ */
+export type BookingCountOutputTypeCountTransactionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.transactionWhereInput
+}
 
 
 export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -902,6 +1032,8 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   conversation?: boolean | Prisma.Booking$conversationArgs<ExtArgs>
+  transaction?: boolean | Prisma.Booking$transactionArgs<ExtArgs>
+  _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -949,6 +1081,8 @@ export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   conversation?: boolean | Prisma.Booking$conversationArgs<ExtArgs>
+  transaction?: boolean | Prisma.Booking$transactionArgs<ExtArgs>
+  _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -968,6 +1102,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     service: Prisma.$ServicePayload<ExtArgs>
     student: Prisma.$UserPayload<ExtArgs>
     conversation: Prisma.$ConversationPayload<ExtArgs> | null
+    transaction: Prisma.$transactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1376,6 +1511,7 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
   service<T extends Prisma.ServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   student<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   conversation<T extends Prisma.Booking$conversationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$conversationArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  transaction<T extends Prisma.Booking$transactionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$transactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1825,6 +1961,30 @@ export type Booking$conversationArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.ConversationInclude<ExtArgs> | null
   where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * Booking.transaction
+ */
+export type Booking$transactionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the transaction
+   */
+  select?: Prisma.transactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the transaction
+   */
+  omit?: Prisma.transactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.transactionInclude<ExtArgs> | null
+  where?: Prisma.transactionWhereInput
+  orderBy?: Prisma.transactionOrderByWithRelationInput | Prisma.transactionOrderByWithRelationInput[]
+  cursor?: Prisma.transactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
 }
 
 /**
