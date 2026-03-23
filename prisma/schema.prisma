@@ -71,15 +71,15 @@ model Account {
 }
 
 model Service {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   title          String
   description    String
   category       String
-  status         String    @default("Available")
+  status         String   @default("Available")
   price          String?
   providerId     String
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
   operatingHours String?
   imageUrl       String?
   bookings       Booking[]
@@ -90,35 +90,27 @@ model Service {
 }
 
 model Booking {
-  id           String        @id @default(cuid())
-  studentId    String
-  providerId   String
-  serviceId    String
-  bookedAt     DateTime      @default(now())
-  status       BookingStatus @default(PENDING)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  provider     User          @relation("ProviderBookings", fields: [providerId], references: [id], onDelete: Cascade)
-  service      Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  student      User          @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
-  conversation Conversation?
-  transactions Transaction[]
+  id             String       @id @default(cuid())
+  studentId      String
+  providerId     String
+  conversationId String       @unique
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  provider       User         @relation("ProviderBookings", fields: [providerId], references: [id], onDelete: Cascade)
+  student        User         @relation("StudentBookings", fields: [studentId], references: [id], onDelete: Cascade)
 
   @@index([studentId])
   @@index([providerId])
-  @@index([serviceId])
-  @@index([status])
   @@map("booking")
 }
 
 model Conversation {
-  id            String         @id @default(cuid())
-  bookingId     String         @unique
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  booking       Booking        @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  messages      Message[]
-  messageGroups MessageGroup[]
+  id        String   @id @default(cuid())
+  messages  Json     @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  booking   Booking?
 
   @@map("conversation")
 }
@@ -173,7 +165,6 @@ model Announcement {
   contactInfo  String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  imageUrl     String?
 
   @@index([category])
   @@index([isVerified])
