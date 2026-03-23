@@ -59,6 +59,7 @@
     "lucide-react": "^0.562.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
+    "openai": "^6.29.0",
     "paystack": "^2.0.1",
     "pg": "^8.19.0",
     "pusher": "^5.3.2",
@@ -73,7 +74,8 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "vaul": "^1.1.2",
-    "zod": "^4.3.5"
+    "zod": "^4.3.5",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

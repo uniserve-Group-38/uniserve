@@ -1,3 +1,4 @@
+import { getImageKitUrl } from "@/lib/imagekit/config";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
@@ -43,7 +44,14 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
           Stay updated with the latest events, internships, and campus news
         </p>
         
-       
+        {/* Test ImageKit image */}
+        <div className="mt-4">
+          <img 
+            src={getImageKitUrl('image_a4645388.png', 'w-400,h-300')} 
+            alt="Test" 
+            className="rounded-lg"
+          />
+        </div>
       </div>
 
       {/* Search Bar */}

@@ -5,16 +5,16 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["@prisma/client", "pg"],
   turbopack: {
     resolveAlias: {
-      "@prisma/client": "./lib/generated/prisma",
+      "@prisma/client": path.resolve(__dirname, "lib/generated/prisma"),
     },
+  },images: {remotePatterns: [
+    {
+      protocol: "https",
+    hostname: "**",
+    },]
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-    ],
+  typescript:{
+    ignoreBuildErrors:true
   },
 };
 

@@ -63,7 +63,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
     setIsBooking(true);
 
     try {
-      // Create booking
+      // Create booking WITHOUT payment
       const bookingResponse = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,35 +85,10 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
 
       const bookingData = JSON.parse(bookingText);
 
-      // Initialize payment
-      const paymentResponse = await fetch("/api/payments/initialize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookingId: bookingData.booking.id,
-          studentId: currentUser.id,
-        }),
-      });
+      // Success - redirect to bookings page (NO PAYMENT YET)
+      alert("Booking created successfully! You'll be prompted to pay after service completion.");
+      router.push("/bookings");
 
-      const paymentText = await paymentResponse.text();
-      console.log("Payment response status:", paymentResponse.status);
-      console.log("Payment response text:", paymentText);
-
-      if (!paymentResponse.ok) {
-        alert(`Payment initialization failed: ${paymentText}`);
-        setIsBooking(false);
-        return;
-      }
-
-      const paymentData = JSON.parse(paymentText);
-
-      if (paymentData.success) {
-        // Redirect to Paystack
-        window.location.href = paymentData.authorizationUrl;
-      } else {
-        alert("Failed to initialize payment");
-        setIsBooking(false);
-      }
     } catch (error) {
       console.error("Booking error:", error);
       alert("Failed to create booking: " + error);
@@ -177,25 +152,17 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
               </div>
             )}
 
-            {/* Price Breakdown */}
+            {/* Price Info */}
             <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-xl font-black mb-4">PAYMENT BREAKDOWN</h3>
+              <h3 className="text-xl font-black mb-4">SERVICE COST</h3>
               <div className="space-y-2">
                 <div className="flex justify-between font-bold">
                   <span>Service Cost:</span>
                   <span>GH₵ {price.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>Platform Fee (15%):</span>
-                  <span>GH₵ {(price * 0.15).toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>Provider Receives:</span>
-                  <span>GH₵ {(price * 0.85).toFixed(2)}</span>
-                </div>
-                <div className="border-t-4 border-black pt-2 mt-2 flex justify-between text-xl font-black">
-                  <span>TOTAL:</span>
-                  <span>GH₵ {price.toFixed(2)}</span>
+                <div className="text-sm text-muted-foreground mt-4">
+                  <p className="font-bold">Payment after service completion</p>
+                  <p className="text-xs mt-1">You'll be prompted to pay once the provider marks the service as completed.</p>
                 </div>
               </div>
             </div>
@@ -209,15 +176,15 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
               {isBooking ? (
                 <>
                   <Loader2 className="w-6 h-6 animate-spin" />
-                  PROCESSING...
+                  BOOKING...
                 </>
               ) : (
-                "BOOK & PAY NOW"
+                "BOOK NOW"
               )}
             </button>
 
             <p className="text-xs text-center text-muted-foreground">
-              You will be redirected to Paystack to complete payment securely
+              Payment will be requested after service completion
             </p>
           </CardContent>
         </Card>

@@ -132,13 +132,15 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-w-0;
     font-family: var(--font-geist-sans), 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
   }
 
   /* Neo-brutalism base styles */
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   /* Hide scrollbar for horizontal scroll */

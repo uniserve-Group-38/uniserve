@@ -9,27 +9,28 @@ datasource db {
 }
 
 model User {
-  id                    String           @id @default(cuid())
-  name                  String
-  email                 String           @unique
-  emailVerified         Boolean          @default(false)
-  image                 String?
-  createdAt             DateTime         @default(now())
-  updatedAt             DateTime         @updatedAt
-  phoneNumber           String?
-  location              String?
-  bio                   String?
-  role                  Role             @default(STUDENT)
-  accounts              Account[]
-  providerBookings      Booking[]        @relation("ProviderBookings")
-  studentBookings       Booking[]        @relation("StudentBookings")
-  sentMessages          Message[]        @relation("MessageSender")
-  providerWallet        ProviderWallet?
-  servicesProvided      Service[]        @relation("ServiceProvider")
-  sessions              Session[]
-  supportMessagesAsUser SupportMessage[] @relation("SupportUser")
-  providerTransactions  Transaction[]    @relation("ProviderTransactions")
-  studentTransactions   Transaction[]    @relation("StudentTransactions")
+  id                           String                         @id @default(cuid())
+  name                         String
+  email                        String                         @unique
+  emailVerified                Boolean                        @default(false)
+  image                        String?
+  createdAt                    DateTime                       @default(now())
+  updatedAt                    DateTime                       @updatedAt
+  phoneNumber                  String?
+  location                     String?
+  bio                          String?
+  role                         Role                           @default(STUDENT)
+  accounts                     Account[]
+  providerBookings             Booking[]                      @relation("ProviderBookings")
+  studentBookings              Booking[]                      @relation("StudentBookings")
+  sentMessages                 Message[]                      @relation("MessageSender")
+  providerWallet               ProviderWallet?
+  servicesProvided             Service[]                      @relation("ServiceProvider")
+  service_provider_application service_provider_application[]
+  sessions                     Session[]
+  supportMessagesAsUser        SupportMessage[]               @relation("SupportUser")
+  providerTransactions         Transaction[]                  @relation("ProviderTransactions")
+  studentTransactions          Transaction[]                  @relation("StudentTransactions")
 
   @@map("user")
 }
@@ -80,6 +81,7 @@ model Service {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   operatingHours String?
+  imageUrl       String?
   bookings       Booking[]
   provider       User      @relation("ServiceProvider", fields: [providerId], references: [id], onDelete: Cascade)
 
@@ -138,7 +140,7 @@ model Message {
   senderId       String
   content        String
   createdAt      DateTime     @default(now())
-  readAt         DateTime? // when the recipient read the message (null = unread)
+  readAt         DateTime?
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
 
@@ -235,6 +237,21 @@ model ProviderWallet {
   @@map("provider_wallet")
 }
 
+model service_provider_application {
+  id           String            @id
+  userId       String
+  businessName String
+  description  String
+  category     String
+  status       ApplicationStatus @default(PENDING)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([userId])
+}
+
 enum BookingStatus {
   PENDING
   ATTENDED
@@ -244,4 +261,10 @@ enum Role {
   STUDENT
   PROVIDER
   ADMIN
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

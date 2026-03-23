@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 import { MarkAllReadOnView } from "./mark-all-read-on-view";
 
 export const dynamic = "force-dynamic";
@@ -84,9 +85,15 @@ export default async function ChatListPage() {
    return (
      <div className="container mx-auto max-w-4xl py-8">
        <MarkAllReadOnView />
-       <div className="flex justify-between items-center mb-8">
-         <h1 className="text-3xl font-black">Messages</h1>
-       </div>
+       <Link href="/services" className="inline-block mb-4">
+        <Button variant="outline" className="border-4 border-black font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-yellow-100 transition-all hover:-translate-y-1 active:translate-y-0">
+          <ArrowLeft className="mr-2 h-5 w-5" />
+          Browse Services
+        </Button>
+      </Link>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-black">Messages</h1>
+      </div>
        <div className="space-y-6">
          {dedupedConversations.map((conversation) => {
            const { booking, messages } = conversation;

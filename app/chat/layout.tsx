@@ -27,7 +27,7 @@ export default function ChatLayout({
             </SheetTrigger>
             <SheetContent side="left" className="p-0 w-56 border-r-4 border-black [&>button]:hidden">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <Sidebar />
+              <Sidebar forceVisible />
             </SheetContent>
           </Sheet>
         </header>

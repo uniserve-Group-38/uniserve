@@ -1,14 +1,12 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Calendar, Clock, MapPin, Phone, User as UserIcon } from "lucide-react"
+import { MapPin, ArrowLeft, Clock } from "lucide-react"
 import Link from "next/link"
-import { BookServiceButton } from "@/components/book-service-button"
-import { auth } from "@/lib/auth"
-import { headers } from "next/headers"
+import Image from "next/image"
+import { ProviderServicesClient } from "@/components/provider-services-client"
 
 export const dynamic = 'force-dynamic'
 
@@ -18,43 +16,52 @@ interface PageProps {
 
 export default async function ServiceDetailsPage({ params }: PageProps) {
     const { id } = await params
-    const session = await auth.api.getSession({
-        headers: await headers()
-    })
 
+    // Fetch the clicked service with provider info
     const service = await prisma.service.findUnique({
         where: { id },
-        include: { provider: true },
+        include: { 
+            provider: {
+                include: {
+                    servicesProvided: {
+                        orderBy: { createdAt: 'desc' }
+                    }
+                }
+            }
+        },
     })
 
     if (!service) {
         notFound()
     }
 
-    // Category-specific colors
+    const provider = service.provider
+
     const categoryColors: Record<string, string> = {
         "Laundry": "bg-cyan-300",
         "Grooming": "bg-pink-300",
-        "Tech Support": "bg-purple-200",
+        "Tech Support": "bg-purple-300",
         "Food Delivery": "bg-orange-300",
-        "Coffee Run": "bg-yellow-300",
-        "Tutoring": "bg-lime-300",
+        "Coffee Run": "bg-lime-300",
+        "Tutoring": "bg-yellow-300",
     }
-    const categoryBg = categoryColors[service.category] || "bg-purple-200"
+    const categoryBg = categoryColors[service.category] || "bg-pink-300"
 
     return (
-        <div className="container py-8 max-w-4xl mx-auto px-4 md:px-6">
+        <div className="container py-8 max-w-7xl mx-auto px-4 md:px-6">
+            {/* Back Button */}
             <div className="mb-6">
                 <Link href="/services">
                     <Button variant="outline" size="sm">
-                        &larr; Back to Services
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Back to Services
                     </Button>
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 {/* Main Content */}
-                <div className="md:col-span-2 space-y-6">
+                <div className="md:col-span-3 space-y-6">
                     <div className="relative">
                         <div className="absolute -left-4 top-0 w-1.5 h-full bg-black" />
                         <div className="flex items-center gap-3 mb-4">
@@ -72,6 +79,14 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
                         <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-6">
                             {service.title}
                         </h1>
+                        <div className="relative aspect-video w-full mb-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+                            <Image 
+                                src={service.imageUrl || "https://furntech.org.za/wp-content/uploads/2017/05/placeholder-image.png"} 
+                                alt={service.title} 
+                                fill 
+                                className="object-cover"
+                            />
+                        </div>
                         <div className="flex flex-col gap-3 mb-6 p-4 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                             {service.price && (
                                 <div className="text-2xl font-black flex items-center gap-2">
@@ -85,71 +100,61 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
                                     <span>{service.operatingHours}</span>
                                 </div>
                             )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sidebar: Provider Info + Services */}
+                <div className="md:col-span-2 space-y-8 min-w-0">
+                    {/* Provider Header */}
+                    <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                        <div className="flex items-start gap-4">
+                            <Avatar className="h-16 w-16 border-4 border-black">
+                                <AvatarImage src={provider.image || ""} alt={provider.name} />
+                                <AvatarFallback className="bg-yellow-300 font-black text-xl">
+                                    {provider.name.charAt(0).toUpperCase()}
+                                </AvatarFallback>
+                            </Avatar>
                             
-                            {/* Book Now Button */}
-                            <Link href={`/book/${service.id}`} className="w-full mt-4">
-                                <button className="w-full bg-black text-white px-8 py-4 font-black text-xl border-4 border-black hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                    BOOK NOW →
-                                </button>
-                            </Link>
+                            <div className="flex-1">
+                                <h2 className="text-2xl font-black mb-2">{provider.name}</h2>
+                                
+                                {provider.bio && (
+                                    <p className="text-muted-foreground font-bold mb-3 text-sm">{provider.bio}</p>
+                                )}
+                                
+                                <div className="flex flex-wrap gap-3 text-sm">
+                                    {provider.location && (
+                                        <div className="flex items-center gap-1 font-bold">
+                                            <MapPin className="h-4 w-4" />
+                                            <span>{provider.location}</span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-center gap-1 font-bold">
+                                        <span className="bg-green-300 border-2 border-black px-2 py-1 text-xs">
+                                            {provider.servicesProvided.length} {provider.servicesProvided.length === 1 ? 'Service' : 'Services'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Description</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="whitespace-pre-wrap leading-relaxed font-bold">
-                                {service.description}
-                            </p>
-                        </CardContent>
-                    </Card>
-                </div>
+                    {/* All Services Section */}
+                    <div>
+                        <h2 className="text-2xl font-black mb-6 flex items-center gap-3">
+                            <span className="bg-pink-300 border-4 border-black px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] inline-block -rotate-1">
+                                ALL SERVICES
+                            </span>
+                        </h2>
 
-                {/* Sidebar / Provider Info */}
-                <div className="space-y-6">
-                    <Card className="sticky top-20 bg-purple-100">
-                        <CardHeader>
-                            <CardTitle className="text-lg">About the Provider</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <Avatar className="h-12 w-12">
-                                    <AvatarImage src={service.provider.image || ""} alt={service.provider.name} />
-                                    <AvatarFallback>
-                                        <UserIcon className="h-6 w-6" />
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <div className="font-black">{service.provider.name}</div>
-                                    <div className="text-xs font-bold text-muted-foreground">Joined {service.provider.createdAt.toLocaleDateString()}</div>
-                                </div>
-                            </div>
-
-                            {service.provider.bio && (
-                                <p className="text-sm font-bold text-muted-foreground leading-relaxed pt-2 border-t-2 border-black">
-                                    {service.provider.bio}
-                                </p>
-                            )}
-
-                            <div className="space-y-3 pt-2 border-t-2 border-black">
-                                {service.providerId !== session?.user?.id ? (
-                                    <BookServiceButton 
-                                        serviceId={service.id}
-                                        serviceName={service.title}
-                                        providerId={service.providerId}
-                                        currentUserId={session?.user?.id}
-                                    />
-                                ) : (
-                                    <div className="p-4 bg-yellow-100 border-2 border-black font-bold text-center">
-                                        This is your service
-                                    </div>
-                                )}
-                            </div>
-                        </CardContent>
-
-                    </Card>
+                        <ProviderServicesClient 
+                            services={provider.servicesProvided} 
+                            providerId={provider.id} 
+                            providerName={provider.name}
+                            highlightedServiceId={service.id}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

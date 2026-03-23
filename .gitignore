@@ -42,3 +42,11 @@ next-env.d.ts
 bun.lock
 yarn.lock
 package-lock.json
+# Environment files
+*.env
+*.env.*
+!.env.example
+
+# Backup files
+*.backup
+schema_backup.txt

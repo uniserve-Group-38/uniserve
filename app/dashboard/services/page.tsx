@@ -1,12 +1,22 @@
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
 import { prisma } from "@/lib/prisma"
 import { ProviderServicesManager } from "@/components/provider-services-manager"
 
 export const dynamic = "force-dynamic"
 
 export default async function ServicesPage() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  if (!session?.user?.id) {
+    return <div>Please log in</div>
+  }
+
   const services = await prisma.service.findMany({
     where: {
-      providerId: "user_1", // Hardcoded for evaluation
+      providerId: session.user.id,
     },
     orderBy: { createdAt: "desc" },
   })

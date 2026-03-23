@@ -5,7 +5,7 @@
  import { cn } from "@/lib/utils"
  import { LayoutDashboard, LifeBuoy, Megaphone, PlusCircle } from "lucide-react"
 
- const navItems = [
+ export const adminNavItems = [
    {
      title: "Dashboard",
      href: "/admin/dashboard",
@@ -45,7 +45,7 @@
        </div>
 
        <nav className="flex-1 overflow-y-auto py-6 flex flex-col gap-2 px-4">
-         {navItems.map((item) => {
+         {adminNavItems.map((item) => {
            const active =
              pathname === item.href ||
              (item.href !== "/admin/dashboard" && pathname.startsWith(item.href))

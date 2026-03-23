@@ -53,11 +53,11 @@ export function ProviderBookings({ bookings: initial }: ProviderBookingsProps) {
 
   if (!bookings.length) {
     return (
-      <section className="rounded-2xl border-4 border-dashed border-black bg-white/70 p-6 text-center shadow-[6px_6px_0_0_#000]">
-        <h2 className="text-xl font-extrabold uppercase tracking-[0.18em]">
+      <section className="rounded-xl sm:rounded-2xl border-4 border-dashed border-black bg-white/70 p-4 sm:p-6 text-center shadow-[4px_4px_0_0_#000] sm:shadow-[6px_6px_0_0_#000]">
+        <h2 className="text-base sm:text-lg md:text-xl font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.18em]">
           No active bookings
         </h2>
-        <p className="mt-2 text-sm text-foreground/70">
+        <p className="mt-2 text-xs sm:text-sm text-foreground/70 px-2">
           When students book your services, they&apos;ll show up here ready to be served.
         </p>
       </section>

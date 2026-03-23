@@ -1,22 +1,56 @@
 "use client"
 
-import { useState } from "react"
-import { Settings2, UserCircle2, Moon, Sun, Monitor, LogOut, Key, Save } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Settings2, UserCircle2, Moon, Sun, Monitor, LogOut, Key, Save, Loader2 } from "lucide-react"
 import { useTheme } from "next-themes"
-import { signOut } from "@/lib/auth-client"
+import { signOut, useSession } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
+  const { data: session, isPending } = useSession()
   const router = useRouter()
+  
+  // Profile state
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [location, setLocation] = useState("")
+  const [bio, setBio] = useState("")
+  const [isUpdating, setIsUpdating] = useState(false)
+
+  // Password state
   const [isChangingPassword, setIsChangingPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+
+  useEffect(() => {
+    if (session?.user) {
+      const u = session.user as any
+      setName(u.name || "")
+      setEmail(u.email || "")
+      setPhone(u.phoneNumber || "")
+      setLocation(u.location || "")
+      setBio(u.bio || "")
+    }
+  }, [session])
 
   const handleLogout = async () => {
     try {
@@ -28,13 +62,22 @@ export default function SettingsPage() {
     }
   }
 
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsUpdating(true)
+    // Mock update - would normally call an API route here
+    setTimeout(() => {
+      toast.success("Profile updated successfully (Mock)")
+      setIsUpdating(false)
+    }, 1000)
+  }
+
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault()
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match")
       return
     }
-    // In a real implementation we would call authClient.changePassword here
     toast.success("Password change requested (Mock)")
     setIsChangingPassword(false)
     setCurrentPassword("")
@@ -42,57 +85,148 @@ export default function SettingsPage() {
     setConfirmPassword("")
   }
 
+  if (isPending) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-lime-500" />
+      </div>
+    )
+  }
+
+  const user = session?.user as any
+
   return (
     <main className="px-4 py-6 md:px-10 md:py-10 min-h-screen bg-transparent">
       <div className="mx-auto flex max-w-3xl flex-col gap-8">
-        <header className="flex items-center gap-3">
-          <div className="p-2 border-4 border-black bg-lime-300 shadow-[4px_4px_0_0_#000]">
-            <Settings2 className="w-8 h-8 text-black" />
+        <header className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 border-4 border-black bg-lime-300 shadow-[4px_4px_0_0_#000]">
+              <Settings2 className="w-8 h-8 text-black" />
+            </div>
+            <h1 className="text-4xl font-black tracking-tighter uppercase whitespace-nowrap">Settings</h1>
           </div>
-          <h1 className="text-4xl font-black tracking-tighter uppercase whitespace-nowrap">Settings</h1>
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="text-muted-foreground hover:text-red-600 font-bold uppercase tracking-widest text-[10px]"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="border-4 border-black rounded-3xl shadow-[12px_12px_0_0_#000]">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="font-black text-2xl uppercase">Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription className="font-bold text-black/60">
+                  You will be signed out of the provider portal. Any unsaved profile changes will be lost.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="gap-2">
+                <AlertDialogCancel className="border-2 border-black font-black uppercase text-xs">Stay here</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white hover:bg-red-600 border-2 border-black shadow-[4px_4px_0_0_#000] font-black uppercase text-xs"
+                >
+                  Yes, Log out
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </header>
 
         {/* Profile Section */}
-        <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#000] space-y-6">
-          <h2 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
-            <UserCircle2 className="w-5 h-5" /> Profile Info
-          </h2>
-          <div className="flex flex-col md:flex-row items-center gap-6 border-b-4 border-black/5 pb-6">
-            <div className="h-24 w-24 rounded-full border-4 border-black bg-lime-200 flex items-center justify-center overflow-hidden shrink-0 shadow-[4px_4px_0_0_#000]">
-              <UserCircle2 className="h-16 w-16 text-black/50" />
+        <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#000] space-y-8">
+          <div className="flex items-center justify-between border-b-4 border-black pb-4">
+            <h2 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
+              <UserCircle2 className="w-5 h-5 text-lime-600" /> Profile Info
+            </h2>
+            <div className="inline-flex rounded-full border-2 border-black bg-black px-4 py-1 text-xs font-black uppercase tracking-widest text-lime-300">
+              {user?.role || "Service Provider"}
             </div>
-            <div className="space-y-1 text-center md:text-left">
-              <h3 className="text-2xl font-black">John Service Provider</h3>
-              <p className="font-bold text-black/60">john.provider@example.com</p>
-              <div className="inline-flex rounded-full border-2 border-black bg-black px-3 py-0.5 text-[10px] font-black uppercase tracking-widest text-lime-300">
-                Service Provider
+          </div>
+
+          <form onSubmit={handleUpdateProfile} className="space-y-6">
+            <div className="flex flex-col md:flex-row items-center gap-8 bg-slate-50 p-6 border-4 border-black rounded-2xl">
+              <div className="relative group">
+                <div className="h-32 w-32 rounded-full border-4 border-black bg-lime-200 flex items-center justify-center overflow-hidden shrink-0 shadow-[6px_6px_0_0_#000]">
+                  {user?.image ? (
+                    <img src={user.image} alt={user.name} className="h-full w-full object-cover" />
+                  ) : (
+                    <UserCircle2 className="h-20 w-20 text-black/30" />
+                  )}
+                </div>
+                <button type="button" className="absolute bottom-0 right-0 p-2 bg-yellow-300 border-2 border-black rounded-full shadow-[2px_2px_0_0_#000] hover:translate-y-[-2px] transition-transform">
+                  <Save className="w-4 h-4 text-black" />
+                </button>
+              </div>
+              <div className="flex-1 w-full space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Full Name</Label>
+                  <Input 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name"
+                    className="border-2 border-black font-black text-lg bg-white focus-visible:ring-lime-300 shadow-[4px_4px_0_0_#fef08a]" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Work Email</Label>
+                  <Input 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    type="email"
+                    className="border-2 border-black font-bold bg-white focus-visible:ring-lime-300" 
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Phone Number</Label>
+                <Input 
+                  value={phone} 
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+1 (555) 000-0000"
+                  className="border-2 border-black font-bold bg-white focus-visible:ring-lime-300" 
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Service Location</Label>
+                <Input 
+                  value={location} 
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="e.g. Campus Area A"
+                  className="border-2 border-black font-bold bg-white focus-visible:ring-lime-300" 
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
-              <Label className="text-xs font-black uppercase tracking-widest">Phone Number</Label>
-              <Input readOnly value="+1 (555) 123-4567" className="border-2 border-black font-bold bg-gray-50 focus-visible:ring-lime-300" />
+              <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Professional Bio</Label>
+              <Textarea 
+                value={bio} 
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Tell students about your service experience..."
+                className="border-2 border-black font-bold bg-white focus-visible:ring-lime-300 min-h-[120px] leading-relaxed" 
+              />
             </div>
-            <div className="space-y-2">
-              <Label className="text-xs font-black uppercase tracking-widest">Location</Label>
-              <Input readOnly value="Campus Center, Room 402" className="border-2 border-black font-bold bg-gray-50 focus-visible:ring-lime-300" />
-            </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label className="text-xs font-black uppercase tracking-widest">Bio</Label>
-            <div className="font-bold p-3 border-2 border-black rounded-lg bg-gray-50 min-h-[80px] text-sm leading-relaxed">
-              Hi! I'm an experienced provider offering top-tier campus services to students. Let me know how I can help!
+            <div className="pt-4 flex justify-end">
+              <Button 
+                type="submit"
+                disabled={isUpdating}
+                className="min-w-[160px] font-black border-2 border-black bg-lime-300 text-black hover:bg-lime-400 shadow-[6px_6px_0_0_#000] h-12 uppercase tracking-widest disabled:opacity-50"
+              >
+                {isUpdating ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}
+                {isUpdating ? "Saving..." : "Save Changes"}
+              </Button>
             </div>
-          </div>
-
-          <div className="pt-4 flex justify-end">
-            <Button className="font-black border-2 border-black bg-lime-300 text-black hover:bg-lime-400 shadow-[4px_4px_0_0_#000] uppercase tracking-widest">
-              Edit Profile
-            </Button>
-          </div>
+          </form>
         </section>
 
         {/* Security & Theme Section */}
@@ -199,24 +333,6 @@ export default function SettingsPage() {
             </div>
           </section>
         </div>
-
-        {/* Danger Zone */}
-        <section className="rounded-2xl border-4 border-black bg-red-50 p-6 shadow-[8px_8px_0_0_#000] border-red-200">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-black uppercase tracking-tight text-red-600">Session</h2>
-              <p className="text-sm font-bold text-red-600/70 mt-1">Exit the provider portal securely.</p>
-            </div>
-            <Button 
-              onClick={handleLogout}
-              variant="destructive" 
-              className="px-8 font-black border-2 border-black shadow-[4px_4px_0_0_#000] uppercase tracking-widest"
-            >
-              <LogOut className="w-5 h-5 mr-2" />
-              Logout
-            </Button>
-          </div>
-        </section>
       </div>
     </main>
   )

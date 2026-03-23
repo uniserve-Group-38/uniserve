@@ -117,7 +117,7 @@ export function SalesAnalysis({ bookings, totalServices }: SalesAnalysisProps) {
           <TrendingUp className="h-4 w-4 text-lime-600" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-black">${totalRevenue.toFixed(2)}</div>
+          <div className="text-2xl font-black">GH₵{totalRevenue.toFixed(2)}</div>
           <p className="text-xs text-muted-foreground font-bold">Lifetime earnings</p>
         </CardContent>
       </Card>

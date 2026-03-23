@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { pusherClient } from "@/lib/pusherClient";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Check, CheckCheck } from "lucide-react";
+import { Check, CheckCheck, MapPin, MapPinned, ExternalLink } from "lucide-react";
 
 type Message = {
   id: string;
@@ -47,10 +47,8 @@ export default function ChatRoom({
     }
   }, [messages]);
 
-  // When the provider opens the conversation, mark all messages from the student as read
+  // When any participant opens the conversation, mark all incoming messages as read
   useEffect(() => {
-    const isProvider = currentUserId !== studentId;
-    if (!isProvider) return;
     fetch("/api/messages/mark-read", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -60,14 +58,14 @@ export default function ChatRoom({
         if (res.ok) {
           setMessages((prev) =>
             prev.map((m) =>
-              m.senderId === studentId ? { ...m, readAt: new Date().toISOString() } : m
+              m.senderId !== currentUserId ? { ...m, readAt: new Date().toISOString() } : m
             )
           );
           window.dispatchEvent(new CustomEvent("refetch-unread-count"));
         }
       })
       .catch(() => {});
-  }, [conversationId, currentUserId, studentId]);
+  }, [conversationId, currentUserId]);
 
   useEffect(() => {
     const channel = pusherClient.subscribe(conversationId);
@@ -80,9 +78,8 @@ export default function ChatRoom({
         const next = [...prev, msg].sort(
           (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
         );
-        const isProvider = currentUserId !== studentId;
-        const fromStudent = msg.senderId === studentId;
-        if (isProvider && fromStudent) {
+        const fromOther = msg.senderId !== currentUserId;
+        if (fromOther) {
           fetch("/api/messages/mark-read", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -101,7 +98,7 @@ export default function ChatRoom({
     channel.bind("messages-read", (payload: { readAt: string }) => {
       setMessages((prev) =>
         prev.map((m) =>
-          m.senderId === studentId ? { ...m, readAt: payload.readAt } : m
+          m.senderId === currentUserId ? { ...m, readAt: payload.readAt } : m
         )
       );
     });
@@ -154,6 +151,52 @@ export default function ChatRoom({
     }
   };
 
+  const shareLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setIsLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        
+        const optimisticMessage: Message = {
+          id: crypto.randomUUID(),
+          senderId: currentUserId,
+          message: mapUrl,
+          timestamp: new Date().toISOString(),
+          readAt: currentUserId === studentId ? null : undefined,
+        };
+
+        setMessages((prev) => [...prev, optimisticMessage]);
+
+        try {
+          await fetch("/api/messages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              message: mapUrl,
+              senderId: currentUserId,
+              conversationId,
+              id: optimisticMessage.id,
+            }),
+          });
+        } catch (error) {
+          console.error("Failed to share location:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        alert("Error getting location: " + error.message);
+      }
+    );
+  };
+
   return (
     <div className="flex flex-col h-[600px] border rounded-lg bg-background">
       {/* Messages Feed */}
@@ -200,25 +243,51 @@ export default function ChatRoom({
                           : "bg-white text-black"
                       }`}
                     >
-                      <p className="text-sm font-bold">{msg.message}</p>
+                      {msg.message.startsWith("https://www.google.com/maps") ? (
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2 bg-slate-50 p-2 rounded border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            <div className="w-10 h-10 flex-shrink-0 bg-white rounded-full border-2 border-black flex items-center justify-center overflow-hidden">
+                              <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" fill="#4285F4"/>
+                                <path d="M12 2c3.87 0 7 3.13 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.87 3.13-7 7-7z" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs font-black uppercase">Shared Location</span>
+                              <span className="text-[10px] text-muted-foreground font-bold italic">Tap to view on Google Maps</span>
+                            </div>
+                          </div>
+                          <a 
+                            href={msg.message} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 bg-yellow-300 hover:bg-yellow-400 text-black font-black py-1.5 px-3 rounded border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-y-0.5 active:translate-y-0 text-xs"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            OPEN GOOGLE MAPS
+                          </a>
+                        </div>
+                      ) : (
+                        <p className="text-sm font-bold">{msg.message}</p>
+                      )}
                       <div className="flex items-center justify-end gap-1.5 mt-1">
                         <span className="text-[10px] font-black opacity-70">
                           {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
-                        {showReadStatus && (
+                        {isMe && (
                           <span
                             className="flex items-center gap-0.5 text-[10px] font-bold"
-                            title={isRead ? "Seen by provider" : "Unread"}
+                            title={isRead ? "Read by partner" : "Delivered"}
                           >
                             {isRead ? (
                               <>
-                                <CheckCheck className="w-3.5 h-3.5 text-green-600" aria-hidden />
-                                <span className="text-green-700">Seen</span>
+                                <CheckCheck className="w-3.5 h-3.5 text-blue-500" aria-hidden />
+                                <span className="text-blue-600">Read</span>
                               </>
                             ) : (
                               <>
-                                <Check className="w-3.5 h-3.5 text-muted-foreground" aria-hidden />
-                                <span className="text-muted-foreground">Unread</span>
+                                <CheckCheck className="w-3.5 h-3.5 text-muted-foreground" aria-hidden />
+                                <span className="text-muted-foreground">Delivered</span>
                               </>
                             )}
                           </span>
@@ -250,7 +319,21 @@ export default function ChatRoom({
             disabled={isLoading}
             autoComplete="off"
           />
-          <Button type="submit" disabled={isLoading || !newMessage.trim()}>
+          <Button 
+            type="button" 
+            variant="outline" 
+            onClick={shareLocation} 
+            disabled={isLoading}
+            className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-yellow-100 p-2 flex items-center gap-2"
+            title="Share Location"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" fill="#4285F4"/>
+              <path d="M12 2c3.87 0 7 3.13 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.87 3.13-7 7-7z" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="text-[10px] font-black uppercase hidden sm:inline">Share Location</span>
+          </Button>
+          <Button type="submit" disabled={isLoading || !newMessage.trim()} className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold">
             Send
           </Button>
         </form>

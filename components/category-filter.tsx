@@ -25,35 +25,31 @@ export function CategoryFilter({ categories }: CategoryFilterProps) {
     }
 
     return (
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide">
-            <Button
-                variant={currentCategory === null ? "default" : "outline"}
-                size="sm"
+        <div className="flex items-center gap-4 overflow-x-auto pb-6 scrollbar-hide pt-2">
+            <button
                 onClick={() => handleSelect(null)}
                 className={cn(
-                    "transition-all font-black uppercase",
+                    "px-6 py-2 border-2 border-black font-black uppercase tracking-widest text-sm transition-all shadow-[4px_4px_0_0_#000] active:shadow-none active:translate-x-1 active:translate-y-1",
                     currentCategory === null
                         ? "bg-black text-white"
-                        : ""
+                        : "bg-white text-black hover:bg-slate-50"
                 )}
             >
                 All
-            </Button>
+            </button>
             {categories.map((category) => (
-                <Button
+                <button
                     key={category}
-                    variant={currentCategory === category ? "default" : "outline"}
-                    size="sm"
                     onClick={() => handleSelect(category)}
                     className={cn(
-                        "transition-all whitespace-nowrap font-black uppercase",
+                        "px-6 py-2 border-2 border-black font-black uppercase tracking-widest text-sm transition-all shadow-[4px_4px_0_0_#000] active:shadow-none active:translate-x-1 active:translate-y-1 whitespace-nowrap",
                         currentCategory === category
                             ? "bg-black text-white"
-                            : ""
+                            : "bg-white text-black hover:bg-slate-50"
                     )}
                 >
                     {category}
-                </Button>
+                </button>
             ))}
         </div>
     )

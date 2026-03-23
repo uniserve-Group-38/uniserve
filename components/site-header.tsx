@@ -32,11 +32,11 @@ export function SiteHeader() {
     ]
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b-4 border-black bg-white">
-            <div className="container flex h-16 items-center max-w-7xl mx-auto px-4 md:px-6">
-                <div className="mr-4 hidden md:flex">
-                    <Link href="/" className="mr-6 flex items-center space-x-2">
-                        <span className="hidden font-black text-xl sm:inline-block">
+        <header className="sticky top-0 z-50 w-full border-b-4 border-black bg-white min-w-0">
+            <div className="container flex h-14 sm:h-16 items-center max-w-7xl mx-auto px-3 sm:px-4 md:px-6 min-w-0">
+                <div className="mr-2 sm:mr-4 hidden md:flex min-w-0">
+                    <Link href="/" className="mr-4 sm:mr-6 flex items-center space-x-2 shrink-0">
+                        <span className="hidden font-black text-lg sm:text-xl sm:inline-block">
                             Campus<span className="text-pink-500">Services</span>
                         </span>
                     </Link>
@@ -57,18 +57,16 @@ export function SiteHeader() {
                         ))}
                     </nav>
                 </div>
-                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                    <div className="w-full flex-1 md:w-auto md:flex-none">
-                        {/* Add search or other items here if needed */}
-                    </div>
-                    <nav className="flex items-center gap-3">
+                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end min-w-0">
+                    <div className="w-full flex-1 md:w-auto md:flex-none min-w-0" />
+                    <nav className="flex items-center gap-2 sm:gap-3 shrink-0">
                         <Link href="/auth/sign-in">
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                                 Log In
                             </Button>
                         </Link>
                         <Link href="/auth/sign-up">
-                            <Button size="sm">
+                            <Button size="sm" className="text-xs sm:text-sm">
                                 Get Started
                             </Button>
                         </Link>

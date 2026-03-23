@@ -37,11 +37,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Not a participant" }, { status: 403 });
     }
 
-    // Only mark messages sent by the student (incoming to the provider) as read
+    // Mark all unread messages EXCEPT those sent by the current user as read
     await prisma.message.updateMany({
       where: {
         conversationId,
-        senderId: studentId,
+        NOT: {
+          senderId: userId,
+        },
         readAt: null,
       },
       data: { readAt: new Date() },
