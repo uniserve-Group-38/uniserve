@@ -13,7 +13,7 @@ interface Service {
     id: string
     title: string
     description: string
-    price: string
+    price: string | null
     category: string
     status: string
 }
@@ -43,7 +43,7 @@ export function ProviderServicesClient({ services, providerId, providerName, hig
         addItem({
             serviceId: service.id,
             serviceTitle: service.title,
-            servicePrice: service.price,
+            servicePrice: service.price ?? "N/A",
             providerId,
             providerName,
         })
@@ -104,14 +104,14 @@ export function ProviderServicesClient({ services, providerId, providerName, hig
                         </CardHeader>
 
                         <CardContent className="space-y-4">
-                            <p className="text-sm text-muted-foreground font-bold line-clamp-2 min-h-[2.5rem]">
+                            <p className="text-sm text-muted-foreground font-bold line-clamp-2 min-h-10">
                                 {service.description}
                             </p>
 
                             {/* Price */}
-                            <div className="text-2xl font-black">
+                             <div className="text-2xl font-black">
                                 <span className="bg-yellow-300 border-2 border-black px-3 py-1 inline-block shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                    {service.price}
+                                    {service.price ?? "N/A"}
                                 </span>
                             </div>
 
