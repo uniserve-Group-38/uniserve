@@ -30,7 +30,7 @@ const services = [
     color: "bg-cyan-400",
     description: "Fresh clothes, zero effort",
     image: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&q=80",
-    rotation: "-rotate-2",
+    rotation: "",
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const services = [
     color: "bg-pink-400",
     description: "Look sharp, feel good",
     image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80",
-    rotation: "rotate-1",
+    rotation: "",
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ const services = [
     color: "bg-purple-400",
     description: "Fix it fast",
     image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
-    rotation: "rotate-2",
+    rotation: "",
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ const services = [
     color: "bg-orange-400",
     description: "Hungry? Sorted.",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
-    rotation: "-rotate-1",
+    rotation: "",
   },
   {
     id: 5,
@@ -66,7 +66,7 @@ const services = [
     color: "bg-lime-400",
     description: "Caffeine on demand",
     image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
-    rotation: "rotate-3",
+    rotation: "",
   },
   {
     id: 6,
@@ -75,7 +75,7 @@ const services = [
     color: "bg-yellow-400",
     description: "Ace those exams",
     image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
-    rotation: "-rotate-2",
+    rotation: "",
   },
 ];
 
@@ -143,13 +143,13 @@ export default function Features() {
             elements,
             { 
                y:50,
-               rotate: index => index % 2 === 0 ? 5 : -5,
+               rotate: 0,
             },
 
             {
               y: 0,
               opacity: 1,
-              rotate: index => index % 2 === 0 ? 2 : -2,
+              rotate: 0,
               duration: 0.5,
               stagger: 0.15,
               ease: "power3.out",
@@ -241,19 +241,19 @@ export default function Features() {
                 >
                   <Link href={`/services`}>
                     <div
-                      className={`group relative h-500px border-6 border-black ${service.rotation} hover:rotate-0 transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 overflow-hidden`}
+                     className={`group relative h-500px border-6 border-black hover:rotate-0 transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 overflow-hidden hover:scale-[1.02]`}
                     >
                       {/* Image */}
                       <div className="absolute inset-0">
                         {/* <img
                           src={service.image}
                           alt={service.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         /> */}
                         <Image
                           src={service.image}
                           alt={service.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           fill
                         />
                         {/* Color overlay for mixed-media style */}
@@ -318,7 +318,7 @@ export default function Features() {
       className="py-24 bg-lime-100 border-b-8 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="rock-heading inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h2 className="rock-heading inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               WHY WE ROCK
             </h2>
             <p className="text-xl font-bold mt-8">
@@ -332,7 +332,7 @@ export default function Features() {
               return (
                 <div
                   key={index}
-                  className={`features-card ${feature.color} border-6 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all ${index % 2 === 0 ? "rotate-1" : "-rotate-1"} hover:rotate-0`}
+                  className={`features-card ${feature.color} border-6 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-2 transition-all hover:rotate-0`}
                 >
                   <div className="w-16 h-16 bg-black border-4 border-black flex items-center justify-center mb-6 rotate-12">
                     <Icon className="text-white" size={32} />

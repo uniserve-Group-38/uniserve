@@ -33,13 +33,9 @@ const categoryColors: Record<string, string> = {
 export function ServiceCard({ id, title, description, category, status, price, imageUrl, provider, index = 0 }: ServiceCardProps) {
     const categoryBg = categoryColors[category] || "bg-pink-300"
 
-    // Alternating rotation based on index: odd index rotates anticlockwise (-15deg), even index rotates clockwise (10deg)
-    const rotationClass = index !== undefined && index % 2 === 0
-        ? "hover:rotate-[10deg]"
-        : "hover:rotate-[-10deg]";
 
     return (
-        <article className={`group relative border-[4px] border-black bg-white shadow-[8px_8px_0_0_#000] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 transform-gpu overflow-hidden flex flex-col h-full ${rotationClass}`}>
+        <article className={`group relative border-[4px] border-black bg-white shadow-[8px_8px_0_0_#000] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_0_#000] hover:scale-[1.02] transition-all duration-300 transform-gpu overflow-hidden flex flex-col h-full`}>
 
             {/* Front Side: Default View (Hidden on hover) */}
             <div className="flex flex-col h-full transition-opacity duration-300 group-hover:opacity-0">
@@ -49,7 +45,7 @@ export function ServiceCard({ id, title, description, category, status, price, i
                         src={imageUrl || "https://furntech.org.za/wp-content/uploads/2017/05/placeholder-image.png"}
                         alt={title}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
 
                     {/* Tilted Verified Badge Overlay */}

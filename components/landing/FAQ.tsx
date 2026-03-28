@@ -8,42 +8,7 @@ const faqs = [
     answer:
       "Super simple! Browse services, pick what you need, book it. We connect you with verified campus providers. That's it, no complicated stuff.",
     color: "bg-cyan-200",
-    rotation: "rotate-1",
-  },
-  {
-    question: "Is it actually safe tho?",
-    answer:
-      "100%! Every provider is verified by campus admin. We run background checks and only work with trusted peeps. Your safety = our priority.",
-    color: "bg-pink-200",
-    rotation: "-rotate-1",
-  },
-  {
-    question: "What about payment?",
-    answer:
-      "Multiple options! Cash, UPI, cards - whatever works for you. Payments are secure and you only pay after the service. No shady business here.",
-    color: "bg-yellow-200",
-    rotation: "rotate-1",
-  },
-  {
-    question: "Can I cancel if plans change?",
-    answer:
-      "Yep! Cancel anytime before the service starts. No questions asked. We get it, student life is unpredictable.",
-    color: "bg-lime-200",
-    rotation: "-rotate-1",
-  },
-  {
-    question: "How fast is 'fast'?",
-    answer:
-      "Most services are same-day or next-day. Laundry? 24hrs. Tech repair? Depends on the issue. We'll always give you a realistic timeline upfront.",
-    color: "bg-purple-200",
-    rotation: "rotate-1",
-  },
-  {
-    question: "Do you have student discounts?",
-    answer:
-      "Absolutely! All our prices are student-friendly. Plus, we run special deals every month. Follow us to stay updated on the latest offers.",
-    color: "bg-orange-200",
-    rotation: "-rotate-1",
+    rotation: "",
   },
 ];
 
@@ -88,17 +53,17 @@ export default function FAQ() {
     <section className="py-24 bg-linear-to-br from-blue-100 to-purple-100 border-b-8 border-black relative overflow-hidden">
       {/* Decorative stickers */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 right-10 bg-yellow-300 border-4 border-black px-4 py-2 font-black text-sm rotate-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        <div className="absolute top-20 right-10 bg-yellow-300 border-4 border-black px-4 py-2 font-black text-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
           FAQ!
         </div>
-        <div className="absolute bottom-20 left-10 bg-pink-400 border-4 border-black px-4 py-2 font-black text-sm -rotate-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        <div className="absolute bottom-20 left-10 bg-pink-400 border-4 border-black px-4 py-2 font-black text-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
           ANSWERS!
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-white border-6 border-black px-8 py-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
             GOT QUESTIONS?
           </h2>
           <p className="text-xl font-bold mt-8">

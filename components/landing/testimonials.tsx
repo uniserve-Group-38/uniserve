@@ -7,23 +7,7 @@ const testimonials = [
     quote: "This app is literally a lifesaver! No cap",
     rating: 5,
     color: "bg-pink-200",
-    rotation: "rotate-1",
-  },
-  {
-    name: "Rahul V.",
-    role: "Business Major",
-    quote: "Finally, someone gets what students need fr fr",
-    rating: 5,
-    color: "bg-cyan-200",
-    rotation: "-rotate-2",
-  },
-  {
-    name: "Ananya P.",
-    role: "Engineering",
-    quote: "Best decision I made this semester",
-    rating: 5,
-    color: "bg-yellow-200",
-    rotation: "rotate-2",
+    rotation: "",
   },
 ];
 
@@ -32,7 +16,7 @@ export default function Testimonials() {
     <section className="py-24 bg-orange-100 border-b-8 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-pink-300 border-6 border-black px-8 py-4 rotate-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h2 className="inline-block text-5xl sm:text-6xl font-black mb-4 bg-pink-300 border-6 border-black px-8 py-4 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
             STUDENT LOVE
           </h2>
           <p className="text-xl font-bold mt-8">
@@ -76,7 +60,7 @@ export default function Testimonials() {
               </div>
 
               {index === 1 && (
-                <div className="absolute -top-4 -right-4 bg-lime-300 border-4 border-black px-3 py-1 font-black text-sm rotate-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="absolute -top-4 -right-4 bg-lime-300 border-4 border-black px-3 py-1 font-black text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                   BEST!
                 </div>
               )}

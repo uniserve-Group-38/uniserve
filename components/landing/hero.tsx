@@ -49,7 +49,6 @@ export default function Hero() {
           <span className="
             inline-block bg-white border-4 sm:border-8 border-black
             px-3 py-1.5 sm:px-5 sm:py-2
-            -rotate-1
             shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
             mb-4 sm:mb-6
             text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl
@@ -60,7 +59,6 @@ export default function Hero() {
           <span className="
             inline-block bg-pink-400 border-4 sm:border-8 border-black
             px-3 py-1.5 sm:px-5 sm:py-2
-            rotate-1
             shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
             mt-4 sm:mt-6
             text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl
