@@ -3,6 +3,7 @@ import { ServiceCard } from "@/components/service-card"
 import { ServiceSearch } from "@/components/service-search"
 import { CategoryFilter } from "@/components/category-filter"
 import { Prisma } from "@/lib/generated/prisma/client"
+import { SERVICE_CATEGORIES } from "@/lib/categories"
 
 export const dynamic = 'force-dynamic'
 
@@ -20,13 +21,9 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
     const take = 6
     const skip = (page - 1) * take
 
-    // 1. Fetch distinct categories
-    const categoriesData = await prisma.service.findMany({
-        select: { category: true },
-        distinct: ['category'],
-        orderBy: { category: 'asc' },
-    })
-    const categories = categoriesData.map(c => c.category)
+    // 1. Use the canonical list of categories instead of fetching distinct ones
+    // which may include old/deprecated category names from legacy data
+    const categories = Array.from(SERVICE_CATEGORIES)
 
     // 2. Build filter conditions
     const where: Prisma.ServiceWhereInput = {

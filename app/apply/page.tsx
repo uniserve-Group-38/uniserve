@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SERVICE_CATEGORIES } from "@/lib/categories";
 
 export default function ApplyPage() {
   const router = useRouter();
@@ -76,14 +78,18 @@ export default function ApplyPage() {
             
             <div className="space-y-2">
               <Label htmlFor="category" className="text-xl font-bold">Category</Label>
-              <Input
-                id="category"
-                placeholder="Ex. Cleaning, Tutoring, Home Repair"
-                className="border-2 border-black p-6 text-lg"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                required
-              />
+              <Select onValueChange={(value) => setFormData({ ...formData, category: value })} required>
+                <SelectTrigger className="border-2 border-black p-6 text-lg h-14 bg-white" id="category">
+                  <SelectValue placeholder="Select a service category" />
+                </SelectTrigger>
+                <SelectContent className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  {SERVICE_CATEGORIES.map((cat) => (
+                    <SelectItem key={cat} value={cat} className="font-bold text-base cursor-pointer hover:bg-yellow-100">
+                      {cat}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">

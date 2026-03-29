@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, ArrowRight, Check, MapPin } from "lucide-react"
+import { DEFAULT_CATEGORY_IMAGES, ServiceCategory } from "@/lib/categories"
 
 interface ServiceCardProps {
     id: string
@@ -32,21 +33,23 @@ const categoryColors: Record<string, string> = {
 
 export function ServiceCard({ id, title, description, category, status, price, imageUrl, provider, index = 0 }: ServiceCardProps) {
     const categoryBg = categoryColors[category] || "bg-pink-300"
+    const displayImage = imageUrl || DEFAULT_CATEGORY_IMAGES[category as ServiceCategory] || DEFAULT_CATEGORY_IMAGES["Other"];
 
     // Alternating rotation based on index: odd index rotates anticlockwise (-15deg), even index rotates clockwise (10deg)
     const rotationClass = index !== undefined && index % 2 === 0
-        ? "hover:rotate-[10deg]"
-        : "hover:rotate-[-10deg]";
+        ? "rotate-[1deg]"
+        : "rotate-[-1deg]";
 
     return (
-        <article className={`group relative border-[4px] border-black bg-white shadow-[8px_8px_0_0_#000] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 transform-gpu overflow-hidden flex flex-col h-full ${rotationClass}`}>
+        <article className={`group relative border-4 border-black bg-white shadow-[8px_8px_0_0_#000] hover:translate-x-[-4px] hover:translate-y-[-4px]
+         hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 transform-gpu overflow-hidden flex flex-col h-full hover:scale-105 hover:rotate-0 ${rotationClass}`}>
 
             {/* Front Side: Default View (Hidden on hover) */}
             <div className="flex flex-col h-full transition-opacity duration-300 group-hover:opacity-0">
                 {/* Header with image - Now Rectangular */}
-                <div className="relative aspect-[16/9] w-full border-b-[4px] border-black bg-slate-50 overflow-hidden">
+                <div className="relative aspect-video w-full border-b-4 border-black bg-slate-50 overflow-hidden">
                     <Image
-                        src={imageUrl || "https://furntech.org.za/wp-content/uploads/2017/05/placeholder-image.png"}
+                        src={displayImage}
                         alt={title}
                         fill
                         className="object-cover"
@@ -60,7 +63,7 @@ export function ServiceCard({ id, title, description, category, status, price, i
                 </div>
 
                 {/* Content Body */}
-                <CardContent className={`${categoryBg} p-5 flex-grow flex flex-col gap-3`}>
+                <CardContent className={`${categoryBg} p-5 grow flex flex-col gap-3`}>
                     <span className="text-[10px] font-black uppercase tracking-widest text-black/60">
                         {category}
                     </span>
@@ -71,7 +74,7 @@ export function ServiceCard({ id, title, description, category, status, price, i
 
                     <div className="flex items-center justify-between mt-auto pt-1">
                         {/* Rating Box */}
-                        <div className="bg-yellow-400 border-[2px] border-black px-2 py-0.5 flex items-center gap-1.5 shadow-[2px_2px_0_0_#000]">
+                        <div className="bg-yellow-400 border-2 border-black px-2 py-0.5 flex items-center gap-1.5 shadow-[2px_2px_0_0_#000]">
                             <Star className="w-3.5 h-3.5 fill-black text-black" />
                             <span className="font-black text-xs">4.6</span>
                         </div>
@@ -91,49 +94,36 @@ export function ServiceCard({ id, title, description, category, status, price, i
                 </div>
             </div>
 
-            {/* Back Side: Details View (Shown on hover) */}
-            <div className="absolute inset-0 bg-black text-white p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between z-20">
-                <div>
-                    <h4 className="text-lg font-black uppercase mb-2 border-b-2 border-white pb-1 inline-block">
-                        Description
-                    </h4>
-                    <p className="text-sm font-bold leading-relaxed line-clamp-4 opacity-90">
-                        {description}
-                    </p>
-                </div>
-
-                <div className="space-y-3">
-                    <div className="bg-white/10 p-3 border-2 border-white/10">
-                        <p className="text-[8px] uppercase font-black tracking-widest text-white/50 mb-1">Provider</p>
-                        <div className="flex items-center gap-2">
-                            <div className="relative w-8 h-8 border-[2px] border-white overflow-hidden">
-                                <Image
-                                    src={provider.image || "/placeholder-avatar.png"}
-                                    alt={provider.name}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                            <div>
-                                <p className="font-black uppercase text-sm leading-tight">{provider.name}</p>
-                                {provider.location && (
-                                    <div className="flex items-center gap-1 text-[8px] font-bold text-white/60 mt-0.5">
-                                        <MapPin className="w-2.5 h-2.5" />
-                                        <span>{provider.location}</span>
-                                    </div>
-                                )}
-                            </div>
+            {/* Hover overlay with description */}
+            <div className="absolute inset-0 bg-black/95 flex flex-col justify-between text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto z-20">
+                <div className="p-6 flex flex-col grow">
+                    <div className="text-[10px] font-black tracking-widest mb-2 text-cyan-300">{category.toUpperCase()}</div>
+                    <h3 className="text-2xl font-black mb-4 line-clamp-2 leading-tight">{title}</h3>
+                    <p className="font-bold mb-4 leading-relaxed text-sm line-clamp-4 text-white/90">{description}</p>
+                    
+                    <div className="flex items-end justify-between mt-auto mb-4 gap-2">
+                        {/* Rating */}
+                        <div className="flex items-center gap-1.5 bg-yellow-300 text-black border-2 border-white px-2 py-1">
+                            <Star className="w-3.5 h-3.5 fill-black text-black" />
+                            <span className="font-black text-xs">4.6</span>
+                            <span className="font-bold text-[10px]">(92)</span>
+                        </div>
+                        
+                        {/* Price */}
+                        <div className="font-black text-xl text-cyan-300 flex-shrink-0">
+                            {price || "FREE"}
                         </div>
                     </div>
 
-                    <Link href={`/services/${id}`} className="block">
-                        <div className="bg-white text-black py-2 flex items-center justify-center gap-2 border-[3px] border-white hover:bg-black hover:text-white transition-all w-full">
-                            <span className="text-[10px] font-black uppercase tracking-wider">
-                                Book Now →
-                            </span>
-                        </div>
-                    </Link>
+                   
                 </div>
+
+                {/* Bottom CTA strip */}
+                <Link href={`/services/${id}`} className="block w-full">
+                    <div className="bg-black text-white px-5 py-4 text-center font-black text-sm tracking-widest border-t-2 border-white/20 hover:bg-yellow-300 hover:text-black hover:border-black transition-colors">
+                        VIEW DETAILS →
+                    </div>
+                </Link>
             </div>
         </article>
     )

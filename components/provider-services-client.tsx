@@ -16,6 +16,7 @@ interface Service {
     price: string | null
     category: string
     status: string
+    isQuantifiable?: boolean
 }
 
 interface ProviderServicesClientProps {
@@ -46,6 +47,7 @@ export function ProviderServicesClient({ services, providerId, providerName, hig
             servicePrice: service.price ?? "N/A",
             providerId,
             providerName,
+            isQuantifiable: service.isQuantifiable
         })
         
         toast.success("Added to cart!", {

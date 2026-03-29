@@ -8,6 +8,7 @@ export interface CartItem {
   providerId: string
   providerName: string
   quantity: number
+  isQuantifiable?: boolean
 }
 
 interface CartStore {
@@ -29,14 +30,16 @@ export const useCartStore = create<CartStore>()(
         const existingItem = items.find(i => i.serviceId === item.serviceId)
         
         if (existingItem) {
-          // Increase quantity if already in cart
-          set({
-            items: items.map(i =>
-              i.serviceId === item.serviceId
-                ? { ...i, quantity: i.quantity + 1 }
-                : i
-            )
-          })
+          // Increase quantity if already in cart AND it is quantifiable
+          if (existingItem.isQuantifiable !== false) {
+             set({
+               items: items.map(i =>
+                 i.serviceId === item.serviceId
+                   ? { ...i, quantity: i.quantity + 1 }
+                   : i
+               )
+             })
+          }
         } else {
           // Add new item
           set({ items: [...items, { ...item, quantity: 1 }] })
@@ -51,6 +54,10 @@ export const useCartStore = create<CartStore>()(
         if (quantity <= 0) {
           get().removeItem(serviceId)
         } else {
+          const item = get().items.find(i => i.serviceId === serviceId)
+          if (item && item.isQuantifiable === false && quantity > 1) {
+            return // Skip update if trying to increase quantity of unquantifiable item
+          }
           set({
             items: get().items.map(i =>
               i.serviceId === serviceId ? { ...i, quantity } : i

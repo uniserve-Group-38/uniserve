@@ -1,39 +1,56 @@
 Campus Services FAQ Knowledge Base
-Document Name: Uniserve FAQ v1.0
+Document Name: Uniserve FAQ v2.0
+Last Updated: 2026
 
-# 1. Laundry Services
-Q: How does the laundry service work?
-A: You can schedule a pickup through the Uniserve app. We come to your dorm, pick up your clothes, wash, dry, fold them, and return them within 24 hours. [1]
+# General Platform Rules & Policies
+Q: What is Uniserve?
+A: Uniserve is a campus services platform tailored for universal convenience. It connects students to peer-providers and local professionals for services like Academics, Tech Support, Cleaning, Food Delivery, Personal Care, Fashion, and Other general errands.
 
-Q: How much does laundry cost?
-A: Our standard wash & fold service is $1.50 per pound. We also offer a monthly subscription for $45/month which covers up to 40 pounds of laundry. [1]
+Q: How do items in the shopping cart work?
+A: You can book multiple quantities of tangible products or specific package deals. However, for intangible services (like Academics, Tutoring, Consultations, or Barbering), the quantity is strictly limited to 1 per booking in the shopping cart to ensure fair scheduling blocks.
 
-Q: What if I have delicate items?
-A: Please place delicate items in a separate bag inside your main laundry bag and leave a note in the app. These items will be air-dried. [1]
+Q: I want to become a service provider. How do I apply?
+A: Awesome! Any student or local professional can apply to be a provider. Head over to the "Apply" page (/apply) from the navigation bar. You must submit your business name, a valid email, phone number, relevant experience, operating hours, and clearly select the standard Category that your service falls under.
 
-# 2. Grooming Services
-Q: Where are the grooming services located?
-A: We partner with several local barbers and salons right off-campus. You can book an appointment directly through the Uniserve app and show your student ID for a 15% discount. [2]
+Q: What happens if a provider cancels my service, or I need a refund?
+A: If a provider cancels or fails to deliver the specified service, your payment is 100% refunded to your original payment method within 3–5 business days. If you need to cancel a service, please do so at least 24 hours in advance to receive a full refund. 
 
-Q: Can someone come to my dorm for a haircut?
-A: Yes! We have a select group of mobile barbers who can come to your dorm common area. You can filter by "Mobile Barber" in the booking section. [2]
+# 1. Academics (Tutoring & Education)
+Q: What academic services are offered?
+A: We have peer-led tutoring for specific college courses, essay review, study strategy sessions, and exam prep. Sessions are typically 60 minutes.
 
-# 3. Tech Support
-Q: My laptop won't turn on. Can you help?
-A: Yes. Our student-led IT support team can run diagnostics on your laptop. Submit a ticket in the app, and someone will meet you at the campus library tech desk. [3]
+Q: Where do tutoring sessions happen?
+A: You and your provider can agree on a location. Most popular spots are the Campus Main Library, Student Union Building, or study rooms in your specific residence hall.
 
-Q: Do you repair phone screens?
-A: Yes, we provide screen repair services for most major smartphone brands. Screen repairs typically take 2-4 hours and start at $75 depending on the model. [3]
+# 2. Tech Support
+Q: My laptop won't turn on or has a cracked screen. Can you help?
+A: Yes. Our student-led IT support team can run diagnostics. Submit a ticket by booking a Tech Support service, and someone will meet you at the campus library tech desk. We handle virus removal, software installs, hardware diagnostics, and screen repairs.
+
+Q: How long do phone repairs take?
+A: Screen and battery repairs for most major smartphone brands take 2-4 hours. Pricing varies by device model but typically starts at $75.
+
+# 3. Cleaning (Chores & Household)
+Q: How does the cleaning or laundry service work?
+A: Our cleaning category covers everything from dorm room deep-cleans to laundry wash-and-fold. For laundry, you can schedule a pickup through the Uniserve app. We come to your dorm, pick up your clothes, wash, dry, fold them, and return them within 24 hours.
+
+Q: How much does laundry cost and what about delicate items?
+A: Standard wash & fold is $1.50 per pound. If you have delicate items, please place them in a separate bag inside your main laundry bag. These items will be air-dried instead of machine-dried to prevent shrinking.
 
 # 4. Food Delivery
 Q: What restaurants do you deliver from?
-A: We deliver from all dining halls on campus, as well as our 15 partnered restaurants on Main Street. [4]
+A: We deliver from all catering services on campus, campus cafes, and 15 partnered food establishments on Main Street! 
 
 Q: How late do you deliver food?
-A: Our student dashers deliver until 2:00 AM on weekdays, and 3:00 AM on weekends to fuel your late-night study sessions. [4]
+A: Student dashers deliver until 2:00 AM on weekdays, and up to 3:00 AM on weekends to fuel your late-night study sessions.
 
-# Sources:
-[1] LaundryTerms.doc
-[2] GroomingPartners.doc
-[3] TechSupportGuidelines.doc
-[4] FoodDeliveryHours.doc
+# 5. Personal Care (Grooming)
+Q: Where are the grooming services located? Can someone come to my dorm?
+A: We partner with several local barbers and salons right off-campus where you can book directly through the app. Alternatively, we have a select group of "Mobile Barbers" who can literally come to your dorm's common area for a fresh cut! 
+
+# 6. Fashion (Tailoring & Style)
+Q: My pants are too long, do you do alterations?
+A: Absolutely! The Fashion category includes talented design students who offer hemming, tailoring, custom embroidery, and styling advice. Typical turnaround time for a hem is 48 hours.
+
+# Other / Errands
+Q: Can I hire someone to pick up something from the store or mail a package?
+A: Yes, book a service under the "Other" or errands category. Student runners can grab groceries from the local mart, pick up pharmacy prescriptions, or drop off your returns at the post office.

@@ -131,6 +131,7 @@ export default function CartPage() {
                                                         size="sm"
                                                         variant="outline"
                                                         className="h-8 w-8 p-0 border-2 border-black"
+                                                        disabled={item.isQuantifiable === false || item.quantity <= 1}
                                                         onClick={() => updateQuantity(item.serviceId, item.quantity - 1)}
                                                     >
                                                         <Minus className="h-3 w-3" />
@@ -140,6 +141,7 @@ export default function CartPage() {
                                                         size="sm"
                                                         variant="outline"
                                                         className="h-8 w-8 p-0 border-2 border-black"
+                                                        disabled={item.isQuantifiable === false}
                                                         onClick={() => updateQuantity(item.serviceId, item.quantity + 1)}
                                                     >
                                                         <Plus className="h-3 w-3" />

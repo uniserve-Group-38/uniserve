@@ -101,15 +101,19 @@ export function ChatBot() {
     if (!inputValue.trim() || isLoading) return;
 
     const userMsg: Message = { role: "user", content: inputValue };
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setInputValue("");
     setIsLoading(true);
 
     try {
+      // Exclude the initial static greeting to save tokens inside the API request
+      const historyPayload = newMessages.filter((msg, idx) => idx !== 0);
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg.content }),
+        body: JSON.stringify({ messages: historyPayload }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");

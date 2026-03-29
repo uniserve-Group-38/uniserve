@@ -80,17 +80,18 @@ async function retrieveContext(query: string, topK = 4): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { messages } = await req.json();
 
-    if (!message) {
-      return NextResponse.json({ error: "Message is required" }, { status: 400 });
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
     }
 
     const langbase = new Langbase({ apiKey: process.env.LANGBASE_API_KEY! });
     const pipeName = process.env.LANGBASE_PIPE_NAME || "ai-support-agent";
 
-    // Retrieve the most relevant FAQ chunks using embedding similarity
-    const contextText = await retrieveContext(message);
+    // Extract the latest query from the messages to perform RAG lookup
+    const latestMessage = messages[messages.length - 1].content;
+    const contextText = await retrieveContext(latestMessage);
 
     const systemPrompt = `You are a friendly and professional AI support assistant for Uniserve, a university campus services platform.
 
@@ -101,17 +102,21 @@ RESPONSE FORMAT RULES:
 - Keep replies concise — aim for 2-5 lines or a short list. Avoid walls of text
 - End with a helpful follow-up offer when appropriate (e.g. "Would you like help with anything else?")
 - Do NOT use headers (##). Speak naturally and conversationally
+- Answer directly based on the conversational history provided.
 
 KNOWLEDGE BASE (answer from this first):
 ${contextText || "No relevant context found."}`;
 
+    // Pass the system prompt and the dynamic conversational history
+    const mappedMessages = [
+      { role: "system", content: systemPrompt },
+      ...messages
+    ];
+
     const { completion } = await langbase.pipes.run({
       stream: false,
       name: pipeName,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: message },
-      ],
+      messages: mappedMessages,
     });
 
     return NextResponse.json({ reply: completion });

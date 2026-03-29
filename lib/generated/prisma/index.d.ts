@@ -6004,6 +6004,7 @@ export namespace Prisma {
     category: string | null
     status: string | null
     price: string | null
+    isQuantifiable: boolean | null
     providerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6018,6 +6019,7 @@ export namespace Prisma {
     category: string | null
     status: string | null
     price: string | null
+    isQuantifiable: boolean | null
     providerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6032,6 +6034,7 @@ export namespace Prisma {
     category: number
     status: number
     price: number
+    isQuantifiable: number
     providerId: number
     createdAt: number
     updatedAt: number
@@ -6048,6 +6051,7 @@ export namespace Prisma {
     category?: true
     status?: true
     price?: true
+    isQuantifiable?: true
     providerId?: true
     createdAt?: true
     updatedAt?: true
@@ -6062,6 +6066,7 @@ export namespace Prisma {
     category?: true
     status?: true
     price?: true
+    isQuantifiable?: true
     providerId?: true
     createdAt?: true
     updatedAt?: true
@@ -6076,6 +6081,7 @@ export namespace Prisma {
     category?: true
     status?: true
     price?: true
+    isQuantifiable?: true
     providerId?: true
     createdAt?: true
     updatedAt?: true
@@ -6163,6 +6169,7 @@ export namespace Prisma {
     category: string
     status: string
     price: string | null
+    isQuantifiable: boolean
     providerId: string
     createdAt: Date
     updatedAt: Date
@@ -6194,6 +6201,7 @@ export namespace Prisma {
     category?: boolean
     status?: boolean
     price?: boolean
+    isQuantifiable?: boolean
     providerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6211,6 +6219,7 @@ export namespace Prisma {
     category?: boolean
     status?: boolean
     price?: boolean
+    isQuantifiable?: boolean
     providerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6226,6 +6235,7 @@ export namespace Prisma {
     category?: boolean
     status?: boolean
     price?: boolean
+    isQuantifiable?: boolean
     providerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6241,6 +6251,7 @@ export namespace Prisma {
     category?: boolean
     status?: boolean
     price?: boolean
+    isQuantifiable?: boolean
     providerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6248,7 +6259,7 @@ export namespace Prisma {
     imageUrl?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "price" | "providerId" | "createdAt" | "updatedAt" | "operatingHours" | "imageUrl", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "status" | "price" | "isQuantifiable" | "providerId" | "createdAt" | "updatedAt" | "operatingHours" | "imageUrl", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | Service$bookingsArgs<ExtArgs>
     provider?: boolean | UserDefaultArgs<ExtArgs>
@@ -6274,6 +6285,7 @@ export namespace Prisma {
       category: string
       status: string
       price: string | null
+      isQuantifiable: boolean
       providerId: string
       createdAt: Date
       updatedAt: Date
@@ -6710,6 +6722,7 @@ export namespace Prisma {
     readonly category: FieldRef<"Service", 'String'>
     readonly status: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'String'>
+    readonly isQuantifiable: FieldRef<"Service", 'Boolean'>
     readonly providerId: FieldRef<"Service", 'String'>
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly updatedAt: FieldRef<"Service", 'DateTime'>
@@ -18268,6 +18281,7 @@ export namespace Prisma {
     category: 'category',
     status: 'status',
     price: 'price',
+    isQuantifiable: 'isQuantifiable',
     providerId: 'providerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -18872,6 +18886,7 @@ export namespace Prisma {
     category?: StringFilter<"Service"> | string
     status?: StringFilter<"Service"> | string
     price?: StringNullableFilter<"Service"> | string | null
+    isQuantifiable?: BoolFilter<"Service"> | boolean
     providerId?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
@@ -18888,6 +18903,7 @@ export namespace Prisma {
     category?: SortOrder
     status?: SortOrder
     price?: SortOrderInput | SortOrder
+    isQuantifiable?: SortOrder
     providerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18907,6 +18923,7 @@ export namespace Prisma {
     category?: StringFilter<"Service"> | string
     status?: StringFilter<"Service"> | string
     price?: StringNullableFilter<"Service"> | string | null
+    isQuantifiable?: BoolFilter<"Service"> | boolean
     providerId?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
@@ -18923,6 +18940,7 @@ export namespace Prisma {
     category?: SortOrder
     status?: SortOrder
     price?: SortOrderInput | SortOrder
+    isQuantifiable?: SortOrder
     providerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18943,6 +18961,7 @@ export namespace Prisma {
     category?: StringWithAggregatesFilter<"Service"> | string
     status?: StringWithAggregatesFilter<"Service"> | string
     price?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    isQuantifiable?: BoolWithAggregatesFilter<"Service"> | boolean
     providerId?: StringWithAggregatesFilter<"Service"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -19996,6 +20015,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     operatingHours?: string | null
@@ -20011,6 +20031,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     providerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20026,6 +20047,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20041,6 +20063,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     providerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20056,6 +20079,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     providerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20070,6 +20094,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20083,6 +20108,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     providerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21213,6 +21239,7 @@ export namespace Prisma {
     category?: SortOrder
     status?: SortOrder
     price?: SortOrder
+    isQuantifiable?: SortOrder
     providerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21227,6 +21254,7 @@ export namespace Prisma {
     category?: SortOrder
     status?: SortOrder
     price?: SortOrder
+    isQuantifiable?: SortOrder
     providerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21241,6 +21269,7 @@ export namespace Prisma {
     category?: SortOrder
     status?: SortOrder
     price?: SortOrder
+    isQuantifiable?: SortOrder
     providerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23065,6 +23094,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     operatingHours?: string | null
@@ -23079,6 +23109,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     operatingHours?: string | null
@@ -23434,6 +23465,7 @@ export namespace Prisma {
     category?: StringFilter<"Service"> | string
     status?: StringFilter<"Service"> | string
     price?: StringNullableFilter<"Service"> | string | null
+    isQuantifiable?: BoolFilter<"Service"> | boolean
     providerId?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
@@ -24028,6 +24060,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     operatingHours?: string | null
@@ -24042,6 +24075,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     providerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24247,6 +24281,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24261,6 +24296,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     providerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25406,6 +25442,7 @@ export namespace Prisma {
     category: string
     status?: string
     price?: string | null
+    isQuantifiable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     operatingHours?: string | null
@@ -25617,6 +25654,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25631,6 +25669,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25645,6 +25684,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     price?: NullableStringFieldUpdateOperationsInput | string | null
+    isQuantifiable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     operatingHours?: NullableStringFieldUpdateOperationsInput | string | null

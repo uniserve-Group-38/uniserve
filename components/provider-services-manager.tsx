@@ -14,6 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { SERVICE_CATEGORIES, DEFAULT_CATEGORY_IMAGES, ServiceCategory } from "@/lib/categories"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -220,7 +222,16 @@ export function ProviderServicesManager({ initialServices }: ProviderServicesMan
                 </div>
                 <div className="space-y-2">
                   <Label className="font-bold uppercase tracking-wide text-xs">Category <span className="text-red-500">*</span></Label>
-                  <Input required value={category} onChange={e => setCategory(e.target.value)} className="border-2 border-black focus-visible:ring-lime-300 font-medium" placeholder="e.g. Academics" />
+                  <Select required onValueChange={(val) => setCategory(val)} value={category}>
+                    <SelectTrigger className="border-2 border-black focus:ring-lime-300 font-medium">
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent className="border-2 border-black drop-shadow-[4px_4px_0_0_#000]">
+                      {SERVICE_CATEGORIES.map((cat) => (
+                        <SelectItem key={cat} value={cat} className="font-bold cursor-pointer">{cat}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
                   <Label className="font-bold uppercase tracking-wide text-xs">Description <span className="text-red-500">*</span></Label>
@@ -292,7 +303,16 @@ export function ProviderServicesManager({ initialServices }: ProviderServicesMan
                 </div>
                 <div className="space-y-2">
                   <Label className="font-bold uppercase tracking-wide text-xs">Category <span className="text-red-500">*</span></Label>
-                  <Input required value={category} onChange={e => setCategory(e.target.value)} className="border-2 border-black focus-visible:ring-lime-300 font-medium" />
+                  <Select required onValueChange={(val) => setCategory(val)} value={category}>
+                    <SelectTrigger className="border-2 border-black focus:ring-lime-300 font-medium">
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent className="border-2 border-black drop-shadow-[4px_4px_0_0_#000]">
+                      {SERVICE_CATEGORIES.map((cat) => (
+                        <SelectItem key={cat} value={cat} className="font-bold cursor-pointer">{cat}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
                   <Label className="font-bold uppercase tracking-wide text-xs">Description <span className="text-red-500">*</span></Label>
@@ -330,15 +350,16 @@ export function ProviderServicesManager({ initialServices }: ProviderServicesMan
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service) => {
             const categoryBg = categoryColors[service.category] || "bg-pink-300"
+            const displayImage = service.imageUrl || DEFAULT_CATEGORY_IMAGES[service.category as ServiceCategory] || DEFAULT_CATEGORY_IMAGES["Other"];
             
             return (
               <article
                 key={service.id}
-                className="group relative border-[3px] border-black bg-white shadow-[6px_6px_0_0_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[8px_8px_0_0_#000] transition-all overflow-hidden flex flex-col h-full"
+                className="group relative border-[3px] border-black bg-white shadow-[6px_6px_0_0_#000] hover:-translate-x-px hover:-translate-y-px hover:shadow-[8px_8px_0_0_#000] transition-all overflow-hidden flex flex-col h-full"
               >
                 {/* Header with image */}
                 <div className="relative aspect-video w-full border-b-[3px] border-black bg-slate-50 overflow-hidden">
-                  <Image src={service.imageUrl || "https://furntech.org.za/wp-content/uploads/2017/05/placeholder-image.png"} alt={service.title} fill className="object-cover" />
+                  <Image src={displayImage} alt={service.title} fill className="object-cover" />
                   
                   {/* Tilted Verified Badge Overlay */}
                   <div className="absolute top-3 right-3 bg-[#86efac] border-2 border-black px-2 py-1 shadow-[2px_2px_0_0_#000] flex items-center gap-1 -rotate-2 z-10">
