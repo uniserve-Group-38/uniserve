@@ -20,7 +20,12 @@ export function LandingOnlyWhenGuest({
   useEffect(() => {
     if (isPending) return;
     if (session?.user) {
-      router.replace("/services");
+      const role = (session.user as { role?: string }).role;
+      if (role === "PROVIDER" || role === "provider") {
+        router.replace("/dashboard");
+      } else {
+        router.replace("/services");
+      }
     }
   }, [session?.user, isPending, router]);
 

@@ -1,45 +1,43 @@
     "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 
-export default function PaymentCallbackPage() {
+function PaymentCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [status, setStatus] = useState<"loading" | "success" | "failed">("loading");
+  const reference = searchParams.get("reference");
+  const [status, setStatus] = useState<"loading" | "success" | "failed">(
+    reference ? "loading" : "failed"
+  );
 
   useEffect(() => {
-    const reference = searchParams.get("reference");
+    async function verifyPayment(ref: string) {
+      try {
+        const response = await fetch(`/api/payments/verify?reference=${ref}`);
+        const data = await response.json();
 
-    if (!reference) {
-      setStatus("failed");
-      return;
-    }
-
-    // Verify payment
-    verifyPayment(reference);
-  }, [searchParams]);
-
-  async function verifyPayment(reference: string) {
-    try {
-      const response = await fetch(`/api/payments/verify?reference=${reference}`);
-      const data = await response.json();
-
-      if (data.success && data.status === "success") {
-        setStatus("success");
-        // Redirect to dashboard after 3 seconds
-        setTimeout(() => {
-          router.push("/dashboard/bookings");
-        }, 3000);
-      } else {
+        if (data.success && data.status === "success") {
+          setStatus("success");
+          // Redirect to dashboard after 3 seconds
+          setTimeout(() => {
+            router.push("/dashboard/bookings");
+          }, 3000);
+        } else {
+          setStatus("failed");
+        }
+      } catch (error) {
+        console.error("Payment verification error:", error);
         setStatus("failed");
       }
-    } catch (error) {
-      console.error("Payment verification error:", error);
-      setStatus("failed");
     }
-  }
+
+    if (reference) {
+      // Verify payment
+      verifyPayment(reference);
+    }
+  }, [reference, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-100 p-4">
@@ -74,5 +72,20 @@ export default function PaymentCallbackPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PaymentCallbackPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-purple-100 p-4">
+        <div className="bg-white border-8 border-black p-12 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] max-w-md text-center">
+          <Loader2 className="w-24 h-24 mx-auto mb-6 animate-spin" />
+          <h1 className="text-4xl font-black mb-4">LOADING...</h1>
+        </div>
+      </div>
+    }>
+      <PaymentCallbackContent />
+    </Suspense>
   );
 }

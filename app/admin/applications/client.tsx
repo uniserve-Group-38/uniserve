@@ -20,7 +20,7 @@ interface Application {
   };
 }
 
-export default function AdminApplicationsClient({ initialApplications }: { initialApplications: any[] }) {
+export default function AdminApplicationsClient({ initialApplications }: { initialApplications: Application[] }) {
   const [applications, setApplications] = useState<Application[]>(initialApplications);
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
