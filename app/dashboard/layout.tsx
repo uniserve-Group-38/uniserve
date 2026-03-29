@@ -1,11 +1,29 @@
+import { redirect } from "next/navigation"
+import { headers } from "next/headers"
+import { auth } from "@/lib/auth"
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
 import { DashboardSidebar } from "@/components/dashboard-sidebar"
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Server-side auth check
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  // Redirect if not logged in
+  if (!session?.user) {
+    redirect("/auth/sign-in?callbackUrl=/dashboard")
+  }
+
+  // Redirect if not provider
+  if (session.user.role !== "PROVIDER") {
+    redirect("/")
+  }
+
   return (
     <SidebarProvider defaultOpen={false}>
       <DashboardSidebar />
