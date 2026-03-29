@@ -59,7 +59,7 @@ export default async function AdminDashboardPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <div className="overflow-x-auto">
+                        <div className="overflow-x-auto hidden md:block">
                             <Table>
                                 <TableHeader className="bg-black">
                                     <TableRow className="border-black hover:bg-black">
@@ -104,6 +104,52 @@ export default async function AdminDashboardPage() {
                                     )}
                                 </TableBody>
                             </Table>
+                        </div>
+
+                        {/* Mobile View */}
+                        <div className="md:hidden grid grid-cols-1 gap-4 p-4 bg-gray-50/50">
+                            {users.map((user) => (
+                                <Card key={user.id} className="border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+                                    <div className="p-4 flex flex-col gap-3">
+                                        <div className="flex items-center gap-3 border-b-2 border-black pb-3">
+                                            {user.image ? (
+                                                <img src={user.image} alt={user.name} className="w-10 h-10 rounded-full border-2 border-black" />
+                                            ) : (
+                                                <div className="w-10 h-10 rounded-full border-2 border-black bg-cyan-200 flex items-center justify-center font-black text-sm">
+                                                    {user.name.charAt(0).toUpperCase()}
+                                                </div>
+                                            )}
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="font-black text-lg truncate">{user.name}</span>
+                                                <span className="font-mono text-xs text-muted-foreground truncate">{user.email}</span>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2 text-sm">
+                                            <div className="flex flex-col">
+                                                <span className="text-muted-foreground font-bold text-xs uppercase">Status</span>
+                                                <Badge variant="outline" className={`w-fit mt-1 font-bold border-2 rounded-none ${user.emailVerified ? 'border-green-500 bg-green-100 text-green-800' : 'border-red-500 bg-red-100 text-red-800'}`}>
+                                                    {user.emailVerified ? 'Verified' : 'Unverified'}
+                                                </Badge>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-muted-foreground font-bold text-xs uppercase">Joined</span>
+                                                <span className="font-bold mt-1">{format(new Date(user.createdAt), 'MMM d, yyyy')}</span>
+                                            </div>
+                                            <div className="flex flex-col col-span-2 pt-2 border-t-2 border-gray-100">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-muted-foreground font-bold text-xs uppercase">Services</span>
+                                                    <span className="font-black font-mono text-base">{user._count.services}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
+                            ))}
+                            {users.length === 0 && (
+                                <div className="text-center py-8 font-bold text-muted-foreground border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                    No users found.
+                                </div>
+                            )}
                         </div>
                     </CardContent>
                 </Card>

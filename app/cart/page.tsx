@@ -130,21 +130,21 @@ export default function CartPage() {
                                                     <Button
                                                         size="sm"
                                                         variant="outline"
-                                                        className="h-8 w-8 p-0 border-2 border-black"
+                                                        className="h-11 w-11 sm:h-8 sm:w-8 p-0 border-2 border-black"
                                                         disabled={item.isQuantifiable === false || item.quantity <= 1}
                                                         onClick={() => updateQuantity(item.serviceId, item.quantity - 1)}
                                                     >
-                                                        <Minus className="h-3 w-3" />
+                                                        <Minus className="h-4 w-4 sm:h-3 sm:w-3" />
                                                     </Button>
                                                     <span className="font-black text-lg w-8 text-center">{item.quantity}</span>
                                                     <Button
                                                         size="sm"
                                                         variant="outline"
-                                                        className="h-8 w-8 p-0 border-2 border-black"
+                                                        className="h-11 w-11 sm:h-8 sm:w-8 p-0 border-2 border-black"
                                                         disabled={item.isQuantifiable === false}
                                                         onClick={() => updateQuantity(item.serviceId, item.quantity + 1)}
                                                     >
-                                                        <Plus className="h-3 w-3" />
+                                                        <Plus className="h-4 w-4 sm:h-3 sm:w-3" />
                                                     </Button>
                                                 </div>
 
@@ -161,13 +161,14 @@ export default function CartPage() {
                                         <Button
                                             size="sm"
                                             variant="destructive"
-                                            className="border-2 border-black font-bold"
+                                            className="h-11 w-11 sm:h-9 sm:w-auto border-2 border-black font-bold sm:px-3 sm:py-0"
                                             onClick={() => {
                                                 removeItem(item.serviceId)
                                                 toast.success("Removed from cart")
                                             }}
                                         >
-                                            <Trash2 className="h-4 w-4" />
+                                            <Trash2 className="h-5 w-5 sm:h-4 sm:w-4" />
+                                            <span className="hidden sm:inline ml-2">Remove</span>
                                         </Button>
                                     </div>
                                 </CardContent>

@@ -111,32 +111,34 @@ export default async function ServicesPage({ searchParams }: { searchParams: Pro
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center mt-16 gap-6 max-w-7xl mx-auto px-4">
-                    {page > 1 ? (
-                        <a
-                            href={`/services?page=${page - 1}${query ? `&q=${query}` : ''}${category ? `&category=${category}` : ''}`}
-                            className="border-4 border-black bg-pink-300 px-6 py-2 font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
-                        >
-                            PREVIOUS
-                        </a>
-                    ) : (
-                        <div className="px-6 py-2 w-[130px] invisible"></div>
-                    )}
+                <div className="grid grid-cols-3 items-center mt-16 max-w-2xl mx-auto px-4 gap-2 sm:gap-4 w-full">
+                    <div className="flex justify-start">
+                        {page > 1 && (
+                            <a
+                                href={`/services?page=${page - 1}${query ? `&q=${query}` : ''}${category ? `&category=${category}` : ''}`}
+                                className="border-4 border-black bg-pink-300 px-3 sm:px-6 py-2 font-black text-sm sm:text-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none sm:hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                            >
+                                PREV<span className="hidden sm:inline">IOUS</span>
+                            </a>
+                        )}
+                    </div>
 
-                    <span className="font-bold border-4 border-black bg-white px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                        Page {page} of {totalPages}
-                    </span>
+                    <div className="flex justify-center">
+                        <span className="font-bold border-4 border-black bg-white px-3 sm:px-6 py-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-sm sm:text-base whitespace-nowrap">
+                            {page} / {totalPages}
+                        </span>
+                    </div>
 
-                    {page < totalPages ? (
-                        <a
-                            href={`/services?page=${page + 1}${query ? `&q=${query}` : ''}${category ? `&category=${category}` : ''}`}
-                            className="border-4 border-black bg-cyan-300 px-6 py-2 font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
-                        >
-                            NEXT
-                        </a>
-                    ) : (
-                        <div className="px-6 py-2 w-[100px] invisible"></div>
-                    )}
+                    <div className="flex justify-end">
+                        {page < totalPages && (
+                            <a
+                                href={`/services?page=${page + 1}${query ? `&q=${query}` : ''}${category ? `&category=${category}` : ''}`}
+                                className="border-4 border-black bg-cyan-300 px-3 sm:px-6 py-2 font-black text-sm sm:text-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none sm:hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                            >
+                                NEXT
+                            </a>
+                        )}
+                    </div>
                 </div>
             )}
         </div>
