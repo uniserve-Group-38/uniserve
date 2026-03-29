@@ -138,7 +138,7 @@ export default async function AdminDashboardPage() {
                                             <div className="flex flex-col col-span-2 pt-2 border-t-2 border-gray-100">
                                                 <div className="flex justify-between items-center">
                                                     <span className="text-muted-foreground font-bold text-xs uppercase">Services</span>
-                                                    <span className="font-black font-mono text-base">{user._count.services}</span>
+                                                    <span className="font-black font-mono text-base">{user._count.servicesProvided}</span>
                                                 </div>
                                             </div>
                                         </div>
