@@ -14,7 +14,7 @@ export default async function AdminDashboardPage() {
         orderBy: { createdAt: 'desc' },
         include: {
             _count: {
-                select: { services: true }
+                select: { servicesProvided: true }
             }
         }
     })
@@ -91,7 +91,7 @@ export default async function AdminDashboardPage() {
                                                     {user.emailVerified ? 'Verified' : 'Unverified'}
                                                 </Badge>
                                             </TableCell>
-                                            <TableCell className="font-mono font-bold">{user._count.services}</TableCell>
+                                            <TableCell className="font-mono font-bold">{user._count.servicesProvided}</TableCell>
                                             <TableCell className="text-sm font-medium">{format(new Date(user.createdAt), 'MMM d, yyyy')}</TableCell>
                                         </TableRow>
                                     ))}
