@@ -3,7 +3,7 @@
  import Link from "next/link"
  import { usePathname } from "next/navigation"
  import { cn } from "@/lib/utils"
- import { LayoutDashboard, LifeBuoy, Megaphone, PlusCircle } from "lucide-react"
+ import { LayoutDashboard, LifeBuoy, Megaphone, PlusCircle, Briefcase, Home } from "lucide-react"
 
  export const adminNavItems = [
    {
@@ -25,6 +25,16 @@
      title: "New Announcement",
      href: "/admin/announcements/create",
      icon: PlusCircle,
+   },
+   {
+     title: "Marketplace",
+     href: "/services",
+     icon: Briefcase,
+   },
+   {
+     title: "Provider Portal",
+     href: "/dashboard",
+     icon: Home,
    },
  ]
 

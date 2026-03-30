@@ -130,7 +130,7 @@ export default function AccountSettingsClient({ user }: { user: UserProfile }) {
 
   return (
     <Tabs defaultValue="profile" className="space-y-4">
-      <TabsList className="border-2 border-black bg-purple-50 p-1 flex w-fit h-auto shadow-[4px_4px_0_0_#000]">
+      <TabsList className="border-2 border-black bg-purple-50 p-1 flex flex-wrap justify-start max-w-full w-fit h-auto shadow-[4px_4px_0_0_#000]">
         <TabsTrigger 
           value="profile" 
           className="font-bold text-sm uppercase px-6 py-2 data-[state=active]:bg-lime-300 data-[state=active]:text-black data-[state=active]:border-2 data-[state=active]:border-black data-[state=active]:shadow-[2px_2px_0_0_#000]"

@@ -14,7 +14,8 @@ import {
     LifeBuoy,
     MessageCircle,
     Calendar,
-    ShoppingCart
+    ShoppingCart,
+    LayoutDashboard
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -114,6 +115,24 @@ export function Sidebar({ forceVisible }: SidebarProps = {}) {
             active: pathname.startsWith("/support"),
         },
     ]
+
+    const role = (session?.user as { role?: string })?.role;
+
+    if (role === "ADMIN" || role === "admin") {
+        navItems.unshift({
+            title: "Admin Dashboard",
+            href: "/admin/dashboard",
+            icon: LayoutDashboard,
+            active: false,
+        });
+    } else if (role === "PROVIDER" || role === "provider") {
+        navItems.unshift({
+            title: "Provider Portal",
+            href: "/dashboard",
+            icon: LayoutDashboard,
+            active: false,
+        });
+    }
 
     return (
         <aside className={cn(

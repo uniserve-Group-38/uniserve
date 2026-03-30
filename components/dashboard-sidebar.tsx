@@ -104,7 +104,7 @@ export function DashboardSidebar() {
         </SidebarGroup>
 
         <div className="mt-auto p-4">
-          <Link href="/">
+          <Link href="/services">
             <div className="flex items-center justify-center gap-2 w-full bg-cyan-200 text-black border-4 border-black p-3 font-black shadow-[4px_4px_0px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
               <ArrowLeft className="w-5 h-5" />
               <span>Explore Marketplace</span>

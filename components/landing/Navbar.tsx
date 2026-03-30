@@ -28,9 +28,7 @@ export default function Navbar() {
           <Link href="/auth/sign-in" className="font-bold text-sm hover:text-pink-500 transition-colors">
             Log In
           </Link>
-          <Link href="/auth/sign-up" className="font-bold text-sm hover:text-pink-500 transition-colors hidden sm:inline">
-            Sign Up
-          </Link>
+          
           <Link
             href="/auth/sign-up"
             className="bg-black text-white px-5 py-2 font-black text-sm border-2 border-black 

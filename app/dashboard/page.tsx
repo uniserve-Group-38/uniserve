@@ -26,7 +26,7 @@ export default async function ProviderDashboardPage() {
   }
 
   const role = (session.user as { role?: string }).role
-  if (role !== RoleEnum.PROVIDER) {
+  if (role !== RoleEnum.PROVIDER && role !== "ADMIN") {
     redirect("/")
   }
 

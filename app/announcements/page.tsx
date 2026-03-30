@@ -112,9 +112,9 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
             >
               <Card className="cursor-pointer hover:-translate-y-1 transition-all">
                 <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
+                  <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4">
+                    <div className="flex-1 min-w-0 w-full">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
                         <Badge variant="secondary" className="bg-purple-200">{announcement.category}</Badge>
                         {announcement.isVerified && (
                           <div className="flex items-center gap-1">
@@ -125,9 +125,9 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
                           </div>
                         )}
                       </div>
-                      <CardTitle className="text-xl">{announcement.title}</CardTitle>
+                      <CardTitle className="text-xl wrap-break-word">{announcement.title}</CardTitle>
                     </div>
-                    <time className="text-sm font-bold text-muted-foreground whitespace-nowrap bg-yellow-300 border-2 border-black px-2 py-1">
+                    <time className="text-sm shrink-0 font-bold text-muted-foreground whitespace-nowrap bg-yellow-300 border-2 border-black px-2 py-1">
                       {new Date(announcement.createdAt).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",

@@ -21,7 +21,9 @@ export function LandingOnlyWhenGuest({
     if (isPending) return;
     if (session?.user) {
       const role = (session.user as { role?: string }).role;
-      if (role === "PROVIDER" || role === "provider") {
+      if (role === "ADMIN" || role === "admin") {
+        router.replace("/admin/dashboard");
+      } else if (role === "PROVIDER" || role === "provider") {
         router.replace("/dashboard");
       } else {
         router.replace("/services");

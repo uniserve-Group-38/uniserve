@@ -41,6 +41,7 @@ export function ServiceCard({ id, title, description, category, status, price, i
         : "rotate-[-1deg]";
 
     return (
+        <Link href={`/services/${id}`} className="block h-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-500 rounded-none">
         <article className={`group relative border-4 border-black bg-white shadow-[8px_8px_0_0_#000] hover:translate-x-[-4px] hover:translate-y-[-4px]
          hover:shadow-[12px_12px_0_0_#000] transition-all duration-300 transform-gpu overflow-hidden flex flex-col h-full hover:scale-105 hover:rotate-0 ${rotationClass}`}>
 
@@ -119,12 +120,13 @@ export function ServiceCard({ id, title, description, category, status, price, i
                 </div>
 
                 {/* Bottom CTA strip */}
-                <Link href={`/services/${id}`} className="block w-full">
-                    <div className="bg-black text-white px-5 py-4 text-center font-black text-sm tracking-widest border-t-2 border-white/20 hover:bg-yellow-300 hover:text-black hover:border-black transition-colors">
+                <div className="block w-full">
+                    <div className="bg-black text-white px-5 py-4 text-center font-black text-sm tracking-widest border-t-2 border-white/20 group-hover:bg-yellow-300 group-hover:text-black group-hover:border-black transition-colors">
                         VIEW DETAILS →
                     </div>
-                </Link>
+                </div>
             </div>
         </article>
+        </Link>
     )
 }
