@@ -26,8 +26,7 @@ interface StudentBookingsProps {
   currentUserId?: string
 }
 
-export function StudentBookings({ bookings: initial, currentUserId }: StudentBookingsProps) {
-  const [bookings] = useState(initial)
+export function StudentBookings({ bookings, currentUserId }: StudentBookingsProps) {
   const [payingId, setPayingId] = useState<string | null>(null)
 
   const handlePayNow = async (booking: BookingWithRelations) => {
@@ -83,7 +82,7 @@ export function StudentBookings({ bookings: initial, currentUserId }: StudentBoo
     <section className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         {sortedBookings.map((booking, index) => {
-          const hasPaid = booking.transactions?.some(t => t.status === "success")
+          const hasPaid = (booking.transactions as any[] | undefined)?.some(t => t.status === "success")
           
           return (
             <article

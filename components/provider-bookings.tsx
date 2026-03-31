@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { format } from "date-fns"
 import { MessageCircle, CheckCircle2, Clock3 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 import { BookingStatus } from "@/lib/generated/prisma/client"
 import type { Prisma } from "@/lib/generated/prisma/client"
@@ -30,8 +31,8 @@ interface ProviderBookingsProps {
   bookings: BookingWithRelations[]
 }
 
-export function ProviderBookings({ bookings: initial }: ProviderBookingsProps) {
-  const [bookings, setBookings] = useState(initial)
+export function ProviderBookings({ bookings }: ProviderBookingsProps) {
+  const router = useRouter()
   const [loadingId, setLoadingId] = useState<string | null>(null)
 
   const handleMarkAttended = async (id: string) => {
@@ -45,7 +46,7 @@ export function ProviderBookings({ bookings: initial }: ProviderBookingsProps) {
         console.error("Failed to mark booking as attended")
         return
       }
-      setBookings((prev) => prev.map((b) => b.id === id ? { ...b, status: BookingStatus.ATTENDED } : b))
+      router.refresh()
     } finally {
       setLoadingId(null)
     }

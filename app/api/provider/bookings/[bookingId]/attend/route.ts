@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
+import { revalidatePath } from "next/cache"
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
@@ -41,6 +42,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ booking
     where: { id: bookingId },
     data: { status: BookingStatus.ATTENDED },
   })
+
+  revalidatePath("/bookings")
+  revalidatePath("/dashboard/bookings")
 
   return NextResponse.json(updated)
 }
