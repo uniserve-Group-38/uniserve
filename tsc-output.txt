@@ -1,0 +1,29 @@
+.next/dev/types/validator.ts(360,31): error TS2344: Type 'typeof import("C:/Users/HP/Desktop/uniserve-capstone-project/uniserve/app/api/admin/applications/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/admin/applications/[id]">'.
+  Types of property 'PATCH' are incompatible.
+    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<any>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+.next/types/validator.ts(98,39): error TS2307: Cannot find module '../../app/admin/management/page.js' or its corresponding type declarations.
+.next/types/validator.ts(351,31): error TS2344: Type 'typeof import("C:/Users/HP/Desktop/uniserve-capstone-project/uniserve/app/api/admin/applications/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/admin/applications/[id]">'.
+  Types of property 'PATCH' are incompatible.
+    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<any>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+app/admin/applications/page.tsx(16,37): error TS2551: Property 'serviceProviderApplication' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'service_provider_application'?
+app/admin/support/[id]/actions.ts(33,21): error TS2339: Property 'adminReply' does not exist on type '{ user: { id: string; createdAt: Date; updatedAt: Date; name: string; email: string; emailVerified: boolean; image: string | null; phoneNumber: string | null; location: string | null; bio: string | null; role: Role; }; } & { ...; }'.
+app/admin/support/[id]/actions.ts(40,17): error TS2353: Object literal may only specify known properties, and 'adminReply' does not exist in type '(Without<SupportMessageUpdateInput, SupportMessageUncheckedUpdateInput> & SupportMessageUncheckedUpdateInput) | (Without<...> & SupportMessageUpdateInput)'.
+app/api/admin/applications/[id]/route.ts(55,38): error TS2551: Property 'serviceProviderApplication' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'service_provider_application'?
+app/api/apply/route.ts(26,38): error TS2551: Property 'serviceProviderApplication' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'. Did you mean 'service_provider_application'?
+app/dashboard/bookings/page.tsx(50,54): error TS2322: Type '{ bookings: any; currentUserId: string; }' is not assignable to type 'IntrinsicAttributes & ProviderBookingsProps'.
+  Property 'currentUserId' does not exist on type 'IntrinsicAttributes & ProviderBookingsProps'.
+app/dashboard/conversations/[bookingId]/chat-client.tsx(46,11): error TS2322: Type '{ id: string; content: string; senderId: string; conversationId: string; createdAt: Date; sender: { id: string; name: string; email: string; emailVerified: false; image: null; createdAt: Date; ... 4 more ...; role: "PROVIDER"; }; }' is not assignable to type '{ sender: { id: string; createdAt: Date; updatedAt: Date; name: string; email: string; emailVerified: boolean; image: string | null; phoneNumber: string | null; location: string | null; bio: string | null; role: Role; }; } & { ...; }'.
+  Property 'readAt' is missing in type '{ id: string; content: string; senderId: string; conversationId: string; createdAt: Date; sender: { id: string; name: string; email: string; emailVerified: false; image: null; createdAt: Date; ... 4 more ...; role: "PROVIDER"; }; }' but required in type '{ id: string; createdAt: Date; conversationId: string; senderId: string; content: string; readAt: Date | null; }'.
+components/provider-services-manager.tsx(134,25): error TS2339: Property 'imageUrl' does not exist on type '{ id: string; status: string; createdAt: Date; updatedAt: Date; providerId: string; title: string; description: string; category: string; price: string | null; operatingHours: string | null; }'.
+components/provider-services-manager.tsx(353,42): error TS2339: Property 'imageUrl' does not exist on type '{ id: string; status: string; createdAt: Date; updatedAt: Date; providerId: string; title: string; description: string; category: string; price: string | null; operatingHours: string | null; }'.
+components/student-bookings.tsx(86,49): error TS2339: Property 'some' does not exist on type 'never'.
+components/student-bookings.tsx(86,54): error TS7006: Parameter 't' implicitly has an 'any' type.
+hooks/useLenis.ts(50,21): error TS2339: Property 'kill' does not exist on type 'typeof _ScrollTrigger'.

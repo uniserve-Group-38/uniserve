@@ -42,7 +42,7 @@
    const pathname = usePathname()
 
    return (
-     <aside className="w-64 border-r-4 border-black bg-white flex flex-col min-h-screen sticky top-0 hidden md:flex">
+     <aside className="w-64 border-r-4 border-black bg-white flex flex-col min-h-screen sticky top-0 md:flex">
        <div className="p-6 border-b-4 border-black">
          <Link href="/admin/dashboard" className="flex flex-col gap-1">
            <span className="font-black text-xs tracking-widest text-muted-foreground">

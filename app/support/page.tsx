@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
-import { Send, LifeBuoy } from "lucide-react"
+import { Send, LifeBuoy, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export default function SupportPage() {
@@ -33,6 +33,14 @@ export default function SupportPage() {
     return (
         <div className="container py-6 sm:py-8 max-w-7xl mx-auto px-4 md:px-6 flex justify-center items-center min-h-[calc(100vh-4rem)]">
             <div className="w-full max-w-2xl min-w-0">
+                <div className="mb-6">
+                    <Link href="/services">
+                        <Button variant="outline" className="border-4 border-black font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:bg-yellow-100 transition-all text-sm h-10 w-fit">
+                            <ArrowLeft className="mr-2 h-4 w-4" />
+                            Back to Services
+                        </Button>
+                    </Link>
+                </div>
                 <div className="mb-6 sm:mb-8 flex flex-col gap-2">
                     <h1 className="inline-block text-2xl sm:text-4xl md:text-5xl font-black tracking-tight">
                         <span className="bg-yellow-300 border-4 border-black px-3 py-1.5 sm:px-4 sm:py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] inline-block -rotate-1">

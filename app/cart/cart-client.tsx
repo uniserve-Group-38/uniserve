@@ -6,7 +6,7 @@ import { useCartStore } from "@/lib/cart-store"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Trash2, Plus, Minus, ShoppingCart, ArrowRight } from "lucide-react"
+import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -88,6 +88,16 @@ export function CartClient({ userId }: CartClientProps) {
 
     return (
         <div className="container py-8 max-w-5xl mx-auto px-4 md:px-6">
+            {/* Back Button */}
+            <div className="mb-6">
+                <Link href="/services">
+                    <Button variant="outline" className="border-4 border-black font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:bg-yellow-100 transition-all text-sm h-10 w-fit">
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Explore More Services
+                    </Button>
+                </Link>
+            </div>
+
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-black mb-2">
